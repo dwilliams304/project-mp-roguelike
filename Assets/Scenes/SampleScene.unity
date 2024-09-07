@@ -766,6 +766,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  controllerDeadzone: 0.1
+  controllerAimSmoothing: 1000
 --- !u!114 &1263094213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -815,39 +817,64 @@ MonoBehaviour:
     m_ActionName: PlayerControls/Aim[/Mouse/position]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 0c81ed8d-82a8-4b06-b60b-0715640e1025
-    m_ActionName: PlayerControls/Combat[/Mouse/leftButton,/Mouse/rightButton]
+    m_ActionId: 5ff1e07d-c3f8-448b-aa66-65afb6ca68ab
+    m_ActionName: Controls/PrimaryAttack[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 328470cb-3b2d-4f5d-8d50-896932b71ecc
+    m_ActionName: Controls/SecondaryAttack[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4bc3e98e-37c3-4830-8171-839ce991c37e
+    m_ActionName: Controls/Ability1[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9e143184-9e8e-4149-9564-af4d6b60df47
+    m_ActionName: Controls/Ability2[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6c880eb1-b226-49cd-937e-f7d92c27f0ea
+    m_ActionName: Controls/Ability3[/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 330d8b07-3a6c-49bb-8d4a-e00687cda54f
+    m_ActionName: Controls/Ability4[/Keyboard/4]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f059e706-6cb9-4d37-9177-6505fad7a78a
+    m_ActionName: Controls/Interact[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Controls
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!143 &1263094214
-CharacterController:
+--- !u!54 &1263094214
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1263094207}
-  m_Material: {fileID: 0}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1571736843
 GameObject:
   m_ObjectHideFlags: 0
