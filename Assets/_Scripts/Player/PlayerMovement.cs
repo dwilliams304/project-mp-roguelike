@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     //INPUT SYSTEM
-    private PlayerControls playerControls;
+    // private PlayerControls playerControls;
     private PlayerInput playerInput;
     private InputAction movementAction, aimingAction;
 
@@ -30,17 +30,17 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         movementAction = playerInput.actions["Movement"];
         aimingAction = playerInput.actions["Aim"];
-        playerControls = new PlayerControls();
+        // playerControls = new PlayerControls();
         mainCamera = Camera.main;
     }
 
-    private void OnEnable(){
-        playerControls.Enable();
-    }
-
-    private void OnDisable(){
-        playerControls.Disable();
-    }
+    // private void OnEnable(){
+    //     playerControls.Enable();
+    // }
+    // 
+    // private void OnDisable(){
+    //     playerControls.Disable();
+    // }
 
 
     private void Update()
