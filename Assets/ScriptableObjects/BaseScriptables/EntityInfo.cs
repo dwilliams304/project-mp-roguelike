@@ -1,24 +1,54 @@
 using UnityEngine;
 
 
+public enum UnitType {
+    Melee,
+    Ranged,
+    Hybrid
+}
 
-[CreateAssetMenu(fileName = "Class", menuName = "Stats/Player Class Stats")]
-public class PlayerClassStats : BaseUnitStats
+public enum DamageType {
+    Physical,
+    Arcane,
+    Light,
+    Shadow
+}
+
+
+[CreateAssetMenu(fileName = "Entity Info", menuName = "Stats/Entity Info")]
+public class EntityInfo : ScriptableObject
 {
-    [Header("Base Class Info")]
-    public string ClassName = "Class";
-    [Multiline]
-    public string Description = "Class description";
+    [Header("Base Entity Traits/Stats")]
+    public UnitType unitType = UnitType.Melee;
+    public DamageType damageType = DamageType.Physical;
+
+    [Header("Movement")]
+    public float MoveSpeed = 7f;
+
+
+    [Header("Health")]
+    [Tooltip("Base Max Health")]
+    public int Health = 100;
+    public bool canRegenHealth = false;
+    [Tooltip("How much player health will increase on tick")]
+    public int HealthRegenAmount = 0;
+    [Tooltip("How often player health regeneration will tick (as seconds)")]
+    public float HealthRegenSpeed = 0f;
+
+    [Header("Attack")]
+    public int AttackPower = 10; //Base damage = 10
+    [Tooltip("Chance to land attack")]
+    public int HitChance = 100; //100% chance for every attack to hit
 
     [Header("Player Power")]    
     [Tooltip("Max Mana/Energy")]
     public int Power = 100;
     [Tooltip("If the class uses mana or energy")]
-    public bool UsesMana = false;
+    public bool UsesMana = false; //Uses energy by default
     [Tooltip("How much player power will increase by on tick")]
-    public int PowerRegenAmount;
+    public int PowerRegenAmount = 1; //Will gain + 1 every tick
     [Tooltip("How often player power regeneration will tick (as seconds)")]
-    public float PowerRegenRate;
+    public float PowerRegenRate = 2f; //Will tick every 2 seconds
 
     [Header("Critical Strike")]
     [Tooltip("How likely it is for the damage to critically hit (as %)")]
