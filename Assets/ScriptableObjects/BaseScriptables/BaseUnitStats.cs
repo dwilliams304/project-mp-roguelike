@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum UnitType {
@@ -15,7 +13,7 @@ public enum PrimaryDamageType {
     Shadow
 }
 
-[CreateAssetMenu(fileName = "Unit Stat", menuName = "Stats/Unit Stats")]
+
 public class BaseUnitStats : ScriptableObject
 {
     [Header("Base Unit Traits/Stats")]
@@ -37,6 +35,8 @@ public class BaseUnitStats : ScriptableObject
 
     [Header("Damage")]
     public int Damage = 10; 
+    [Tooltip("How often attacks can be made in seconds")]
+    public float AttackSpeed;
     [Tooltip("Chance to land attack")]
     public int HitChance = 100; //100% chance for every attack to hit
 }

@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerCombat : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private PlayerInput playerInput;
+    private InputAction primaryAttackAction, secondaryAttackAction;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
+
+    private void Awake(){
+        playerInput = GetComponent<PlayerInput>();
+
+        primaryAttackAction = playerInput.actions["PrimaryAttack"];
+        secondaryAttackAction = playerInput.actions["SecondaryAttack"];
     }
 }
