@@ -14,13 +14,25 @@ public enum DamageType {
     Shadow
 }
 
+public enum Faction {
+    Humanoid,
+    Critter,
+    Beast,
+    Undead,
+    Spirit,
+    Elemental,
+    Unknown,
+}
 
-[CreateAssetMenu(fileName = "Entity Info", menuName = "Stats/Entity Info")]
+
+[CreateAssetMenu(fileName = "Basic Entity", menuName = "Stats/Basic Entity")]
 public class EntityInfo : ScriptableObject
 {
     [Header("Base Entity Traits/Stats")]
+    public string EntityName = "Entity Name";
     public UnitType unitType = UnitType.Melee;
     public DamageType damageType = DamageType.Physical;
+    public Faction entityFaction = Faction.Humanoid;
 
     [Header("Movement")]
     public float MoveSpeed = 7f;
@@ -30,9 +42,9 @@ public class EntityInfo : ScriptableObject
     [Tooltip("Base Max Health")]
     public int Health = 100;
     public bool canRegenHealth = false;
-    [Tooltip("How much player health will increase on tick")]
+    [Tooltip("How much health will increase on tick")]
     public int HealthRegenAmount = 0;
-    [Tooltip("How often player health regeneration will tick (as seconds)")]
+    [Tooltip("How often health regeneration will tick (as seconds)")]
     public float HealthRegenSpeed = 0f;
 
     [Header("Attack")]
@@ -40,29 +52,13 @@ public class EntityInfo : ScriptableObject
     [Tooltip("Chance to land attack")]
     public int HitChance = 100; //100% chance for every attack to hit
 
-    [Header("Player Power")]    
-    [Tooltip("Max Mana/Energy")]
-    public int Power = 100;
-    [Tooltip("If the class uses mana or energy")]
-    public bool UsesMana = false; //Uses energy by default
-    [Tooltip("How much player power will increase by on tick")]
-    public int PowerRegenAmount = 1; //Will gain + 1 every tick
-    [Tooltip("How often player power regeneration will tick (as seconds)")]
-    public float PowerRegenRate = 2f; //Will tick every 2 seconds
+
 
     [Header("Critical Strike")]
     [Tooltip("How likely it is for the damage to critically hit (as %)")]
     public int CritChance = 15; //15% chance to crit
     [Tooltip("How much the damage stat will be multiplied upon crit (as %)")]
     public int CritDamageMultiplier = 300; // Increase damage by 300%
-
-
-
-
-    [Header("Drops/Loot (as & increases)")]
-    public int GoldDropModifier = 0; //0% increase to gold drops 
-    public int XPDropModifier = 0; //0% increase to XP drops
-    public int LuckModifier = 0; //0% luck increase
 
 
     [Header("Damage Resistances (as % decrease)")]

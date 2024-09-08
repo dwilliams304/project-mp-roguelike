@@ -9,14 +9,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67e07c7ba83648344b86c31bdc7653b2, type: 3}
-  m_Name: Entity Stat
+  m_Script: {fileID: 11500000, guid: abfb00cccca862545920c05df6aff85e, type: 3}
+  m_Name: NPC Info
   m_EditorClassIdentifier: 
+  EntityName: Entity Name
   unitType: 0
-  primaryDamageType: 0
+  damageType: 0
+  entityFaction: 0
   MoveSpeed: 7
   Health: 100
+  canRegenHealth: 0
   HealthRegenAmount: 0
-  HealthRegenSpeed: 0.2
-  Damage: 10
+  HealthRegenSpeed: 0
+  AttackPower: 10
   HitChance: 100
+  CritChance: 15
+  CritDamageMultiplier: 300
+  PhysicalDamageResist: 0
+  ArcaneDamageResist: 0
+  LightDamageResist: 0
+  ShadowDamageResist: 0
+  isFriendly: 0
