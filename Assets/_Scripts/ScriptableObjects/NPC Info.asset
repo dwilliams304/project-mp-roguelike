@@ -30,3 +30,7 @@ MonoBehaviour:
   LightDamageResist: 0
   ShadowDamageResist: 0
   isFriendly: 0
+  isDamageable: 0
+  isHealable: 0
+  usesHealthBar: 0
+  showsDamageText: 0
