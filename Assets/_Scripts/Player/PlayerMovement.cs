@@ -1,9 +1,10 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(PlayerInput))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
     //INPUT SYSTEM
     // private PlayerControls playerControls;
@@ -45,11 +46,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if(!IsOwner) return;
         HandleMovement();
         HandleAiming();
     }
 
-
+    
     private void HandleMovement(){
         playerMovement = movementAction.ReadValue<Vector2>();
 

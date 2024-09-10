@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class NPC : MonoBehaviour
+public class NPC : NetworkBehaviour
 {
     [SerializeField] NPCInfo npcInfo;
     private Health health;
@@ -11,11 +12,13 @@ public class NPC : MonoBehaviour
         if(!npcInfo.isFriendly && npcInfo.isDamageable){ 
             //If this NPC is unfriendly and CAN be damaged, either use the Health component if it exists, or add a new one
             health = GetComponent<Health>() ? GetComponent<Health>() : gameObject.AddComponent(typeof(Health)) as Health;
+            // if(GetComponent<Health>()){
+            //     health = GetComponent<Health>();
+            // }
+            // else{
+            //     health = gameObject.AddComponent(typeof(Health)) as Health;
+            // }
+            health.InitializeHealthSystem(npcInfo.Health, npcInfo.usesHealthBar, npcInfo.showsDamageText, npcInfo.isHealable);
         }
-        health.InitializeHealthSystem(npcInfo.Health, npcInfo.usesHealthBar, npcInfo.showsDamageText, npcInfo.isHealable);
-    }
-
-    private void Start(){
-
     }
 }
