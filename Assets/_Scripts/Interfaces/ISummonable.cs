@@ -1,3 +1,6 @@
-public interface ISummonable{
-    public void OnSummon();
+namespace ContradictiveGames
+{
+    public interface ISummonable{
+        public void OnSummon();
+    }
 }

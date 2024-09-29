@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerCombat : MonoBehaviour
+namespace ContradictiveGames.Entities.Players
 {
-    private PlayerInput playerInput;
-    private InputAction primaryAttackAction, secondaryAttackAction;
+    public class PlayerCombat : MonoBehaviour
+    {
+        private PlayerInput playerInput;
+        private InputAction primaryAttackAction, secondaryAttackAction;
 
 
 
-    private void Awake(){
-        playerInput = GetComponent<PlayerInput>();
+        private void Awake(){
+            playerInput = GetComponent<PlayerInput>();
 
-        primaryAttackAction = playerInput.actions["PrimaryAttack"];
-        secondaryAttackAction = playerInput.actions["SecondaryAttack"];
+            primaryAttackAction = playerInput.actions["PrimaryAttack"];
+            secondaryAttackAction = playerInput.actions["SecondaryAttack"];
+        }
     }
 }
