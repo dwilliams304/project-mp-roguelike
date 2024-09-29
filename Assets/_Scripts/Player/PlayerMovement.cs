@@ -1,3 +1,4 @@
+using Cinemachine;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,7 +13,7 @@ public class PlayerMovement : NetworkBehaviour
     private InputAction movementAction, aimingAction;
 
     //Components
-    private Camera mainCamera;
+    // private Camera mainCamera;
     private Rigidbody rb;
     
     //Variables
@@ -25,14 +26,34 @@ public class PlayerMovement : NetworkBehaviour
     [SerializeField] private float controllerDeadzone;
     [SerializeField] private float controllerAimSmoothing;
 
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
+    [SerializeField] private AudioListener audioListener;
+
 
     private void Awake(){
         playerInput = GetComponent<PlayerInput>();
         rb = GetComponent<Rigidbody>();
+        // playerControls = new PlayerControls();
+        // mainCamera = GetComponent<Camera>();
+
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        if(!IsOwner){
+            audioListener.enabled = false;
+            virtualCamera.Priority = 0;
+            return;
+        }
+
         movementAction = playerInput.actions["Movement"];
         aimingAction = playerInput.actions["Aim"];
-        // playerControls = new PlayerControls();
-        mainCamera = Camera.main;
+        audioListener.enabled = true;
+        virtualCamera.Priority = 100;
+
+                // mainCamera = GetComponent<Camera>();
+        
     }
 
     // private void OnEnable(){
