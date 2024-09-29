@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace ContradictiveGames.Entities.Players
+namespace ContradictiveGames.Multiplayer.Entities.Players
 {
     public class PlayerCombat : MonoBehaviour
     {

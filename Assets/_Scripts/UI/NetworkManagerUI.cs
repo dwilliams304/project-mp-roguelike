@@ -2,7 +2,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ContradictiveGames.Dev.UI
+namespace ContradictiveGames.Multiplayer.Dev.UI
 {
     public class NetworkManagerUI : MonoBehaviour
     {
