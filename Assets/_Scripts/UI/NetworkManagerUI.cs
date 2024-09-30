@@ -11,6 +11,7 @@ namespace ContradictiveGames.Multiplayer.Dev.UI
         [SerializeField] private Button clientBtn;
 
 
+
         private void Awake(){
             serverBtn.onClick.AddListener(() => {
                 NetworkManager.Singleton.StartServer();
@@ -22,7 +23,5 @@ namespace ContradictiveGames.Multiplayer.Dev.UI
                 NetworkManager.Singleton.StartClient();
             });
         }
-
-
     }
 }
