@@ -1,7 +1,7 @@
 # Entities
 
 Entities are classified as:
-- Any thing that can have some sort of interacts
+- Any thing that can have some sort of interaction/be interacted with
 (a.k.a), non-static objects
 
 ## Entity Types
