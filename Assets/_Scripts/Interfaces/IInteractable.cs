@@ -1,6 +1,7 @@
-namespace ContradictiveGames
+namespace ContradictiveGames.Interfaces
 {
-    public interface IInteractable {
-        public void OnInteract();
+    public interface IInteractable 
+    {
+        public void Interact();
     }
 }
