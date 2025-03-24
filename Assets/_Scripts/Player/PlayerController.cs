@@ -23,7 +23,7 @@ namespace ContradictiveGames.Player
         [SerializeField] private float playerMovementSpeed = 3f;
 
 
-        private void Start()
+        private void Awake()
         {
             inputReader.Move += MoveDirection => moveInput = MoveDirection;
             inputReader.Look += RotateCharacter;
