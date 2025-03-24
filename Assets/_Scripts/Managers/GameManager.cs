@@ -12,7 +12,7 @@ namespace ContradictiveGames.Managers
         cyan = 4,
         magenta = 5,
     }
-    
+
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
@@ -72,18 +72,23 @@ namespace ContradictiveGames.Managers
             switch(state){
                 case GameState.PreparingLevel:
                     Debug.Log($"<color={gameStateLogColor}>GAME STATE: </color>Preparing level...");
+                    OnGameStateChanged?.Invoke();
                     break;
                 case GameState.WaitingToStart:
                     Debug.Log($"<color={gameStateLogColor}>GAME STATE: </color>Waiting to start...");
+                    OnGameStateChanged?.Invoke();
                     break;
                 case GameState.GameCountdown:
                     Debug.Log($"<color={gameStateLogColor}>GAME STATE: </color>Starting countdown...");
+                    OnGameStateChanged?.Invoke();
                     break;
                 case GameState.GameActive:
                     Debug.Log($"<color={gameStateLogColor}>GAME STATE: </color>Game is now active...");
+                    OnGameStateChanged?.Invoke();
                     break;
                 case GameState.GameOver:
                     Debug.Log($"<color={gameStateLogColor}>GAME STATE: </color>Game is over...");
+                    OnGameStateChanged?.Invoke();
                     break;
                 default:
                     break;

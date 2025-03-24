@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority:
-    Enabled: 0
+    Enabled: 1
     m_Value: 0
   OutputChannel: 1
   StandbyUpdate: 2
@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 1708021669126993049}
   - component: {fileID: 6943659553825965587}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: PlayerCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -472,7 +472,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6929849247435184708}
   - component: {fileID: 2991495645896598946}
-  - component: {fileID: 466075500343630914}
+  - component: {fileID: -8331228718874892066}
   - component: {fileID: 765628224941427795}
   m_Layer: 0
   m_Name: Player
@@ -510,7 +510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3279846073
+  GlobalObjectIdHash: 1610943183
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -523,7 +523,7 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
---- !u!114 &466075500343630914
+--- !u!114 &-8331228718874892066
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -532,16 +532,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 6775787575496729782}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: ce26bf69845a19d4bbbf013b9f2d5805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  NetworkTransformExpanded: 0
+  NetworkTransformExpanded: 1
   AuthorityMode: 0
   TickSyncChildren: 0
   UseUnreliableDeltas: 0
   SyncPositionX: 1
-  SyncPositionY: 1
+  SyncPositionY: 0
   SyncPositionZ: 1
   SyncRotAngleX: 0
   SyncRotAngleY: 1
@@ -571,8 +571,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5c53315be5e69c44a19303f756ea686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   inputReader: {fileID: 11400000, guid: 48a06ea871c43654f8e1abe1cfdb3b4f, type: 2}
   playerModelTransform: {fileID: 1390305628413070004}
+  cmVCam: {fileID: 5383637750548549924}
+  playerCamera: {fileID: 2107260335283454701}
+  cameraContainer: {fileID: 5316958179565729569}
   lookSmoothing: 0.15
   interactionRadius: 0
   playerMovementSpeed: 8

@@ -7,7 +7,7 @@ namespace ContradictiveGames.Input
 {
     public interface IInputReader {
         Vector2 MoveDirection { get; }
-        Vector2 MousePosition { get; }
+        Vector2 LookDirection { get; }
         void EnablePlayerActions();
     }
 
@@ -31,7 +31,7 @@ namespace ContradictiveGames.Input
         public PlayerControls playerActions;
 
         public Vector2 MoveDirection => playerActions.Game.Move.ReadValue<Vector2>();
-        public Vector2 MousePosition => playerActions.Game.Look.ReadValue<Vector2>();
+        public Vector2 LookDirection => playerActions.Game.Look.ReadValue<Vector2>();
 
         public void EnablePlayerActions()
         {
