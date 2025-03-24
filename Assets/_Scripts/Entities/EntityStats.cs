@@ -12,9 +12,9 @@ public enum EntityFaction {
 }
 
 
-namespace ContradictiveGames.Scriptables
+namespace ContradictiveGames.Entities
 {
-    [CreateAssetMenu(fileName = "Class Stats", menuName = "Contradictive Games/Entities/Stats")]
+    [CreateAssetMenu(fileName = "Class Stats", menuName = "Custom/Entities/Stats")]
     public class EntityStats : ScriptableObject
     {
         [Header("Health Related")]

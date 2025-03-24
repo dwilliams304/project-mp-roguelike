@@ -14,7 +14,7 @@ namespace ContradictiveGames.Input
     [CreateAssetMenu(fileName = "InputReader", menuName = "Custom/Input/Input Reader")]
     public class InputReader : ScriptableObject, IInputReader, IGameActions
     {
-        
+
 #region Input Events
 
         public event UnityAction<Vector2> Move = delegate { };

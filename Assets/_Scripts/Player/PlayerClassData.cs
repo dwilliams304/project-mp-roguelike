@@ -1,9 +1,9 @@
 using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
-namespace ContradictiveGames.Scriptables
+namespace ContradictiveGames.Player
 {
-    [CreateAssetMenu(fileName = "Player Class Data", menuName = "Roguelike/Player Class Data")]
+    [CreateAssetMenu(fileName = "Player Class Data", menuName = "Custom/Player Class Data")]
     public class PlayerClassData : ScriptableObject
     {
         [Tooltip("Name of the class")]

@@ -1,8 +1,7 @@
 using ContradictiveGames.Input;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-namespace ContradictiveGames
+namespace ContradictiveGames.Player
 {
     public class PlayerController : MonoBehaviour
     {
