@@ -1,4 +1,3 @@
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
 namespace ContradictiveGames.Player
@@ -12,6 +11,6 @@ namespace ContradictiveGames.Player
         [Tooltip("Class Lore/Description")]
         public string ClassDescription = "Description goes here";
 
-        public Image ClassIcon;
+        public Sprite ClassIcon;
     }
 }

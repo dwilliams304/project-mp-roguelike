@@ -1,9 +1,10 @@
 using ContradictiveGames.Input;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace ContradictiveGames.Player
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : NetworkBehaviour
     {
         [SerializeField] private InputReader inputReader;
         private Vector2 moveInput;
@@ -29,6 +30,7 @@ namespace ContradictiveGames.Player
             inputReader.Look += RotateCharacter;
             inputReader.EnablePlayerActions();
         }
+
 
 
         private void Update()
