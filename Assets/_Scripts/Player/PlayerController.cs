@@ -19,7 +19,6 @@ namespace ContradictiveGames.Player
         [SerializeField] private CinemachineCamera cmVCam;
         [SerializeField] private Camera playerCamera;
 
-        [SerializeField] private GameObject cameraContainer;
 
 
         [Header("Look Rotation Settings")]
@@ -52,13 +51,14 @@ namespace ContradictiveGames.Player
             if(!IsOwner){
                 cmVCam.enabled = false;
                 playerCamera.enabled = false;
-                cmVCam.Priority = -100;
                 playerCamera.GetComponent<AudioListener>().enabled = false;
             }
             else{
                 cmVCam.enabled = true;
                 playerCamera.enabled = true;
                 cmVCam.Priority = 100;
+                cmVCam.Follow = transform;
+                cmVCam.LookAt = transform;
             }
         }
 
