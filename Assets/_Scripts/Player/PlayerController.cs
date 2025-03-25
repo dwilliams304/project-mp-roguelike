@@ -6,9 +6,11 @@ using UnityEngine;
 namespace ContradictiveGames.Player
 {
     [DisallowMultipleComponent]
+    [RequireComponent(typeof(PlayerCombat), typeof(PlayerStatsHolder))]
     public class PlayerController : NetworkBehaviour
     {
         [SerializeField] private InputReader inputReader;
+        private PlayerCombat playerCombat;
         private Vector2 moveInput;
         private Vector2 mousePosition;
         private Vector3 lookTarget;
@@ -44,9 +46,11 @@ namespace ContradictiveGames.Player
             inputReader.Look += LookDirection => mousePosition = LookDirection;
             inputReader.EnablePlayerActions();
 
+            playerCombat = GetComponent<PlayerCombat>();
+            playerCombat.InitializeInputs(inputReader);
         }
 
-        private void Start()
+        public override void OnNetworkSpawn()
         {
             if(!IsOwner){
                 cmVCam.enabled = false;

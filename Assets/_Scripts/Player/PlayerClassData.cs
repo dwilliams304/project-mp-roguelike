@@ -12,5 +12,8 @@ namespace ContradictiveGames.Player
         public string ClassDescription = "Description goes here";
 
         public Sprite ClassIcon;
+
+        public AttackSO PrimaryAttack;
+        public AttackSO SecondaryAttack;
     }
 }
