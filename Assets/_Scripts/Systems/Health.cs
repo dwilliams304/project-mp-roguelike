@@ -8,14 +8,18 @@ namespace ContradictiveGames.Systems.Health
 {
     public class Health : NetworkBehaviour, IDamageable, IHealable
     {
-        private Stat MaxHealth;
+        public Stat MaxHealth;
         public int CurrentHealth { get; private set; }
 
 
         public bool CanTakeDamage { get; private set; }
         public bool CanHeal { get; private set; }
 
-        public event Action OnTakeDamage;
+        /// <summary>
+        /// Update max health event (current health, max health)
+        /// </summary>
+        public event Action<int, int> UpdateMaxHealth;
+        public event Action<int> UpdateCurrentHealth;
         public event Action OnDeath;
 
 
@@ -23,12 +27,13 @@ namespace ContradictiveGames.Systems.Health
         public override void OnNetworkSpawn()
         {
             CurrentHealth = MaxHealthAsInt();
+            UpdateMaxHealth?.Invoke(CurrentHealth, MaxHealthAsInt());
         }
 
         public void TakeDamage(int amount){
             if(CanTakeDamage){
                 CurrentHealth -= amount;
-                OnTakeDamage?.Invoke();
+                UpdateCurrentHealth?.Invoke(CurrentHealth);
                 if(CurrentHealth <= 0){
                     Die();
                 }
@@ -41,10 +46,17 @@ namespace ContradictiveGames.Systems.Health
                 CurrentHealth += amount;
                 if(CurrentHealth >= MaxHealth.Value){
                     CurrentHealth = MaxHealthAsInt();
+                    UpdateCurrentHealth?.Invoke(CurrentHealth);
                     Debug.Log("Over healed!", this);
                 }
             }
         }
+
+        public void TurnOnInvincibility() => CanTakeDamage = false;
+        public void TurnOffInvincibility() => CanTakeDamage = true;
+        
+        public void AllowHeals() => CanHeal = true;
+        public void DisallowHeals() => CanHeal = false;
 
         /// <summary>
         /// Add a modifier to our current max health
@@ -57,6 +69,7 @@ namespace ContradictiveGames.Systems.Health
                 if(setCurrentToMax){
                     CurrentHealth = MaxHealthAsInt();
                 }
+                UpdateMaxHealth?.Invoke(CurrentHealth, MaxHealthAsInt());
             }
         }
 
@@ -64,10 +77,13 @@ namespace ContradictiveGames.Systems.Health
             if(!MaxHealth.canNotAugment){
                 MaxHealth.RemoveModifier(modifier);
                 if(CurrentHealth > MaxHealthAsInt()) CurrentHealth = MaxHealthAsInt();
+                UpdateMaxHealth?.Invoke(CurrentHealth, MaxHealthAsInt());
             }
         }
 
         private void Die(){
+            CanTakeDamage = false;
+            CanHeal = false;
             Debug.Log("Entity has died!", this);
             OnDeath?.Invoke();
         }
