@@ -47,16 +47,16 @@ namespace ContradictiveGames.Systems.Stats
         {
             BaseValue = _baseValue;
         }
-        public virtual void AddAugment(StatModifier modifier)
+        public virtual void AddModifier(StatModifier modifier)
         {
             if (!canNotAugment)
             {
                 isDirty = true;
                 _statModifiers.Add(modifier);
-                _statModifiers.Sort(CompareAugmentOrder);
+                _statModifiers.Sort(CompareModifierOrder);
             }
         }
-        public virtual bool RemoveAugment(StatModifier modifier)
+        public virtual bool RemoveModifier(StatModifier modifier)
         {
             if (!canNotAugment)
             {
@@ -68,13 +68,13 @@ namespace ContradictiveGames.Systems.Stats
             }
             return false;
         }
-        protected virtual int CompareAugmentOrder(StatModifier a, StatModifier b)
+        protected virtual int CompareModifierOrder(StatModifier a, StatModifier b)
         {
             if (a.Order < b.Order) return -1;
             else if (a.Order > b.Order) return 1;
             return 0;
         }
-        public virtual bool RemoveAllAugmentsFromSource(object source)
+        public virtual bool RemoveAllModifiersFromSource(object source)
         {
             bool didRemove = false;
             if (!canNotAugment)

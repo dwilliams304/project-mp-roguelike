@@ -473,8 +473,8 @@ GameObject:
   - component: {fileID: 6929849247435184708}
   - component: {fileID: 2991495645896598946}
   - component: {fileID: -8331228718874892066}
-  - component: {fileID: 765628224941427795}
   - component: {fileID: 8731671978269537335}
+  - component: {fileID: 765628224941427795}
   - component: {fileID: 4598957121672742338}
   m_Layer: 0
   m_Name: Player
@@ -561,6 +561,19 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &8731671978269537335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6775787575496729782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 529ea64c0a48e95488a84bbfac21af86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerClassData: {fileID: 11400000, guid: e05b3b6df4593db4d9be45b84e2ab803, type: 2}
 --- !u!114 &765628224941427795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -581,19 +594,6 @@ MonoBehaviour:
   lookSmoothing: 0.15
   interactionRadius: 0
   playerMovementSpeed: 8
---- !u!114 &8731671978269537335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6775787575496729782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 529ea64c0a48e95488a84bbfac21af86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerClassData: {fileID: 11400000, guid: e05b3b6df4593db4d9be45b84e2ab803, type: 2}
 --- !u!114 &4598957121672742338
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,6 +2,6 @@ namespace ContradictiveGames.Interfaces
 {
     public interface IHealable
     {
-        public void TakeHeal();
+        public void TakeHeal(int amount);
     }
 }
