@@ -1,3 +1,4 @@
+using System;
 using ContradictiveGames.Input;
 using Unity.Cinemachine;
 using Unity.Netcode;
@@ -6,11 +7,11 @@ using UnityEngine;
 namespace ContradictiveGames.Player
 {
     [DisallowMultipleComponent]
-    [RequireComponent(typeof(PlayerCombat), typeof(PlayerStatsHolder))]
+    [RequireComponent(typeof(PlayerStatsHolder))]
     public class PlayerController : NetworkBehaviour
     {
         [SerializeField] private InputReader inputReader;
-        private PlayerCombat playerCombat;
+        private PlayerStatsHolder playerStatsHolder;
         private Vector2 moveInput;
         private Vector2 mousePosition;
         private Vector3 lookTarget;
@@ -20,6 +21,12 @@ namespace ContradictiveGames.Player
 
         [SerializeField] private CinemachineCamera cmVCam;
         [SerializeField] private Camera playerCamera;
+
+        public event Action<AttackSO> PrimaryAttackPerformed;
+        public event Action<AttackSO> SecondaryAttackPerformed;
+
+        private AttackSO primaryAttack, secondaryAttack;
+        private float lastPrimaryAttack, lastSecondaryAttack;
 
 
 
@@ -40,14 +47,21 @@ namespace ContradictiveGames.Player
         [SerializeField] private float playerMovementSpeed = 3f;
 
 
+#region Initialization
+
         private void Awake()
         {
             inputReader.Move += MoveDirection => moveInput = MoveDirection;
             inputReader.Look += LookDirection => mousePosition = LookDirection;
+
+            inputReader.MainAttack += DoPrimaryAttack;
+            inputReader.SecondaryAttack += DoSecondaryAttack;
+
             inputReader.EnablePlayerActions();
 
-            playerCombat = GetComponent<PlayerCombat>();
-            playerCombat.InitializeInputs(inputReader);
+            playerStatsHolder = GetComponent<PlayerStatsHolder>();
+            primaryAttack = playerStatsHolder.playerClassData.PrimaryAttack;
+            secondaryAttack = playerStatsHolder.playerClassData.SecondaryAttack;
         }
 
         public override void OnNetworkSpawn()
@@ -66,6 +80,7 @@ namespace ContradictiveGames.Player
             }
         }
 
+#endregion
 
 
         private void Update()
@@ -78,6 +93,9 @@ namespace ContradictiveGames.Player
                 playerModelTransform.rotation = Quaternion.Slerp(playerModelTransform.rotation, playerRotation.Value, lookSmoothing);
             }
         }
+
+
+#region Movement
 
         private void MoveCharacter(Vector3 moveDirection)
         {
@@ -105,5 +123,39 @@ namespace ContradictiveGames.Player
             lookPositon.y = 0;
             return Quaternion.LookRotation(lookPositon);
         }
+
+#endregion
+
+
+#region Combat
+
+        private void DoPrimaryAttack(){
+            if(Time.time > primaryAttack.AttackCooldown + lastPrimaryAttack){
+                lastPrimaryAttack = Time.time;
+                DoAttack(primaryAttack);
+                PrimaryAttackPerformed?.Invoke(primaryAttack);
+            }
+        }
+        private void DoSecondaryAttack(){
+            if(Time.time > secondaryAttack.AttackCooldown + lastSecondaryAttack){
+                lastSecondaryAttack = Time.time;
+                DoAttack(secondaryAttack);
+                SecondaryAttackPerformed?.Invoke(secondaryAttack);
+            }
+        }
+        private void DoAttack(AttackSO attackSO){
+            switch(attackSO.attackType){
+                case AttackType.Melee:
+                    Debug.Log("Do melee attack!");
+                    break;
+                case AttackType.Ranged:
+                    Debug.Log("Do ranged attack!");
+                    break;
+            }
+        }
+
+#endregion
+
+
     }
 }
