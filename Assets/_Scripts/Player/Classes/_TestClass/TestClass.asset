@@ -15,5 +15,5 @@ MonoBehaviour:
   ClassName: Default Class
   ClassDescription: Description goes here
   ClassIcon: {fileID: 0}
-  PrimaryAttack: {fileID: 11400000, guid: 005efe8e934aaf54094f9853c1590b26, type: 2}
-  SecondaryAttack: {fileID: 11400000, guid: 3ae50949474c84e4ea7fa284f3c7dbbf, type: 2}
+  PrimaryAttack: {fileID: 11400000, guid: 7f6cc6397909e7f44b92fa19cf0469e5, type: 2}
+  SecondaryAttack: {fileID: 11400000, guid: a793a2500e07aae4a8081f51d44e20f4, type: 2}

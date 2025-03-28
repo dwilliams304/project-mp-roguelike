@@ -3,6 +3,9 @@ using UnityEngine;
 namespace ContradictiveGames
 {
 
+    public enum AttackType { Melee, Ranged }
+    
+    [CreateAssetMenu(fileName = "Attack Scriptable", menuName = "Custom/Combat/Attack Scriptable")]
     public class AttackSO : ScriptableObject
     {
         public string AttackName = "Default Name";
@@ -12,10 +15,10 @@ namespace ContradictiveGames
         public float BaseDamageMax = 3f;
 
         public float AttackCooldown = .1f;
-        public float AttackRange = 2f;
 
-        public virtual void OnAttackPerformed(){
-            Debug.Log("Attack performed!");
-        }
+        public AttackType attackType = AttackType.Melee;
+
+
+
     }
 }
