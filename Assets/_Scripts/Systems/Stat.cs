@@ -32,6 +32,7 @@ namespace ContradictiveGames.Systems.Stats
                 return _value;
             }
         }
+        public virtual int ValueAsInt => (int)Math.Round(Value);
 
         protected bool isDirty = true;
         protected float _value;

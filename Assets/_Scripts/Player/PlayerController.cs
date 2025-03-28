@@ -22,6 +22,7 @@ namespace ContradictiveGames.Player
         [SerializeField] private CinemachineCamera cmVCam;
         [SerializeField] private Camera playerCamera;
 
+        //Combat related
         public event Action<AttackSO> PrimaryAttackPerformed;
         public event Action<AttackSO> SecondaryAttackPerformed;
 
@@ -49,21 +50,6 @@ namespace ContradictiveGames.Player
 
 #region Initialization
 
-        private void Awake()
-        {
-            inputReader.Move += MoveDirection => moveInput = MoveDirection;
-            inputReader.Look += LookDirection => mousePosition = LookDirection;
-
-            inputReader.MainAttack += DoPrimaryAttack;
-            inputReader.SecondaryAttack += DoSecondaryAttack;
-
-            inputReader.EnablePlayerActions();
-
-            playerStatsHolder = GetComponent<PlayerStatsHolder>();
-            primaryAttack = playerStatsHolder.playerClassData.PrimaryAttack;
-            secondaryAttack = playerStatsHolder.playerClassData.SecondaryAttack;
-        }
-
         public override void OnNetworkSpawn()
         {
             if(!IsOwner){
@@ -77,7 +63,23 @@ namespace ContradictiveGames.Player
                 cmVCam.Priority = 100;
                 cmVCam.Follow = transform;
                 cmVCam.LookAt = transform;
+                InitializePlayer();
             }
+        }
+
+
+        private void InitializePlayer(){
+            inputReader.Move += MoveDirection => moveInput = MoveDirection;
+            inputReader.Look += LookDirection => mousePosition = LookDirection;
+
+            inputReader.MainAttack += DoPrimaryAttack;
+            inputReader.SecondaryAttack += DoSecondaryAttack;
+
+            inputReader.EnablePlayerActions();
+
+            playerStatsHolder = GetComponent<PlayerStatsHolder>();
+            primaryAttack = playerStatsHolder.playerClassData.PrimaryAttack;
+            secondaryAttack = playerStatsHolder.playerClassData.SecondaryAttack;
         }
 
 #endregion
