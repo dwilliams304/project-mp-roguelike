@@ -48,7 +48,7 @@ namespace ContradictiveGames.Player
         [SerializeField] private float playerMovementSpeed = 3f;
 
 
-#region Initialization
+#region Initialization/De-initialization
 
         public override void OnNetworkSpawn()
         {
@@ -63,12 +63,14 @@ namespace ContradictiveGames.Player
                 cmVCam.Priority = 100;
                 cmVCam.Follow = transform;
                 cmVCam.LookAt = transform;
-                InitializePlayer();
+                Init();
             }
         }
 
-
-        private void InitializePlayer(){
+        /// <summary>
+        /// Initialize player actions, input actions, subscribe to events....
+        /// </summary>
+        private void Init(){
             inputReader.Move += MoveDirection => moveInput = MoveDirection;
             inputReader.Look += LookDirection => mousePosition = LookDirection;
 
@@ -82,8 +84,32 @@ namespace ContradictiveGames.Player
             secondaryAttack = playerStatsHolder.playerClassData.SecondaryAttack;
         }
 
+
+
+        public override void OnNetworkDespawn()
+        {
+            if(IsOwner){
+                DeInit();
+            }
+            
+        }
+
+        /// <summary>
+        /// Deinitialize player actions, unsubscribe to events, etc...
+        /// </summary>
+        private void DeInit(){
+            inputReader.Move -= MoveDirection => moveInput = MoveDirection;
+            inputReader.Look -= LookDirection => mousePosition = LookDirection;
+
+            inputReader.MainAttack -= DoPrimaryAttack;
+            inputReader.SecondaryAttack -= DoSecondaryAttack;
+        }
+
+
 #endregion
 
+
+#region Core Loop
 
         private void Update()
         {
@@ -95,6 +121,8 @@ namespace ContradictiveGames.Player
                 playerModelTransform.rotation = Quaternion.Slerp(playerModelTransform.rotation, playerRotation.Value, lookSmoothing);
             }
         }
+
+#endregion
 
 
 #region Movement
