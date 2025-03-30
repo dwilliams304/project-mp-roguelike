@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8565319329441439492}
   - component: {fileID: 8499150719661347576}
   - component: {fileID: 1600495344127257396}
-  - component: {fileID: 794432705265038080}
   m_Layer: 0
   m_Name: WorldSpaceCanvas
   m_TagString: Untagged
@@ -27,7 +26,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 66180219411502637}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.01, y: 0.01, z: 1}
   m_ConstrainProportionsScale: 0
@@ -35,7 +34,7 @@ RectTransform:
   - {fileID: 6327742835313721425}
   - {fileID: 1891615176296487867}
   m_Father: {fileID: 6929849247435184708}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 30, y: 45, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 2}
@@ -104,18 +103,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &794432705265038080
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 66180219411502637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67ddee9cdf247f04ebb7efeb305d7519, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &931484839766736574
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,8 +162,8 @@ MonoBehaviour:
   Lens:
     FieldOfView: 60.000004
     OrthographicSize: 12
-    NearClipPlane: -200
-    FarClipPlane: 5000
+    NearClipPlane: -50
+    FarClipPlane: 50
     Dutch: 0
     ModeOverride: 1
     PhysicalProperties:
@@ -651,8 +638,8 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: -200
-  far clip plane: 5000
+  near clip plane: -50
+  far clip plane: 50
   field of view: 60.000004
   orthographic: 1
   orthographic size: 12
@@ -703,7 +690,7 @@ MonoBehaviour:
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
-  m_Antialiasing: 0
+  m_Antialiasing: 1
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -976,7 +963,7 @@ MonoBehaviour:
   worldSpaceUI: {fileID: 66180219411502637}
   healthBar: {fileID: 0}
   username: {fileID: 0}
-  showEvenIfOwner: 0
+  showEvenIfOwner: 1
 --- !u!1 &7709522412101461514
 GameObject:
   m_ObjectHideFlags: 0
