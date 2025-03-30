@@ -19,6 +19,8 @@ namespace ContradictiveGames
         public AttackType attackType = AttackType.Melee;
 
 
-
+        [Header("Ranged Attack Settings")]
+        public GameObject projectilePrefab;
+        public float ProjectileSpeed = 30f;
     }
 }

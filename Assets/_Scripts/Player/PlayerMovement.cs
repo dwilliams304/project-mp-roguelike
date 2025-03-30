@@ -7,11 +7,13 @@ using UnityEngine;
 namespace ContradictiveGames.Player
 {
     [DisallowMultipleComponent]
-    // [RequireComponent(typeof(Player))]
-    public class PlayerController : NetworkBehaviour
+    [RequireComponent(typeof(Player), typeof(PlayerCombat))]
+    public class PlayerMovement : NetworkBehaviour
     {
         [SerializeField] private InputReader inputReader;
-        // private Player player;
+        private Player player;
+        private PlayerCombat combat;
+
         private Vector2 moveInput;
         private Vector2 mousePosition;
         private Vector3 lookTarget;
@@ -21,13 +23,6 @@ namespace ContradictiveGames.Player
 
         [SerializeField] private CinemachineCamera cmVCam;
         [SerializeField] private Camera playerCamera;
-
-        //Combat related
-        public event Action<AttackSO> PrimaryAttackPerformed;
-        public event Action<AttackSO> SecondaryAttackPerformed;
-
-        private AttackSO primaryAttack, secondaryAttack;
-        private float lastPrimaryAttack, lastSecondaryAttack;
 
 
 
@@ -71,17 +66,17 @@ namespace ContradictiveGames.Player
         /// Initialize player actions, input actions, subscribe to events....
         /// </summary>
         private void Init(){
+            player = GetComponent<Player>();
+            combat = GetComponent<PlayerCombat>();
+
             inputReader.Move += MoveDirection => moveInput = MoveDirection;
             inputReader.Look += LookDirection => mousePosition = LookDirection;
 
-            inputReader.MainAttack += DoPrimaryAttack;
-            inputReader.SecondaryAttack += DoSecondaryAttack;
+            inputReader.MainAttack += combat.DoPrimaryAttack;
+            inputReader.SecondaryAttack += combat.DoSecondaryAttack;
 
             inputReader.EnablePlayerActions();
 
-            // player = GetComponent<Player>();
-            // primaryAttack = player.playerClassData.PrimaryAttack;
-            // secondaryAttack = player.playerClassData.SecondaryAttack;
         }
 
 
@@ -101,8 +96,8 @@ namespace ContradictiveGames.Player
             inputReader.Move -= MoveDirection => moveInput = MoveDirection;
             inputReader.Look -= LookDirection => mousePosition = LookDirection;
 
-            inputReader.MainAttack -= DoPrimaryAttack;
-            inputReader.SecondaryAttack -= DoSecondaryAttack;
+            inputReader.MainAttack -= combat.DoPrimaryAttack;
+            inputReader.SecondaryAttack -= combat.DoSecondaryAttack;
         }
 
 
@@ -156,35 +151,6 @@ namespace ContradictiveGames.Player
 
 #endregion
 
-
-#region Combat
-
-        private void DoPrimaryAttack(){
-            if(Time.time > primaryAttack.AttackCooldown + lastPrimaryAttack){
-                lastPrimaryAttack = Time.time;
-                DoAttack(primaryAttack);
-                PrimaryAttackPerformed?.Invoke(primaryAttack);
-            }
-        }
-        private void DoSecondaryAttack(){
-            if(Time.time > secondaryAttack.AttackCooldown + lastSecondaryAttack){
-                lastSecondaryAttack = Time.time;
-                DoAttack(secondaryAttack);
-                SecondaryAttackPerformed?.Invoke(secondaryAttack);
-            }
-        }
-        private void DoAttack(AttackSO attackSO){
-            switch(attackSO.attackType){
-                case AttackType.Melee:
-                    Debug.Log("Do melee attack!");
-                    break;
-                case AttackType.Ranged:
-                    Debug.Log("Do ranged attack!");
-                    break;
-            }
-        }
-
-#endregion
 
 
     }

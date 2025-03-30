@@ -18,3 +18,5 @@ MonoBehaviour:
   BaseDamageMax: 3
   AttackCooldown: 1
   attackType: 1
+  projectilePrefab: {fileID: 6006527496274847753, guid: f9a82826d1e949f41961aa57bcc2ca96, type: 3}
+  ProjectileSpeed: 30
