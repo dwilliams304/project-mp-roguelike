@@ -7,11 +7,11 @@ using UnityEngine;
 namespace ContradictiveGames.Player
 {
     [DisallowMultipleComponent]
-    [RequireComponent(typeof(PlayerStatsHolder))]
+    // [RequireComponent(typeof(Player))]
     public class PlayerController : NetworkBehaviour
     {
         [SerializeField] private InputReader inputReader;
-        private PlayerStatsHolder playerStatsHolder;
+        // private Player player;
         private Vector2 moveInput;
         private Vector2 mousePosition;
         private Vector3 lookTarget;
@@ -79,9 +79,9 @@ namespace ContradictiveGames.Player
 
             inputReader.EnablePlayerActions();
 
-            playerStatsHolder = GetComponent<PlayerStatsHolder>();
-            primaryAttack = playerStatsHolder.playerClassData.PrimaryAttack;
-            secondaryAttack = playerStatsHolder.playerClassData.SecondaryAttack;
+            // player = GetComponent<Player>();
+            // primaryAttack = player.playerClassData.PrimaryAttack;
+            // secondaryAttack = player.playerClassData.SecondaryAttack;
         }
 
 

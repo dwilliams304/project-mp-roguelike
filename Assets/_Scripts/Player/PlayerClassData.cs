@@ -15,5 +15,9 @@ namespace ContradictiveGames.Player
 
         public AttackSO PrimaryAttack;
         public AttackSO SecondaryAttack;
+
+
+        [Header("Combat")]
+        public int MaxHealth = 100;
     }
 }
