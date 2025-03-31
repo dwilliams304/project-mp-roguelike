@@ -9,11 +9,9 @@ namespace ContradictiveGames
     [System.Serializable]
     public class Attack
     {
-        [Header("UI")]
         public string AttackName = "Default Name";
         public Sprite AttackIcon;
         
-        [Header("Base Stats")]
         public float BaseDamageMin = 1f;
         public float BaseDamageMax = 3f;
         public float AttackCooldown = .1f;
@@ -21,8 +19,13 @@ namespace ContradictiveGames
 
         public AttackType attackType = AttackType.Melee;
 
+        //Melee Attack Settings
+        public float SwingRadius = 2f;
+        public float SwingLength = 1f;
+        public float SwingSpeed = 0.2f;
 
-        [Header("Ranged Attack Settings")]
+
+        //Ranged Attack Settings
         public GameObject projectilePrefab;
         public float ProjectileSpeed = 30f;
         public RangedAttackType RangedAttackType = RangedAttackType.Projectile;
