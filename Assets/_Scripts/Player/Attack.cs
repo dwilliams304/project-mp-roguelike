@@ -4,17 +4,20 @@ namespace ContradictiveGames
 {
 
     public enum AttackType { Melee, Ranged }
+    public enum RangedAttackType { Projectile, HitScan }
     
-    [CreateAssetMenu(fileName = "Attack Scriptable", menuName = "Custom/Combat/Attack Scriptable")]
-    public class AttackSO : ScriptableObject
+    [System.Serializable]
+    public class Attack
     {
+        [Header("UI")]
         public string AttackName = "Default Name";
         public Sprite AttackIcon;
-
+        
+        [Header("Base Stats")]
         public float BaseDamageMin = 1f;
         public float BaseDamageMax = 3f;
-
         public float AttackCooldown = .1f;
+
 
         public AttackType attackType = AttackType.Melee;
 
@@ -22,5 +25,6 @@ namespace ContradictiveGames
         [Header("Ranged Attack Settings")]
         public GameObject projectilePrefab;
         public float ProjectileSpeed = 30f;
+        public RangedAttackType RangedAttackType = RangedAttackType.Projectile;
     }
 }

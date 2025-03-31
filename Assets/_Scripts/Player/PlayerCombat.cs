@@ -9,7 +9,7 @@ namespace ContradictiveGames.Player
 
         [SerializeField] private Transform firePoint;
 
-        private AttackSO primaryAttack, secondaryAttack;
+        private Attack primaryAttack, secondaryAttack;
         private float lastPrimaryAttack, lastSecondaryAttack;
 
         public override void OnNetworkSpawn(){
@@ -22,25 +22,12 @@ namespace ContradictiveGames.Player
         public void DoPrimaryAttack(){
             if(Time.time > primaryAttack.AttackCooldown + lastPrimaryAttack){
                 lastPrimaryAttack = Time.time;
-                DoAttack(primaryAttack);
             }
         }
 
         public void DoSecondaryAttack(){
             if(Time.time > secondaryAttack.AttackCooldown + lastSecondaryAttack){
                 lastSecondaryAttack = Time.time;
-                DoAttack(secondaryAttack);
-            }
-        }
-
-        private void DoAttack(AttackSO attackSO = null){
-            switch(attackSO.attackType){
-                case AttackType.Melee:
-                    Debug.Log("Do melee attack!");
-                    break;
-                case AttackType.Ranged:
-                    Debug.Log("Do ranged attack!");
-                    break;
             }
         }
     }

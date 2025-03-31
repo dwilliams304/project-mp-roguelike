@@ -5,6 +5,7 @@ namespace ContradictiveGames.Player
     [CreateAssetMenu(fileName = "Player Class Data", menuName = "Custom/Player Class Data")]
     public class PlayerClassData : ScriptableObject
     {
+        [Header("UI")]
         [Tooltip("Name of the class")]
         public string ClassName = "Default Class";
         [Multiline]
@@ -13,11 +14,15 @@ namespace ContradictiveGames.Player
 
         public Sprite ClassIcon;
 
-        public AttackSO PrimaryAttack;
-        public AttackSO SecondaryAttack;
+        [Space(20)]
+
 
 
         [Header("Combat")]
         public int MaxHealth = 100;
+        [Space]
+        public Attack PrimaryAttack;
+        [Space]
+        public Attack SecondaryAttack;
     }
 }
