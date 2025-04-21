@@ -23,7 +23,7 @@ namespace ContradictiveGames.Managers
 
 
         [Header("DEVELOPMENT SETTINGS")]
-        [SerializeField] private bool skipCountdownTimer;
+        public DeveloperSettings developerSettings;
 
         public GameState CurrentState { get; private set; }
 

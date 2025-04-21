@@ -18,6 +18,8 @@ namespace ContradictiveGames.Player
         private Vector2 mousePosition;
         private Vector3 lookTarget;
 
+        private Animator animator;
+
         [SerializeField] private Transform playerModelTransform;
 
 
@@ -68,6 +70,8 @@ namespace ContradictiveGames.Player
         private void Init(){
             player = GetComponent<Player>();
             combat = GetComponent<PlayerCombat>();
+            animator = GetComponentInChildren<Animator>();
+            
 
             inputReader.Move += MoveDirection => moveInput = MoveDirection;
             inputReader.Look += LookDirection => mousePosition = LookDirection;
@@ -109,7 +113,12 @@ namespace ContradictiveGames.Player
         private void Update()
         {
             if(IsOwner) {
-                MoveCharacter(CalculateMoveDirection());
+                if(moveInput != Vector2.zero){
+                    MoveCharacter(CalculateMoveDirection());
+                }
+                else{
+                    animator.SetBool("IsRunning", false);
+                }
                 RotateCharacter(CalculatePlayerRotation());            
             }
             else{
@@ -125,6 +134,7 @@ namespace ContradictiveGames.Player
         private void MoveCharacter(Vector3 moveDirection)
         {
             transform.Translate(moveDirection * playerMovementSpeed * Time.deltaTime, Space.World);
+            animator.SetBool("IsRunning", true);
         }
         private Vector3 CalculateMoveDirection(){
             return Quaternion.Euler(0, 45, 0) * new Vector3(moveInput.x, 0f, moveInput.y);
