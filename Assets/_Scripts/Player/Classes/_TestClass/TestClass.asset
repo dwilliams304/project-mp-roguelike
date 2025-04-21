@@ -16,29 +16,4 @@ MonoBehaviour:
   ClassDescription: Class Description
   ClassIcon: {fileID: 0}
   MaxHealth: 100
-  PrimaryAttack:
-    AttackName: Default Name
-    AttackIcon: {fileID: 0}
-    BaseDamageMin: -0.26
-    BaseDamageMax: 3
-    AttackCooldown: 0.1
-    attackType: 0
-    SwingRadius: 2
-    SwingLength: 1
-    SwingSpeed: 0.2
-    projectilePrefab: {fileID: 0}
-    ProjectileSpeed: 30
-    RangedAttackType: 0
-  SecondaryAttack:
-    AttackName: Default Name
-    AttackIcon: {fileID: 0}
-    BaseDamageMin: 1
-    BaseDamageMax: 3
-    AttackCooldown: 0.1
-    attackType: 1
-    SwingRadius: 2
-    SwingLength: 1
-    SwingSpeed: 0.2
-    projectilePrefab: {fileID: 0}
-    ProjectileSpeed: 30
-    RangedAttackType: 0
+  BaseMoveSpeed: 5

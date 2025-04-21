@@ -17,6 +17,7 @@ namespace ContradictiveGames.Player
 
 
         [Header("Combat")]
-        public int MaxHealth = 100;
+        public int MaxHealth;
+        [Min(0)] public float BaseMoveSpeed;
     }
 }

@@ -18,15 +18,18 @@ namespace ContradictiveGames.Player
             }
         }
 
-        public void Initialize(InputReader _inputReader, PlayerClassData _playerClassData, Transform _firePoint){
+        public void SetUpInput(InputReader _inputReader, Transform _firePoint){
             inputReader = _inputReader;
-
             firePoint = _firePoint;
-            
+
             if(inputReader != null){
                 inputReader.MainAttack += MainAttack;
                 inputReader.SecondaryAttack += SecondaryAttack;
             }
+        }
+        
+        public void InitializeStats(PlayerStats playerStats){
+
         }
 
         private void Deinitialize(){

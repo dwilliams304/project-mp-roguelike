@@ -1,5 +1,6 @@
 using System;
 using ContradictiveGames.Input;
+using ContradictiveGames.Systems.Stats;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -9,18 +10,18 @@ namespace ContradictiveGames.Player
     public class PlayerMovement : NetworkBehaviour
     {
         private InputReader inputReader;
-        private PlayerClassData playerClassData;
+        private Stat MoveSpeed;
 
         private Vector2 moveInput;
         private Vector2 mousePosition;
         private Vector3 lookTarget;
 
         [SerializeField] private Animator animator;
-        private Transform playerModelTransform;
         private Camera playerCamera;
 
         [Header("Look Rotation Settings")]
         [Range(0, 3)][SerializeField] private float lookSmoothing = 0.15f;
+        [SerializeField] private LayerMask mouseHitLayer;
 
         [Header("Other Settings")]
         [SerializeField] private float interactionRadius;
@@ -28,16 +29,18 @@ namespace ContradictiveGames.Player
 
 
 
-        #region Initialization/De-initialization
+#region Initialization/De-initialization
+
+        public void InitializeStats(PlayerStats playerStats) {
+            MoveSpeed = playerStats.BaseMoveSpeed;
+        }
 
         /// <summary>
         /// Initialize player actions, input actions, subscribe to events....
         /// </summary>
-        public void Initialize(InputReader _inputReader, PlayerClassData _playerClassData, Transform _playerModelTransform)
+        public void SetUpInput(InputReader _inputReader, Camera _camera)
         {
-            // animator = GetComponent<Animator>();
-            playerModelTransform = _playerModelTransform;
-            playerCamera = Camera.main;
+            playerCamera = _camera;
 
             inputReader = _inputReader;
             if (inputReader != null)
@@ -45,9 +48,8 @@ namespace ContradictiveGames.Player
                 inputReader.Move += MoveDirection => moveInput = MoveDirection;
                 inputReader.Look += LookDirection => mousePosition = LookDirection;
             }
-
-
         }
+        
 
         public override void OnNetworkSpawn()
         {
@@ -59,14 +61,14 @@ namespace ContradictiveGames.Player
         {
             if (IsOwner)
             {
-                DeInit();
+                DisableInput();
             }
         }
 
         /// <summary>
         /// Deinitialize player actions, unsubscribe to events, etc...
         /// </summary>
-        private void DeInit()
+        private void DisableInput()
         {
             if (inputReader != null)
             {
@@ -76,35 +78,32 @@ namespace ContradictiveGames.Player
         }
 
 
-        #endregion
+#endregion
 
 
-        #region Core Loop
+#region Core Loop
 
         private void Update()
         {
-            if (moveInput != Vector2.zero)
-            {
-                MoveCharacter(CalculateMoveDirection());
-            }
-            else
-            {
-                animator.SetBool("IsRunning", false);
-            }
+            MoveCharacter(CalculateMoveDirection());
             if(mousePosition != Vector2.zero){
                 RotateCharacter(CalculatePlayerRotation());
             }
         }
 
-        #endregion
+#endregion
 
 
-        #region Movement
+#region Movement
 
         private void MoveCharacter(Vector3 moveDirection)
         {
-            transform.Translate(moveDirection * 4f * Time.deltaTime, Space.World);
-            animator.SetBool("IsRunning", true);
+            if(moveDirection != Vector3.zero){
+                transform.Translate(moveDirection * MoveSpeed.Value * Time.deltaTime, Space.World);
+            }
+            Vector3 localMove = transform.InverseTransformDirection(moveDirection);
+            animator.SetFloat("Forward", localMove.normalized.z);
+            animator.SetFloat("Sideways", localMove.normalized.x);
         }
         private Vector3 CalculateMoveDirection()
         {
@@ -115,13 +114,13 @@ namespace ContradictiveGames.Player
         {
             if (new Vector3(lookTarget.x, 0f, lookTarget.z) != Vector3.zero)
             {
-                transform.rotation = Quaternion.Slerp(playerModelTransform.rotation, rotation, lookSmoothing);
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, lookSmoothing);
             }
         }
         private Quaternion CalculatePlayerRotation()
         {
             Ray ray = playerCamera.ScreenPointToRay(mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (Physics.Raycast(ray, out RaycastHit hit, 100f, mouseHitLayer))
             {
                 lookTarget = hit.point;
             }
@@ -130,7 +129,7 @@ namespace ContradictiveGames.Player
             return Quaternion.LookRotation(lookPositon);
         }
 
-        #endregion
+#endregion
 
 
 

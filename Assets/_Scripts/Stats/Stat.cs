@@ -14,7 +14,6 @@ using System.Collections.ObjectModel;
 
 namespace ContradictiveGames.Systems.Stats
 {
-    [Serializable]
     public class Stat
     {
         public float BaseValue;
@@ -46,6 +45,9 @@ namespace ContradictiveGames.Systems.Stats
         }
         public Stat(float _baseValue) : this()
         {
+            BaseValue = _baseValue;
+        }
+        public Stat(int _baseValue) : this(){
             BaseValue = _baseValue;
         }
         public virtual void AddModifier(StatModifier modifier)
