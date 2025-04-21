@@ -13,7 +13,32 @@ MonoBehaviour:
   m_Name: TestClass
   m_EditorClassIdentifier: 
   ClassName: Default Class
-  ClassDescription: Description goes here
+  ClassDescription: Class Description
   ClassIcon: {fileID: 0}
-  PrimaryAttack: {fileID: 11400000, guid: 7f6cc6397909e7f44b92fa19cf0469e5, type: 2}
-  SecondaryAttack: {fileID: 11400000, guid: a793a2500e07aae4a8081f51d44e20f4, type: 2}
+  MaxHealth: 100
+  PrimaryAttack:
+    AttackName: Default Name
+    AttackIcon: {fileID: 0}
+    BaseDamageMin: -0.26
+    BaseDamageMax: 3
+    AttackCooldown: 0.1
+    attackType: 0
+    SwingRadius: 2
+    SwingLength: 1
+    SwingSpeed: 0.2
+    projectilePrefab: {fileID: 0}
+    ProjectileSpeed: 30
+    RangedAttackType: 0
+  SecondaryAttack:
+    AttackName: Default Name
+    AttackIcon: {fileID: 0}
+    BaseDamageMin: 1
+    BaseDamageMax: 3
+    AttackCooldown: 0.1
+    attackType: 1
+    SwingRadius: 2
+    SwingLength: 1
+    SwingSpeed: 0.2
+    projectilePrefab: {fileID: 0}
+    ProjectileSpeed: 30
+    RangedAttackType: 0

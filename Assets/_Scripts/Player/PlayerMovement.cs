@@ -72,8 +72,8 @@ namespace ContradictiveGames.Player
             inputReader.Move += MoveDirection => moveInput = MoveDirection;
             inputReader.Look += LookDirection => mousePosition = LookDirection;
 
-            inputReader.MainAttack += combat.DoPrimaryAttack;
-            inputReader.SecondaryAttack += combat.DoSecondaryAttack;
+            // inputReader.MainAttack += combat.DoPrimaryAttack;
+            // inputReader.SecondaryAttack += combat.DoSecondaryAttack;
 
             inputReader.EnablePlayerActions();
 
@@ -96,8 +96,8 @@ namespace ContradictiveGames.Player
             inputReader.Move -= MoveDirection => moveInput = MoveDirection;
             inputReader.Look -= LookDirection => mousePosition = LookDirection;
 
-            inputReader.MainAttack -= combat.DoPrimaryAttack;
-            inputReader.SecondaryAttack -= combat.DoSecondaryAttack;
+            // inputReader.MainAttack -= combat.DoPrimaryAttack;
+            // inputReader.SecondaryAttack -= combat.DoSecondaryAttack;
         }
 
 

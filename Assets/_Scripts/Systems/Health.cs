@@ -1,6 +1,5 @@
 using UnityEngine;
 using Unity.Netcode;
-using ContradictiveGames.Interfaces;
 using System;
 using ContradictiveGames.Player;
 

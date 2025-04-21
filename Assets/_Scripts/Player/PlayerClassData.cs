@@ -11,18 +11,12 @@ namespace ContradictiveGames.Player
         [Multiline]
         [Tooltip("Class Lore/Description")]
         public string ClassDescription = "Description goes here";
-
         public Sprite ClassIcon;
-
         [Space(20)]
 
 
 
         [Header("Combat")]
         public int MaxHealth = 100;
-        [Space]
-        public Attack PrimaryAttack;
-        [Space]
-        public Attack SecondaryAttack;
     }
 }

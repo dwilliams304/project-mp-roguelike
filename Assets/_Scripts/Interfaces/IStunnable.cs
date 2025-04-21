@@ -1,7 +1,4 @@
-namespace ContradictiveGames.Interfaces
+public interface IStunnable
 {
-    public interface IStunnable
-    {
-        public void OnStun();
-    }
+    public void OnStun();
 }

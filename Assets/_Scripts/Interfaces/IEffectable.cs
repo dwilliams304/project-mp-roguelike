@@ -1,7 +1,4 @@
-namespace ContradictiveGames.Interfaces
+public interface IEffectable
 {
-    public interface IEffectable
-    {
-        public void AddEffect();
-    }
+    public void AddEffect();
 }

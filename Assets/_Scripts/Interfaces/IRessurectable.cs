@@ -1,7 +1,4 @@
-namespace ContradictiveGames.Interfaces
+public interface IRessurectable
 {
-    public interface IRessurectable
-    {
-        public void Ressurect();
-    }
+    public void Ressurect();
 }
