@@ -1,32 +1,23 @@
 using System;
 using ContradictiveGames.Input;
-using Unity.Cinemachine;
 using Unity.Netcode;
 using UnityEngine;
 
 namespace ContradictiveGames.Player
 {
     [DisallowMultipleComponent]
-    [RequireComponent(typeof(Player), typeof(PlayerCombat))]
     public class PlayerMovement : NetworkBehaviour
     {
-        [SerializeField] private InputReader inputReader;
-        private Player player;
-        private PlayerCombat combat;
+        private InputReader inputReader;
+        private PlayerClassData playerClassData;
 
         private Vector2 moveInput;
         private Vector2 mousePosition;
         private Vector3 lookTarget;
 
         private Animator animator;
-
-        [SerializeField] private Transform playerModelTransform;
-
-
-        [SerializeField] private CinemachineCamera cmVCam;
-        [SerializeField] private Camera playerCamera;
-
-
+        private Transform playerModelTransform;
+        private Camera playerCamera;
 
         [Header("Look Rotation Settings")]
         [Range(0, 3)] [SerializeField] private float lookSmoothing = 0.15f;
@@ -41,45 +32,24 @@ namespace ContradictiveGames.Player
         );
 
 
-        [Header("TEST SETTINGS")]
-        [SerializeField] private float playerMovementSpeed = 3f;
 
 
 #region Initialization/De-initialization
 
-        public override void OnNetworkSpawn()
-        {
-            if(!IsOwner){
-                cmVCam.enabled = false;
-                playerCamera.enabled = false;
-                playerCamera.GetComponent<AudioListener>().enabled = false;
-            }
-            else{
-                cmVCam.enabled = true;
-                playerCamera.enabled = true;
-                cmVCam.Priority = 100;
-                cmVCam.Follow = transform;
-                cmVCam.LookAt = transform;
-                Init();
-            }
-        }
-
         /// <summary>
         /// Initialize player actions, input actions, subscribe to events....
         /// </summary>
-        private void Init(){
-            player = GetComponent<Player>();
-            combat = GetComponent<PlayerCombat>();
+        public void Initialize(InputReader _inputReader, PlayerClassData _playerClassData, Transform _playerModelTransform){
             animator = GetComponentInChildren<Animator>();
-            
+            playerModelTransform = _playerModelTransform;
+            playerCamera = Camera.main;
 
-            inputReader.Move += MoveDirection => moveInput = MoveDirection;
-            inputReader.Look += LookDirection => mousePosition = LookDirection;
+            inputReader = _inputReader;
+            if(inputReader != null){
+                inputReader.Move += MoveDirection => moveInput = MoveDirection;
+                inputReader.Look += LookDirection => mousePosition = LookDirection;
+            }
 
-            // inputReader.MainAttack += combat.DoPrimaryAttack;
-            // inputReader.SecondaryAttack += combat.DoSecondaryAttack;
-
-            inputReader.EnablePlayerActions();
 
         }
 
@@ -90,18 +60,16 @@ namespace ContradictiveGames.Player
             if(IsOwner){
                 DeInit();
             }
-            
         }
 
         /// <summary>
         /// Deinitialize player actions, unsubscribe to events, etc...
         /// </summary>
         private void DeInit(){
-            inputReader.Move -= MoveDirection => moveInput = MoveDirection;
-            inputReader.Look -= LookDirection => mousePosition = LookDirection;
-
-            // inputReader.MainAttack -= combat.DoPrimaryAttack;
-            // inputReader.SecondaryAttack -= combat.DoSecondaryAttack;
+            if(inputReader != null){
+                inputReader.Move -= MoveDirection => moveInput = MoveDirection;
+                inputReader.Look -= LookDirection => mousePosition = LookDirection;
+            }
         }
 
 
@@ -133,7 +101,7 @@ namespace ContradictiveGames.Player
 
         private void MoveCharacter(Vector3 moveDirection)
         {
-            transform.Translate(moveDirection * playerMovementSpeed * Time.deltaTime, Space.World);
+            transform.Translate(moveDirection * 4f * Time.deltaTime, Space.World);
             animator.SetBool("IsRunning", true);
         }
         private Vector3 CalculateMoveDirection(){

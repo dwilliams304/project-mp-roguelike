@@ -1,25 +1,53 @@
+using ContradictiveGames.Input;
 using Unity.Netcode;
 using UnityEngine;
 
 namespace ContradictiveGames.Player
 {
-    [RequireComponent(typeof(Player))]
     public class PlayerCombat : NetworkBehaviour
     {
 
-        [SerializeField] private Transform firePoint;
+        private Transform firePoint;
+        private InputReader inputReader;
 
 
-        public override void OnNetworkSpawn(){
-            var player = GetComponent<Player>();
+        public override void OnNetworkDespawn()
+        {
+            if(IsOwner){
+                Deinitialize();
+            }
         }
-        
+
+        public void Initialize(InputReader _inputReader, PlayerClassData _playerClassData, Transform _firePoint){
+            inputReader = _inputReader;
+
+            firePoint = _firePoint;
+            
+            if(inputReader != null){
+                inputReader.MainAttack += MainAttack;
+                inputReader.SecondaryAttack += SecondaryAttack;
+            }
+        }
+
+        private void Deinitialize(){
+            if(inputReader != null){
+                inputReader.MainAttack -= MainAttack;
+                inputReader.SecondaryAttack -= SecondaryAttack;
+            }
+        }
 
         private bool CanDoPrimary(){
             return false;
         }
         private bool CanDoSecondary(){
             return false;
+        }
+
+        private void MainAttack(){
+
+        }
+        private void SecondaryAttack(){
+
         }
     }
 }

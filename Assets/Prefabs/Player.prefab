@@ -130,7 +130,7 @@ Transform:
   m_GameObject: {fileID: 931484839766736574}
   serializedVersion: 2
   m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
-  m_LocalPosition: {x: -14.460782, y: 14.9084635, z: -14.460782}
+  m_LocalPosition: {x: -23.964565, y: 21.629042, z: -23.964565}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -161,7 +161,7 @@ MonoBehaviour:
     CustomLookAtTarget: 1
   Lens:
     FieldOfView: 60.000004
-    OrthographicSize: 12
+    OrthographicSize: 7.5
     NearClipPlane: -25
     FarClipPlane: 75
     Dutch: 0
@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 886251e9a18ece04ea8e61686c173e1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraDistance: 25
+  CameraDistance: 40
   DeadZoneDepth: 0
   Composition:
     ScreenPosition: {x: 0, y: 0.1}
@@ -283,7 +283,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -10}
-  m_SizeDelta: {x: 0, y: 60}
+  m_SizeDelta: {x: 0, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5585189212956793552
 CanvasRenderer:
@@ -459,7 +459,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7451580683523509708}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: CameraHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -511,7 +511,7 @@ Transform:
   m_GameObject: {fileID: 5536030516961394344}
   serializedVersion: 2
   m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
-  m_LocalPosition: {x: -14.460782, y: 14.9084635, z: -14.460782}
+  m_LocalPosition: {x: -23.964565, y: 21.629042, z: -23.964565}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -552,7 +552,7 @@ Camera:
   far clip plane: 75
   field of view: 60.000004
   orthographic: 1
-  orthographic size: 12
+  orthographic size: 7.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -701,7 +701,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -734,7 +734,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!1 &6775787575496729782
 GameObject:
@@ -748,7 +748,7 @@ GameObject:
   - component: {fileID: 2991495645896598946}
   - component: {fileID: -8331228718874892066}
   - component: {fileID: 8863170346561611231}
-  - component: {fileID: 6903849038066615200}
+  - component: {fileID: 2738292491749906216}
   - component: {fileID: 765628224941427795}
   - component: {fileID: 4598957121672742338}
   - component: {fileID: 6409365863455921450}
@@ -854,7 +854,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   TransitionStateInfoList: []
   m_Animator: {fileID: 4382209540313478013}
---- !u!114 &6903849038066615200
+--- !u!114 &2738292491749906216
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -863,10 +863,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 6775787575496729782}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 529ea64c0a48e95488a84bbfac21af86, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f882fde1dee3144fa26c5e8b783e880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerClass: {fileID: 11400000, guid: e05b3b6df4593db4d9be45b84e2ab803, type: 2}
+  ShowTopMostFoldoutHeaderGroup: 1
+  playerClassData: {fileID: 11400000, guid: e05b3b6df4593db4d9be45b84e2ab803, type: 2}
+  inputReader: {fileID: 11400000, guid: 48a06ea871c43654f8e1abe1cfdb3b4f, type: 2}
+  playerModelTransform: {fileID: 7651774712381155591}
+  mainCamera: {fileID: 2107260335283454701}
+  virtualCam: {fileID: 5383637750548549924}
+  firePoint: {fileID: 1390305628413070004}
 --- !u!114 &765628224941427795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -880,7 +886,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  inputReader: {fileID: 11400000, guid: 48a06ea871c43654f8e1abe1cfdb3b4f, type: 2}
   playerModelTransform: {fileID: 1390305628413070004}
   cmVCam: {fileID: 5383637750548549924}
   playerCamera: {fileID: 2107260335283454701}
@@ -900,7 +905,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  firePoint: {fileID: 0}
 --- !u!114 &6409365863455921450
 MonoBehaviour:
   m_ObjectHideFlags: 0
