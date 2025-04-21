@@ -1,36 +1,34 @@
-using System;
 using UnityEngine;
+
+
+public enum GameState
+{
+    Waiting,
+    Countdown,
+    Active,
+    Ended
+}
+
 
 namespace ContradictiveGames.Managers
 {
 
-    public class GameManager : MonoBehaviour
+    public class GameManager : PersistentSingleton<GameManager>
     {
-        public static GameManager Instance { get; private set; }
-
         [Header("Game Settings")]
-        [Tooltip("How long we want the initial countdown to be")] [SerializeField] private float countdownTimer;
-        [Tooltip("How long in seconds can the game go on")] [SerializeField] private float maxGameTime;
-        private float currentGameTimer; //Current timer count
+        [Tooltip("How long we want the initial countdown to be")] 
+        [SerializeField] private float countdownTimer;
+        [Tooltip("How long in seconds the game can go on")] 
+        [SerializeField] private float maxGameTime;
 
 
         [Header("DEVELOPMENT SETTINGS")]
         [SerializeField] private bool skipCountdownTimer;
 
-        private void Awake()
-        {
-            if(Instance == null){
-                Instance = this;
-            }
-            else if (Instance != this){
-                Destroy(this);
-            }
-            if(transform.parent) transform.parent = null;
-            DontDestroyOnLoad(this);
+        public GameState CurrentState { get; private set; }
 
-
-        }
-
+        private float currentCountdownTimer; //Current time for countdown
+        private float currentActiveGameTimer; //Current time for active game
 
 
     }
