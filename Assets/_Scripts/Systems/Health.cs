@@ -1,6 +1,5 @@
 using UnityEngine;
 using Unity.Netcode;
-using System;
 using ContradictiveGames.Player;
 
 namespace ContradictiveGames.Systems.Health
@@ -9,19 +8,16 @@ namespace ContradictiveGames.Systems.Health
     {
         [SerializeField] private NetworkVariable<int> maxHealth = new();
         [SerializeField] private NetworkVariable<int> health = new();
+
         
 
         private bool canHeal, canTakeDamage;
 
-        public event Action<int> OnChangeHealth;
-        public event Action OnDeath;
 
-
-        public void Init(PlayerClassData playerClassData)
+        public void Init(PlayerStats playerStats)
         {
-            maxHealth.Value = playerClassData.MaxHealth;
+            maxHealth.Value = playerStats.MaxHealth.ValueAsInt;
             health.Value = maxHealth.Value;
-            OnChangeHealth?.Invoke(health.Value);
         }
 
 
@@ -32,9 +28,9 @@ namespace ContradictiveGames.Systems.Health
                 health.Value -= amount;
                 if(health.Value <= 0)
                 {
-                    OnDeath?.Invoke();
+                    Debug.Log("We died!");
                 }
-                OnChangeHealth?.Invoke(health.Value);
+                
             }
         }
         public void TakeHeal(int amount)
@@ -43,7 +39,7 @@ namespace ContradictiveGames.Systems.Health
                 //Do something
                 health.Value += amount;
                 if(health.Value > maxHealth.Value) health.Value = maxHealth.Value;
-                OnChangeHealth?.Invoke(health.Value);
+                
             }
         }
 

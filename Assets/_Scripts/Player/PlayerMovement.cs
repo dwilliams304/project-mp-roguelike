@@ -19,16 +19,18 @@ namespace ContradictiveGames.Player
         [Header("Look Rotation Settings")]
         [Range(0, 3)][SerializeField] private float lookSmoothing = 0.15f;
         [SerializeField] private LayerMask mouseHitLayer;
-        private Rigidbody rb;
 
         [Header("Other Settings")]
         [SerializeField] private float interactionRadius;
         
         //Script refs
         private InputReader inputReader;
+        
+        //Components
+        private Rigidbody rb;
+        private Camera playerCamera;
 
         //Properties
-        private Camera playerCamera;
         private Stat MoveSpeed;
         private Vector3 lookTarget;
         private Vector3 lookPosition;
@@ -110,6 +112,8 @@ namespace ContradictiveGames.Player
             //Check
             if(moveInput == Vector2.zero) {
                 rb.linearVelocity = Vector3.zero;
+                animator.SetFloat("Forward", 0f);
+                animator.SetFloat("Sideways", 0f);
                 return;
             }
             //Get isometric movement
