@@ -15,37 +15,33 @@ namespace ContradictiveGames.Player
         private Vector2 mousePosition;
         private Vector3 lookTarget;
 
-        private Animator animator;
+        [SerializeField] private Animator animator;
         private Transform playerModelTransform;
         private Camera playerCamera;
 
         [Header("Look Rotation Settings")]
-        [Range(0, 3)] [SerializeField] private float lookSmoothing = 0.15f;
+        [Range(0, 3)][SerializeField] private float lookSmoothing = 0.15f;
 
         [Header("Other Settings")]
         [SerializeField] private float interactionRadius;
 
-        private NetworkVariable<Quaternion> playerRotation = new NetworkVariable<Quaternion>(
-            Quaternion.identity,
-            NetworkVariableReadPermission.Everyone,
-            NetworkVariableWritePermission.Owner
-        );
 
 
 
-
-#region Initialization/De-initialization
+        #region Initialization/De-initialization
 
         /// <summary>
         /// Initialize player actions, input actions, subscribe to events....
         /// </summary>
-        public void Initialize(InputReader _inputReader, PlayerClassData _playerClassData, Transform _playerModelTransform){
-            animator = GetComponentInChildren<Animator>();
+        public void Initialize(InputReader _inputReader, PlayerClassData _playerClassData, Transform _playerModelTransform)
+        {
+            // animator = GetComponent<Animator>();
             playerModelTransform = _playerModelTransform;
             playerCamera = Camera.main;
 
             inputReader = _inputReader;
-            if(inputReader != null){
+            if (inputReader != null)
+            {
                 inputReader.Move += MoveDirection => moveInput = MoveDirection;
                 inputReader.Look += LookDirection => mousePosition = LookDirection;
             }
@@ -53,11 +49,16 @@ namespace ContradictiveGames.Player
 
         }
 
+        public override void OnNetworkSpawn()
+        {
+            enabled = IsOwner;
+        }
 
 
         public override void OnNetworkDespawn()
         {
-            if(IsOwner){
+            if (IsOwner)
+            {
                 DeInit();
             }
         }
@@ -65,61 +66,63 @@ namespace ContradictiveGames.Player
         /// <summary>
         /// Deinitialize player actions, unsubscribe to events, etc...
         /// </summary>
-        private void DeInit(){
-            if(inputReader != null){
+        private void DeInit()
+        {
+            if (inputReader != null)
+            {
                 inputReader.Move -= MoveDirection => moveInput = MoveDirection;
                 inputReader.Look -= LookDirection => mousePosition = LookDirection;
             }
         }
 
 
-#endregion
+        #endregion
 
 
-#region Core Loop
+        #region Core Loop
 
         private void Update()
         {
-            if(IsOwner) {
-                if(moveInput != Vector2.zero){
-                    MoveCharacter(CalculateMoveDirection());
-                }
-                else{
-                    animator.SetBool("IsRunning", false);
-                }
-                RotateCharacter(CalculatePlayerRotation());            
+            if (moveInput != Vector2.zero)
+            {
+                MoveCharacter(CalculateMoveDirection());
             }
-            else{
-                playerModelTransform.rotation = Quaternion.Slerp(playerModelTransform.rotation, playerRotation.Value, lookSmoothing);
+            else
+            {
+                animator.SetBool("IsRunning", false);
+            }
+            if(mousePosition != Vector2.zero){
+                RotateCharacter(CalculatePlayerRotation());
             }
         }
 
-#endregion
+        #endregion
 
 
-#region Movement
+        #region Movement
 
         private void MoveCharacter(Vector3 moveDirection)
         {
             transform.Translate(moveDirection * 4f * Time.deltaTime, Space.World);
             animator.SetBool("IsRunning", true);
         }
-        private Vector3 CalculateMoveDirection(){
+        private Vector3 CalculateMoveDirection()
+        {
             return Quaternion.Euler(0, 45, 0) * new Vector3(moveInput.x, 0f, moveInput.y);
         }
 
-        private void RotateCharacter(Quaternion rotation){
-            if(new Vector3(lookTarget.x, 0f, lookTarget.z) != Vector3.zero){
-                playerModelTransform.rotation = Quaternion.Slerp(playerModelTransform.rotation, rotation, lookSmoothing);
-
-                if(IsOwner){
-                    playerRotation.Value = rotation;
-                }
+        private void RotateCharacter(Quaternion rotation)
+        {
+            if (new Vector3(lookTarget.x, 0f, lookTarget.z) != Vector3.zero)
+            {
+                transform.rotation = Quaternion.Slerp(playerModelTransform.rotation, rotation, lookSmoothing);
             }
         }
-        private Quaternion CalculatePlayerRotation(){
+        private Quaternion CalculatePlayerRotation()
+        {
             Ray ray = playerCamera.ScreenPointToRay(mousePosition);
-            if(Physics.Raycast(ray, out RaycastHit hit)){
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
                 lookTarget = hit.point;
             }
             var lookPositon = lookTarget - transform.position;
@@ -127,7 +130,7 @@ namespace ContradictiveGames.Player
             return Quaternion.LookRotation(lookPositon);
         }
 
-#endregion
+        #endregion
 
 
 

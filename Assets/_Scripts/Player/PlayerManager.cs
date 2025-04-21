@@ -15,9 +15,11 @@ namespace ContradictiveGames.Player
 
         //Object Refs
         [SerializeField] private Transform playerModelTransform;
-        [SerializeField] private Camera mainCamera;
-        [SerializeField] private CinemachineCamera virtualCam;
+        [SerializeField] private GameObject cameraSetup;
         [SerializeField] private Transform firePoint;
+
+        private Camera mainCamera;
+        private CinemachineCamera virtualCam;
 
         //Script refs
         private PlayerMovement playerMovement;
@@ -37,6 +39,11 @@ namespace ContradictiveGames.Player
         }
 
         public override void OnNetworkSpawn(){
+            cameraSetup = Instantiate(cameraSetup);
+            cameraSetup.name = $"{gameObject.name} Camera Setup";
+            virtualCam = cameraSetup.GetComponentInChildren<CinemachineCamera>();
+            mainCamera = cameraSetup.GetComponentInChildren<Camera>();
+
             if(IsOwner){
                 //Set up everything
                 Initialize();
@@ -44,6 +51,17 @@ namespace ContradictiveGames.Player
             else{
                 DeInitialize();
             }
+        }
+
+        public override void OnNetworkDespawn()
+        {
+            if(IsOwner) {
+                DeInitialize();
+            }
+        }
+        public override void OnDestroy()
+        {
+            Destroy(cameraSetup);
         }
 
 
@@ -69,6 +87,7 @@ namespace ContradictiveGames.Player
             virtualCam.enabled = false;
             mainCamera.enabled = false;
             mainCamera.GetComponent<AudioListener>().enabled = false;
+            // Destroy(cameraSetup);
         }
     }
 }
