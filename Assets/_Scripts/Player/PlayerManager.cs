@@ -20,6 +20,7 @@ namespace ContradictiveGames.Player
         //Private object refs
         private Camera mainCamera;
         private CinemachineCamera virtualCam;
+        private Rigidbody _rigidbody;
 
         //Script refs
         private PlayerStats playerStats;
@@ -44,6 +45,7 @@ namespace ContradictiveGames.Player
 
         public override void OnNetworkSpawn()
         {
+            _rigidbody = GetComponent<Rigidbody>();
             cameraSetup = Instantiate(cameraSetup);
             cameraSetup.name = $"{gameObject.name} Camera Setup";
             virtualCam = cameraSetup.GetComponentInChildren<CinemachineCamera>();
@@ -60,7 +62,7 @@ namespace ContradictiveGames.Player
             playerCombat.InitializeStats(playerStats);
 
             if(IsOwner){
-                playerMovement.SetUpInput(inputReader, mainCamera);
+                playerMovement.SetUpInput(inputReader, mainCamera, _rigidbody);
                 playerCombat.SetUpInput(inputReader, firePoint);
                 Initialize();
             }
