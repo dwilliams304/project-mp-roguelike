@@ -73,9 +73,27 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Ability"",
+                    ""name"": ""Ability1"",
+                    ""type"": ""Button"",
+                    ""id"": ""bc2edbd5-bec9-46fb-b9a1-6e3e3f380a6f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Ability2"",
                     ""type"": ""Button"",
                     ""id"": ""a78e4917-dea2-496c-98f5-da7ada894234"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Ability3"",
+                    ""type"": ""Button"",
+                    ""id"": ""547f4f44-a565-4c3e-95c0-c10bbb3a3b26"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -284,22 +302,33 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""83c44dd2-7940-465e-b608-39e0426ac411"",
-                    ""path"": ""<Keyboard>/1"",
+                    ""path"": ""<Keyboard>/2"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Ability"",
+                    ""action"": ""Ability2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""f2017fa3-e135-40a4-91b2-acea5fa3cb4b"",
-                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""id"": ""0e54171d-3c5d-45e8-bc99-d176544527be"",
+                    ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Ability"",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Ability1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""333f8bce-a7c9-43f9-b9f1-66291750155f"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Ability3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -859,7 +888,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Game_MainAttack = m_Game.FindAction("MainAttack", throwIfNotFound: true);
         m_Game_SecondaryAttack = m_Game.FindAction("SecondaryAttack", throwIfNotFound: true);
         m_Game_Interact = m_Game.FindAction("Interact", throwIfNotFound: true);
-        m_Game_Ability = m_Game.FindAction("Ability", throwIfNotFound: true);
+        m_Game_Ability1 = m_Game.FindAction("Ability1", throwIfNotFound: true);
+        m_Game_Ability2 = m_Game.FindAction("Ability2", throwIfNotFound: true);
+        m_Game_Ability3 = m_Game.FindAction("Ability3", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -944,7 +975,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Game_MainAttack;
     private readonly InputAction m_Game_SecondaryAttack;
     private readonly InputAction m_Game_Interact;
-    private readonly InputAction m_Game_Ability;
+    private readonly InputAction m_Game_Ability1;
+    private readonly InputAction m_Game_Ability2;
+    private readonly InputAction m_Game_Ability3;
     public struct GameActions
     {
         private @PlayerControls m_Wrapper;
@@ -954,7 +987,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @MainAttack => m_Wrapper.m_Game_MainAttack;
         public InputAction @SecondaryAttack => m_Wrapper.m_Game_SecondaryAttack;
         public InputAction @Interact => m_Wrapper.m_Game_Interact;
-        public InputAction @Ability => m_Wrapper.m_Game_Ability;
+        public InputAction @Ability1 => m_Wrapper.m_Game_Ability1;
+        public InputAction @Ability2 => m_Wrapper.m_Game_Ability2;
+        public InputAction @Ability3 => m_Wrapper.m_Game_Ability3;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -979,9 +1014,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
-            @Ability.started += instance.OnAbility;
-            @Ability.performed += instance.OnAbility;
-            @Ability.canceled += instance.OnAbility;
+            @Ability1.started += instance.OnAbility1;
+            @Ability1.performed += instance.OnAbility1;
+            @Ability1.canceled += instance.OnAbility1;
+            @Ability2.started += instance.OnAbility2;
+            @Ability2.performed += instance.OnAbility2;
+            @Ability2.canceled += instance.OnAbility2;
+            @Ability3.started += instance.OnAbility3;
+            @Ability3.performed += instance.OnAbility3;
+            @Ability3.canceled += instance.OnAbility3;
         }
 
         private void UnregisterCallbacks(IGameActions instance)
@@ -1001,9 +1042,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
-            @Ability.started -= instance.OnAbility;
-            @Ability.performed -= instance.OnAbility;
-            @Ability.canceled -= instance.OnAbility;
+            @Ability1.started -= instance.OnAbility1;
+            @Ability1.performed -= instance.OnAbility1;
+            @Ability1.canceled -= instance.OnAbility1;
+            @Ability2.started -= instance.OnAbility2;
+            @Ability2.performed -= instance.OnAbility2;
+            @Ability2.canceled -= instance.OnAbility2;
+            @Ability3.started -= instance.OnAbility3;
+            @Ability3.performed -= instance.OnAbility3;
+            @Ability3.canceled -= instance.OnAbility3;
         }
 
         public void RemoveCallbacks(IGameActions instance)
@@ -1164,7 +1211,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnMainAttack(InputAction.CallbackContext context);
         void OnSecondaryAttack(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
-        void OnAbility(InputAction.CallbackContext context);
+        void OnAbility1(InputAction.CallbackContext context);
+        void OnAbility2(InputAction.CallbackContext context);
+        void OnAbility3(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

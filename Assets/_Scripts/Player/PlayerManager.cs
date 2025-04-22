@@ -74,7 +74,7 @@ namespace ContradictiveGames.Player
 
         public override void OnDestroy()
         {
-            Destroy(cameraSetup);
+            if(cameraSetup != null) Destroy(cameraSetup);
         }
 
 

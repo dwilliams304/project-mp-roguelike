@@ -51,9 +51,27 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Ability",
+                    "name": "Ability1",
+                    "type": "Button",
+                    "id": "bc2edbd5-bec9-46fb-b9a1-6e3e3f380a6f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Ability2",
                     "type": "Button",
                     "id": "a78e4917-dea2-496c-98f5-da7ada894234",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Ability3",
+                    "type": "Button",
+                    "id": "547f4f44-a565-4c3e-95c0-c10bbb3a3b26",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -262,22 +280,33 @@
                 {
                     "name": "",
                     "id": "83c44dd2-7940-465e-b608-39e0426ac411",
-                    "path": "<Keyboard>/1",
+                    "path": "<Keyboard>/2",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Ability",
+                    "action": "Ability2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "f2017fa3-e135-40a4-91b2-acea5fa3cb4b",
-                    "path": "<Gamepad>/buttonEast",
+                    "id": "0e54171d-3c5d-45e8-bc99-d176544527be",
+                    "path": "<Keyboard>/1",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Ability",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Ability1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "333f8bce-a7c9-43f9-b9f1-66291750155f",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Ability3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

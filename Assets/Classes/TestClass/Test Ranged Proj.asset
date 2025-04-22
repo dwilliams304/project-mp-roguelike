@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b57814cab0fa4641a0e0b7a84a09a72, type: 3}
+  m_Name: Test Ranged Proj
+  m_EditorClassIdentifier: 
+  AttackName: Test Ranged_Proj
+  AttackIcon: {fileID: 21300000, guid: 840ba5e1fce1f874e838f163f6bcb11c, type: 3}
+  Damage: 3
+  AttackCooldown: 0.5
+  BaseCritChance: 1
+  CritMultiplier: 2
+  AttackSound: {fileID: 0}
+  IsProjectile: 1
+  ProjectileSpeed: 55
+  MaxDistance: 75

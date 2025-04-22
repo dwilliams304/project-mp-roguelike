@@ -21,5 +21,9 @@ namespace ContradictiveGames.Player
         [Min(0)] public float BaseMoveSpeed;
         public AttackData PrimaryAttack;
         public AttackData SecondaryAttack;
+
+        [Header("Tuning")]
+        public float DamageAura;
+        public float HealAura;
     }
 }

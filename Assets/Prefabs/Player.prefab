@@ -355,6 +355,37 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &5378098215980863567
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6057873490990579316}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6057873490990579316
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5378098215980863567}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 1, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6929849247435184708}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &5994227923040200877
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,6 +483,7 @@ Transform:
   m_Children:
   - {fileID: 7651774712381155591}
   - {fileID: 7976174128268401830}
+  - {fileID: 6057873490990579316}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &7913621393246743917
@@ -598,7 +630,7 @@ MonoBehaviour:
   playerClassData: {fileID: 11400000, guid: e05b3b6df4593db4d9be45b84e2ab803, type: 2}
   inputReader: {fileID: 11400000, guid: 48a06ea871c43654f8e1abe1cfdb3b4f, type: 2}
   cameraSetup: {fileID: 6862325895268367958, guid: 6f163efcb9b0cad4da126ec09b002955, type: 3}
-  firePoint: {fileID: 7651774712381155591}
+  firePoint: {fileID: 6057873490990579316}
 --- !u!114 &765628224941427795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,7 +672,7 @@ MonoBehaviour:
   lookSmoothing: 0.15
   mouseHitLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 192
   interactionRadius: 0
 --- !u!114 &4598957121672742338
 MonoBehaviour:
@@ -655,6 +687,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  enemyHitLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  projectilePrefab: {fileID: 0}
 --- !u!114 &1153921606669003130
 MonoBehaviour:
   m_ObjectHideFlags: 0

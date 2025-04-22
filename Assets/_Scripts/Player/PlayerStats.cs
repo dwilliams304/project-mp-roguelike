@@ -7,6 +7,8 @@ namespace ContradictiveGames.Player
     {
         public Stat MaxHealth;
         public Stat BaseMoveSpeed;
+        public Stat DamageAura;
+        public Stat HealAura;
 
 
         private readonly Dictionary<StatType, Stat> statLookup = new();
@@ -14,11 +16,15 @@ namespace ContradictiveGames.Player
         public PlayerStats (PlayerClassData playerClassData){
             MaxHealth = new Stat(playerClassData.MaxHealth);
             BaseMoveSpeed = new Stat(playerClassData.BaseMoveSpeed);
+            DamageAura = new Stat(playerClassData.DamageAura);
+            HealAura = new Stat(playerClassData.HealAura);
 
 
             statLookup = new Dictionary<StatType, Stat>{
                 { StatType.MaxHealth, MaxHealth },
-                
+                { StatType.MoveSpeed, BaseMoveSpeed },
+                { StatType.DamageAura, DamageAura },
+                { StatType.HealAura, HealAura },
             };
         }
 

@@ -24,7 +24,9 @@ namespace ContradictiveGames.Input
 
         public event UnityAction MainAttack = delegate { };
         public event UnityAction SecondaryAttack = delegate { };
-        public event UnityAction Ability = delegate { };
+        public event UnityAction Ability1 = delegate { };
+        public event UnityAction Ability2 = delegate { };
+        public event UnityAction Ability3 = delegate { };
 
 #endregion
 
@@ -68,9 +70,14 @@ namespace ContradictiveGames.Input
             if(context.performed) SecondaryAttack.Invoke();
         }
 
-        public void OnAbility(InputAction.CallbackContext context)
-        {
-            if(context.performed) Ability.Invoke();
+        public void OnAbility1(InputAction.CallbackContext context){
+            if(context.performed) Ability1.Invoke();
+        }
+        public void OnAbility2(InputAction.CallbackContext context){
+            if(context.performed) Ability2.Invoke();
+        }
+        public void OnAbility3(InputAction.CallbackContext context){
+            if(context.performed) Ability3.Invoke();
         }
 
 #endregion
