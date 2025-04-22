@@ -6,7 +6,7 @@ using UnityEngine;
 namespace ContradictiveGames.Player
 {
     [DisallowMultipleComponent]
-    [RequireComponent(typeof(PlayerMovement), typeof(PlayerCombat))]
+    [RequireComponent(typeof(PlayerMovement), typeof(CombatController))]
     public class PlayerManager : NetworkBehaviour
     {
         //Scriptable objects
@@ -25,7 +25,7 @@ namespace ContradictiveGames.Player
         //Script refs
         private PlayerStats playerStats;
         private PlayerMovement playerMovement;
-        private PlayerCombat playerCombat;
+        private CombatController combatController;
 
         private void Start()
         {
@@ -56,14 +56,14 @@ namespace ContradictiveGames.Player
             // playerStats.InitializeStats(playerClassData);
 
             playerMovement = GetComponent<PlayerMovement>();
-            playerCombat = GetComponent<PlayerCombat>();
+            combatController = GetComponent<CombatController>();
             
             playerMovement.InitializeStats(playerStats);
-            playerCombat.InitializeStats(playerStats);
+            combatController.InitializeCombatController(playerClassData);
 
             if(IsOwner){
                 playerMovement.SetUpInput(inputReader, mainCamera, _rigidbody);
-                playerCombat.SetUpInput(inputReader, firePoint);
+                combatController.SetUpInput(inputReader, firePoint);
                 Initialize();
             }
             else{

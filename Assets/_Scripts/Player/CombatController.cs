@@ -4,11 +4,17 @@ using UnityEngine;
 
 namespace ContradictiveGames.Player
 {
-    public class PlayerCombat : NetworkBehaviour
+    public class CombatController : NetworkBehaviour
     {
 
         private Transform firePoint;
         private InputReader inputReader;
+
+        private AttackData primaryAttack;
+        private AttackData secondaryAttack;
+
+        public float lastPrimaryAttack;
+        public float lastSecondaryAttack;
 
 
         public override void OnNetworkDespawn()
@@ -28,8 +34,9 @@ namespace ContradictiveGames.Player
             }
         }
         
-        public void InitializeStats(PlayerStats playerStats){
-
+        public void InitializeCombatController(PlayerClassData classData){
+            primaryAttack = classData.PrimaryAttack;
+            secondaryAttack = classData.SecondaryAttack;
         }
 
         private void Deinitialize(){
@@ -40,17 +47,24 @@ namespace ContradictiveGames.Player
         }
 
         private bool CanDoPrimary(){
-            return false;
+            return true;
         }
         private bool CanDoSecondary(){
-            return false;
+            return true;
         }
 
         private void MainAttack(){
+            if(CanDoPrimary()){
 
+            }
         }
+
         private void SecondaryAttack(){
+            if(CanDoSecondary()){
 
+            }
         }
+
+        
     }
 }
