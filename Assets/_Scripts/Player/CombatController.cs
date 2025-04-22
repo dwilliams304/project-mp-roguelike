@@ -113,6 +113,7 @@ namespace ContradictiveGames.Player
             Vector3 meleeDir = firePoint.up;
 
             Collider[] hits = Physics.OverlapSphere(origin, attack.SwingLength, enemyHitLayers);
+            bool _hasHit = false;
             foreach (var hit in hits)
             {
                 Vector3 directionToHit = (hit.transform.position - origin).normalized;
@@ -120,21 +121,17 @@ namespace ContradictiveGames.Player
 
                 if (angle <= attack.SwingArc * 0.5f)
                 {
-                    AttackDebugger.DrawDebugPoint(hit.transform.position, Color.red);
-                    if (AttackGizmoDrawer.Instance != null)
-                    {
-                        AttackGizmoDrawer.Instance.DrawMeleeSwing(
-                            origin,
-                            meleeDir,
-                            attack.SwingLength,
-                            attack.SwingArc,
-                            Color.red,
-                            1f
-                            );
-                    }
-                    CustomDebugger.Log("Taking damage!");
+                    _hasHit = true;
                 }
             }
+            AttackGizmoDrawer.Instance.DrawMeleeSwing(
+                origin,
+                meleeDir,
+                attack.SwingLength,
+                attack.SwingArc,
+                _hasHit ? Color.yellow : Color.red,
+                1f
+            );
         }
         private void DoRangedAttack(RangedAttack attack)
         {
@@ -150,9 +147,8 @@ namespace ContradictiveGames.Player
             {
                 if (Physics.Raycast(origin, direction, out RaycastHit hit, attack.MaxDistance, enemyHitLayers))
                 {
-                    AttackDebugger.DrawDebugPoint(hit.point, Color.blue);
-                    AttackDebugger.DrawDebugLine(origin, hit.point, Color.blue);
-                    CustomDebugger.Log("Taking damage!");
+                    AttackDebugger.DrawDebugLine(origin, hit.point, Color.yellow);
+                    
                 }
                 else
                 {

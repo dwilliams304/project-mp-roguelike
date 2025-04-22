@@ -19,6 +19,6 @@ MonoBehaviour:
   BaseCritChance: 5
   CritMultiplier: 2
   AttackSound: {fileID: 0}
-  SwingLength: 4.64
+  SwingLength: 4
   SwingSpeed: 0.2
-  SwingArc: 90
+  SwingArc: 60
