@@ -12,12 +12,10 @@ namespace ContradictiveGames
         private void Awake()
         {
             startHost.onClick.AddListener(() => {
-                Debug.Log("Starting host!");
                 NetworkManager.Singleton.StartHost();
                 HidePanel();
             });
             startClient.onClick.AddListener(() => {
-                Debug.Log("Starting client!");
                 NetworkManager.Singleton.StartClient();
                 HidePanel();
             });

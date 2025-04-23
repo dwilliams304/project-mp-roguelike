@@ -460,7 +460,6 @@ GameObject:
   - component: {fileID: 765628224941427795}
   - component: {fileID: 4598957121672742338}
   - component: {fileID: 1153921606669003130}
-  - component: {fileID: 6409365863455921450}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -708,23 +707,6 @@ MonoBehaviour:
   healthBar: {fileID: 1741129175643055140}
   username: {fileID: 3409818427562927001}
   showEvenIfOwner: 1
---- !u!114 &6409365863455921450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6775787575496729782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a2042e723f63354883af67b10ed7951, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  maxHealth:
-    m_InternalValue: 0
-  health:
-    m_InternalValue: 100
 --- !u!1 &7709522412101461514
 GameObject:
   m_ObjectHideFlags: 0

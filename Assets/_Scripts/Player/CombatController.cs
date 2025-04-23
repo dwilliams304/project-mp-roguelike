@@ -122,6 +122,12 @@ namespace ContradictiveGames.Player
                 if (angle <= attack.SwingArc * 0.5f)
                 {
                     _hasHit = true;
+                    if(hit.TryGetComponent<NetworkObject>(out NetworkObject entity))
+                    {
+                        ulong targetNetworkId = entity.NetworkObjectId;
+
+                        RequestToDoDamageServerRpc(targetNetworkId, attack.Damage);
+                    }
                 }
             }
             AttackGizmoDrawer.Instance.DrawMeleeSwing(
@@ -148,13 +154,27 @@ namespace ContradictiveGames.Player
                 if (Physics.Raycast(origin, direction, out RaycastHit hit, attack.MaxDistance, enemyHitLayers))
                 {
                     AttackDebugger.DrawDebugLine(origin, hit.point, Color.yellow);
-                    
+                    if(hit.collider.TryGetComponent<NetworkObject>(out NetworkObject entity))
+                    {
+                        ulong targetNetworkId = entity.NetworkObjectId;
+
+                        RequestToDoDamageServerRpc(targetNetworkId, attack.Damage);
+                    }
                 }
                 else
                 {
                     // MISS
                     Vector3 endPoint = origin + direction * attack.MaxDistance;
                     Debug.DrawLine(origin, endPoint, Color.red, 1f); // RED on miss
+                }
+            }
+        }
+
+        [ServerRpc]
+        private void RequestToDoDamageServerRpc(ulong targetNetworkId, int amount){
+            if(NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(targetNetworkId, out NetworkObject targetObj)){
+                if(targetObj.TryGetComponent<IDamageable>(out IDamageable damageable)){
+                    damageable.TakeDamage(amount);
                 }
             }
         }
