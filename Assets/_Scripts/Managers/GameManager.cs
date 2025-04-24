@@ -1,35 +1,147 @@
+using System;
+using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-
-public enum GameState
+public enum GameStateType
 {
+    Spawning,
     Waiting,
     Countdown,
     Active,
-    Ended
+    RoundEnd,
+    GameOver
 }
-
-
 namespace ContradictiveGames.Managers
 {
-
-    public class GameManager : PersistentSingleton<GameManager>
+    public class GameManager : NetworkBehaviour
     {
+        public static GameManager Instance;
+
         [Header("Game Settings")]
-        [Tooltip("How long we want the initial countdown to be")] 
+        [Tooltip("How long we want the initial countdown to be")]
         [SerializeField] private float countdownTimer;
-        [Tooltip("How long in seconds the game can go on")] 
+        [Tooltip("How long in seconds the game can go on")]
         [SerializeField] private float maxGameTime;
 
 
         [Header("DEVELOPMENT SETTINGS")]
         public DeveloperSettings developerSettings;
 
-        public GameState CurrentState { get; private set; }
-
-        private float currentCountdownTimer; //Current time for countdown
-        private float currentActiveGameTimer; //Current time for active game
+        public event Action<GameState> GameStateChanged;
 
 
+        public NetworkVariable<float> currentCountdownTimer = new NetworkVariable<float>(10f); //Current time for countdown
+        public NetworkVariable<float> currentActiveGameTimer = new NetworkVariable<float>(0f); //Current time for active game
+        public float MaxGameTime = 6000f;
+
+        public NetworkVariable<GameStateType> currentGameStateType = new NetworkVariable<GameStateType>(GameStateType.Waiting);
+
+        private GameState currentGameState;
+        public SpawningState spawningState;
+        public WaitingState waitingState;
+        public CountdownState countdownState;
+        public ActiveState activeState;
+        public RoundEndState roundEndState;
+        public GameOverState gameOverState;
+
+
+        private bool localPlayerReady;
+        private Dictionary<ulong, bool> playersReadyDictionary;
+
+        private void Awake()
+        {
+            Instance = this;
+
+        }
+
+        public override void OnNetworkSpawn()
+        {
+            if (IsServer)
+            {
+                spawningState = new SpawningState();
+                waitingState = new WaitingState();
+                countdownState = new CountdownState();
+                activeState = new ActiveState();
+                roundEndState = new RoundEndState();
+                gameOverState = new GameOverState();
+
+                currentGameState = waitingState;
+                ChangeGameState(waitingState, GameStateType.Waiting);
+            }
+            playersReadyDictionary = new Dictionary<ulong, bool>();
+            currentGameStateType.OnValueChanged += OnGameStateChanged;
+        }
+
+        private void OnGameStateChanged(GameStateType prevState, GameStateType newState)
+        {
+            GameStateChanged?.Invoke(GetGameStateFromType(newState));
+        }
+
+
+        private void Update()
+        {
+            if (!IsServer) return;
+
+            if (currentGameState != null) currentGameState.StateUpdate(this);
+        }
+
+
+
+        public void ChangeGameState(GameState newState, GameStateType newGameStateType)
+        {
+            if (currentGameState != null)
+            {
+                currentGameState.StateExit(this);
+            }
+
+            currentGameState = newState;
+            currentGameStateType.Value = newGameStateType;
+            currentGameState.StateEnter(this);
+
+        }
+
+        private void OnPlayerReady()
+        {
+            if (currentGameState is WaitingState)
+            {
+                localPlayerReady = true;
+                SetPlayerReadyServerRpc();
+            }
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void SetPlayerReadyServerRpc(ServerRpcParams serverRpcParams = default)
+        {
+            playersReadyDictionary[serverRpcParams.Receive.SenderClientId] = true;
+
+            bool allClientsReady = true;
+            foreach (ulong id in NetworkManager.Singleton.ConnectedClientsIds)
+            {
+                if (!playersReadyDictionary.ContainsKey(id) || !playersReadyDictionary[id])
+                {
+                    allClientsReady = false;
+                    break;
+                }
+            }
+            if (allClientsReady)
+            {
+                ChangeGameState(countdownState, GameStateType.Countdown);
+            }
+        }
+
+        private GameState GetGameStateFromType(GameStateType type)
+        {
+            return type switch
+            {
+                GameStateType.Spawning => spawningState,
+                GameStateType.Waiting => waitingState,
+                GameStateType.Countdown => countdownState,
+                GameStateType.Active => activeState,
+                GameStateType.RoundEnd => roundEndState,
+                GameStateType.GameOver => gameOverState,
+                _ => null
+            };
+        }
     }
 }
