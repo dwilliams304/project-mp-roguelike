@@ -29,13 +29,14 @@ namespace ContradictiveGames.Managers
         public DeveloperSettings developerSettings;
 
         public event Action<GameState> GameStateChanged;
+        public event Action OnLocalPlayerReady;
 
 
         public NetworkVariable<float> currentCountdownTimer = new NetworkVariable<float>(10f); //Current time for countdown
         public NetworkVariable<float> currentActiveGameTimer = new NetworkVariable<float>(0f); //Current time for active game
         public float MaxGameTime = 6000f;
 
-        public NetworkVariable<GameStateType> currentGameStateType = new NetworkVariable<GameStateType>(GameStateType.Waiting);
+        public NetworkVariable<GameStateType> currentGameStateType = new NetworkVariable<GameStateType>(GameStateType.Spawning);
 
         private GameState currentGameState;
         public SpawningState spawningState;
@@ -55,6 +56,7 @@ namespace ContradictiveGames.Managers
 
         }
 
+
         public override void OnNetworkSpawn()
         {
             if (IsServer)
@@ -66,16 +68,22 @@ namespace ContradictiveGames.Managers
                 roundEndState = new RoundEndState();
                 gameOverState = new GameOverState();
 
-                currentGameState = waitingState;
-                ChangeGameState(waitingState, GameStateType.Waiting);
+                ChangeGameState(spawningState, GameStateType.Spawning);
             }
             playersReadyDictionary = new Dictionary<ulong, bool>();
             currentGameStateType.OnValueChanged += OnGameStateChanged;
+
+
         }
 
         private void OnGameStateChanged(GameStateType prevState, GameStateType newState)
         {
             GameStateChanged?.Invoke(GetGameStateFromType(newState));
+        }
+
+        public override void OnDestroy()
+        {
+            currentGameStateType.OnValueChanged -= OnGameStateChanged;
         }
 
 
@@ -101,18 +109,24 @@ namespace ContradictiveGames.Managers
 
         }
 
-        private void OnPlayerReady()
+        public bool IsLocalPlayerReady() => localPlayerReady;
+
+        public void NotifyServerPlayerIsReady()
         {
-            if (currentGameState is WaitingState)
-            {
-                localPlayerReady = true;
-                SetPlayerReadyServerRpc();
-            }
+            NotifyServerPlayerIsReadyServerRpc();
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void SetPlayerReadyServerRpc(ServerRpcParams serverRpcParams = default)
+        private void NotifyServerPlayerIsReadyServerRpc(ServerRpcParams serverRpcParams = default)
         {
+            if (currentGameStateType.Value != GameStateType.Waiting)
+            {
+                Debug.LogWarning("Player ready called in wrong state.");
+                return;
+            }
+            localPlayerReady = true;
+            OnLocalPlayerReady?.Invoke();
+
             playersReadyDictionary[serverRpcParams.Receive.SenderClientId] = true;
 
             bool allClientsReady = true;
@@ -128,7 +142,9 @@ namespace ContradictiveGames.Managers
             {
                 ChangeGameState(countdownState, GameStateType.Countdown);
             }
+
         }
+
 
         private GameState GetGameStateFromType(GameStateType type)
         {
@@ -140,7 +156,7 @@ namespace ContradictiveGames.Managers
                 GameStateType.Active => activeState,
                 GameStateType.RoundEnd => roundEndState,
                 GameStateType.GameOver => gameOverState,
-                _ => null
+                _ => waitingState
             };
         }
     }
