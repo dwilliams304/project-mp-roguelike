@@ -68,10 +68,7 @@ namespace ContradictiveGames.Player
 
         public override void OnNetworkDespawn()
         {
-            if (IsOwner)
-            {
-                DisableInput();
-            }
+            DisableInput();
         }
 
         /// <summary>

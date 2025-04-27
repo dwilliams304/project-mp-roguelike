@@ -5,7 +5,6 @@ using UnityEngine;
 
 public enum GameStateType
 {
-    Spawning,
     Waiting,
     Countdown,
     Active,
@@ -36,10 +35,9 @@ namespace ContradictiveGames.Managers
         public NetworkVariable<float> currentActiveGameTimer = new NetworkVariable<float>(0f); //Current time for active game
         public float MaxGameTime = 6000f;
 
-        public NetworkVariable<GameStateType> currentGameStateType = new NetworkVariable<GameStateType>(GameStateType.Spawning);
+        public NetworkVariable<GameStateType> currentGameStateType = new NetworkVariable<GameStateType>(GameStateType.Waiting);
 
         private GameState currentGameState;
-        public SpawningState spawningState;
         public WaitingState waitingState;
         public CountdownState countdownState;
         public ActiveState activeState;
@@ -61,14 +59,13 @@ namespace ContradictiveGames.Managers
         {
             if (IsServer)
             {
-                spawningState = new SpawningState();
                 waitingState = new WaitingState();
                 countdownState = new CountdownState();
                 activeState = new ActiveState();
                 roundEndState = new RoundEndState();
                 gameOverState = new GameOverState();
 
-                ChangeGameState(spawningState, GameStateType.Spawning);
+                ChangeGameState(waitingState, GameStateType.Waiting);
             }
             playersReadyDictionary = new Dictionary<ulong, bool>();
             currentGameStateType.OnValueChanged += OnGameStateChanged;
@@ -150,7 +147,6 @@ namespace ContradictiveGames.Managers
         {
             return type switch
             {
-                GameStateType.Spawning => spawningState,
                 GameStateType.Waiting => waitingState,
                 GameStateType.Countdown => countdownState,
                 GameStateType.Active => activeState,
