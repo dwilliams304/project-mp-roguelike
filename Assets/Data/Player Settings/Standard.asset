@@ -40,9 +40,9 @@ MonoBehaviour:
   LookSmoothing: 0.15
   MouseHitLayer:
     serializedVersion: 2
-    m_Bits: 192
-  EnemyHitLayers:
+    m_Bits: 1216
+  DamageableLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 1152
   InteractionRadius: 3
   ProjectilePrefab: {fileID: 0}

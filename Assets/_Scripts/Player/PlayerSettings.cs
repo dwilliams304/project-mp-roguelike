@@ -14,7 +14,7 @@ namespace ContradictiveGames
         public LayerMask MouseHitLayer;
 
         [Header("Misc")]
-        public LayerMask EnemyHitLayers;
+        public LayerMask DamageableLayers;
         public float InteractionRadius = 3f;
 
         [Header("DEBUG SETTINGS")]

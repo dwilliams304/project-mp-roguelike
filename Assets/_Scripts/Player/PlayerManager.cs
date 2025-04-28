@@ -1,4 +1,5 @@
 using ContradictiveGames.Input;
+using ContradictiveGames.Managers;
 using Unity.Cinemachine;
 using Unity.Netcode;
 using UnityEngine;
@@ -28,22 +29,6 @@ namespace ContradictiveGames.Player
         private CombatController combatController;
 
 
-        private void Start()
-        {
-            if (IsOwner)
-            {
-                Initialize();
-            }
-
-            if (PlayerClassData == null) CustomDebugger.LogError("No Player Class Data has been assigned!");
-            if (InputReader == null) CustomDebugger.LogError("No Input Reader has been assigned!");
-
-            if (CamerasPrefab == null) CustomDebugger.LogError("No Camera Setup has been assigned!");
-
-            if (PlayerCamera == null) CustomDebugger.LogError("No Main Camera has been assigned!");
-            if (virtualCam == null) CustomDebugger.LogError("No Virtual Camera has been assigned!");
-        }
-
         public override void OnNetworkSpawn()
         {
             PlayerRB = GetComponent<Rigidbody>();
@@ -56,34 +41,58 @@ namespace ContradictiveGames.Player
 
             playerMovement = GetComponent<PlayerMovement>();
             combatController = GetComponent<CombatController>();
-            
+
             combatController.InitializeCombatController(PlayerClassData);
 
             Initialize();
 
-            if(IsOwner){
+            ErrorChecks();
+
+            if (IsOwner)
+            {
                 playerMovement.Initialize(this);
                 combatController.Initialize(this);
             }
         }
 
+        private void Start()
+        {
+            GameManager.Instance.GameStateChanged += OnGameActive;
+        }
+
+        private void ErrorChecks()
+        {
+            if (PlayerClassData == null) CustomDebugger.LogError("No Player Class Data has been assigned!");
+            if (InputReader == null) CustomDebugger.LogError("No Input Reader has been assigned!");
+
+            if (CamerasPrefab == null) CustomDebugger.LogError("No Camera Setup has been assigned!");
+
+            if (PlayerCamera == null) CustomDebugger.LogError("No Main Camera has been assigned!");
+            if (virtualCam == null) CustomDebugger.LogError("No Virtual Camera has been assigned!");
+        }
+
 
         public override void OnDestroy()
         {
-            if(CamerasPrefab != null) Destroy(CamerasPrefab);
+            if (CamerasPrefab != null) Destroy(CamerasPrefab);
+            GameManager.Instance.GameStateChanged -= OnGameActive;
         }
 
 
         // Initialize self
         private void Initialize()
         {
-            if(IsOwner){
+            if (IsOwner)
+            {
                 virtualCam.enabled = true;
                 PlayerCamera.enabled = true;
 
                 virtualCam.Priority = 100;
                 virtualCam.Follow = transform;
                 virtualCam.LookAt = transform;
+
+                gameObject.tag = Constants.PlayerSelfTag;
+                gameObject.layer = LayerMask.NameToLayer(Constants.PlayerSelfTag);
 
             }
             else
@@ -92,10 +101,26 @@ namespace ContradictiveGames.Player
                 virtualCam.enabled = false;
                 PlayerCamera.enabled = false;
                 PlayerCamera.GetComponent<AudioListener>().enabled = false;
+
+                gameObject.tag = Constants.PlayerOtherTag_PVP;
+                gameObject.layer = LayerMask.NameToLayer(Constants.PlayerOtherTag_PVP);
             }
 
             InputReader.EnablePlayerActions();
 
+        }
+
+        private void OnGameActive(GameStateType state)
+        {
+            if (state == GameStateType.Active)
+            {
+                if (!IsOwner)
+                {
+                    // Change this player's tag and layer because they are someone else's view
+                    gameObject.tag = Constants.PlayerOtherTag_NoPVP;
+                    gameObject.layer = LayerMask.NameToLayer(Constants.PlayerOtherTag_NoPVP);
+                }
+            }
         }
 
     }

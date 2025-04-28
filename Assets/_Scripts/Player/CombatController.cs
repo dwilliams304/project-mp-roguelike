@@ -33,7 +33,7 @@ namespace ContradictiveGames.Player
         public void Initialize(PlayerManager _playerManager)
         {
             playerManager = _playerManager;
-            enemyHitLayers = playerManager.PlayerSettings.EnemyHitLayers;
+            enemyHitLayers = playerManager.PlayerSettings.DamageableLayers;
 
             inputReader = playerManager.InputReader;
             firePoint = playerManager.FirePoint;

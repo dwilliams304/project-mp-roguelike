@@ -5,8 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Enemy
-  - PlayerSelf
-  - PlayerOther
+  - PLAYER_SELF
+  - PLAYER_OTHER_NOPVP
+  - PLAYER_OTHER_PVP
   layers:
   - Default
   - TransparentFX
@@ -16,9 +17,9 @@ TagManager:
   - UI
   - World
   - Enemy
-  - PlayerSelf
-  - PlayerOther
-  - 
+  - PLAYER_SELF
+  - PLAYER_OTHER_NOPVP
+  - PLAYER_OTHER_PVP
   - 
   - 
   - 
