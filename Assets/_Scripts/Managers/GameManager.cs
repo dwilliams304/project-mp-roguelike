@@ -11,6 +11,7 @@ public enum GameStateType
     RoundEnd,
     GameOver
 }
+
 namespace ContradictiveGames.Managers
 {
     public class GameManager : NetworkBehaviour
@@ -20,13 +21,6 @@ namespace ContradictiveGames.Managers
 
         //Events
         public event Action<GameStateType> GameStateChanged;
-
-
-        [Header("Game Settings")]
-        [Tooltip("How long we want the initial countdown to be")]
-        [SerializeField] private float countdownTimer;
-        [Tooltip("How long in seconds the game can go on")]
-        [SerializeField] private float maxGameTime;
 
 
         [Header("GAME SETTINGS")]
@@ -132,18 +126,6 @@ namespace ContradictiveGames.Managers
             CurrentGameStateType.Value = newGameStateType;
             CurrentGameState.StateEnter(this);
 
-        }
-        private GameState GetGameStateFromType(GameStateType type)
-        {
-            return type switch
-            {
-                GameStateType.Waiting => waitingState,
-                GameStateType.Countdown => countdownState,
-                GameStateType.Active => activeState,
-                GameStateType.RoundEnd => roundEndState,
-                GameStateType.GameOver => gameOverState,
-                _ => waitingState
-            };
         }
 
         [ServerRpc(RequireOwnership = false)]
