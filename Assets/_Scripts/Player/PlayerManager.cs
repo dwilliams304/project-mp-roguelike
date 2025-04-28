@@ -7,9 +7,14 @@ using UnityEngine;
 namespace ContradictiveGames.Player
 {
     [DisallowMultipleComponent]
-    [RequireComponent(typeof(PlayerMovement), typeof(CombatController))]
+    [RequireComponent(
+        typeof(PlayerStats), 
+        typeof(PlayerMovement), 
+        typeof(CombatController)
+    )]
     public class PlayerManager : NetworkBehaviour
     {
+
         [Header("Setup")]
         public InputReader InputReader;
         public GameObject CamerasPrefab;
@@ -20,6 +25,7 @@ namespace ContradictiveGames.Player
         public PlayerSettings PlayerSettings;
 
         //Components
+        [HideInInspector] public PlayerStats PlayerStats;
         [HideInInspector] public Rigidbody PlayerRB;
         [HideInInspector] public Camera PlayerCamera;
 
@@ -31,6 +37,7 @@ namespace ContradictiveGames.Player
 
         public override void OnNetworkSpawn()
         {
+            PlayerStats = GetComponent<PlayerStats>();
             PlayerRB = GetComponent<Rigidbody>();
             CamerasPrefab = Instantiate(CamerasPrefab);
             CamerasPrefab.name = $"{gameObject.name} Camera Setup";
@@ -41,8 +48,10 @@ namespace ContradictiveGames.Player
 
             playerMovement = GetComponent<PlayerMovement>();
             combatController = GetComponent<CombatController>();
+            PlayerStats.InitializeStats(PlayerClassData);
 
             combatController.InitializeCombatController(PlayerClassData);
+
 
             Initialize();
 
