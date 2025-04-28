@@ -8,13 +8,13 @@ namespace ContradictiveGames
         public override void StateEnter(GameManager gameManager)
         {
             CustomDebugger.Log("<color=green>GAME STATE: </color>Entered ACTIVE state");
-           gameManager.currentActiveGameTimer.Value = gameManager.MaxGameTime;
+            gameManager.CurrentActiveGameTimer.Value = gameManager.MaxGameTime.Value;
         }
 
         public override void StateUpdate(GameManager gameManager)
         {
-            gameManager.currentActiveGameTimer.Value -= Time.deltaTime;
-            if(gameManager.currentActiveGameTimer.Value < 0f){
+            gameManager.CurrentActiveGameTimer.Value -= Time.deltaTime;
+            if(gameManager.CurrentActiveGameTimer.Value < 0f){
                 gameManager.ChangeGameState(gameManager.roundEndState, GameStateType.RoundEnd);
             }
         }

@@ -8,20 +8,24 @@ namespace ContradictiveGames
         public override void StateEnter(GameManager gameManager)
         {
             CustomDebugger.Log("<color=green>GAME STATE: </color>Entered COUNTDOWN state");
-            return;
+            
+            if(gameManager.gameSettings.skipCountdownTimer){
+                gameManager.ChangeGameState(gameManager.activeState, GameStateType.Active);
+                return;
+            }
+        }
+
+        public override void StateUpdate(GameManager gameManager)
+        {
+            gameManager.CurrentCountdownTimer.Value -= Time.deltaTime;
+            if(gameManager.CurrentCountdownTimer.Value < 0f){
+                gameManager.ChangeGameState(gameManager.activeState, GameStateType.Active);
+            }
         }
 
         public override void StateExit(GameManager gameManager)
         {
             return;
-        }
-
-        public override void StateUpdate(GameManager gameManager)
-        {
-            gameManager.currentCountdownTimer.Value -= Time.deltaTime;
-            if(gameManager.currentCountdownTimer.Value < 0f){
-                gameManager.ChangeGameState(gameManager.activeState, GameStateType.Active);
-            }
         }
     }
 }
