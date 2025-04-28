@@ -9,23 +9,24 @@ namespace ContradictiveGames.Player
     [RequireComponent(typeof(PlayerMovement), typeof(CombatController))]
     public class PlayerManager : NetworkBehaviour
     {
-        //Scriptable objects
-        [SerializeField] private PlayerClassData playerClassData;
-        [SerializeField] private InputReader inputReader;
+        [Header("Setup")]
+        public InputReader InputReader;
+        public GameObject CamerasPrefab;
+        public Transform FirePoint;
 
-        //Object refs
-        [SerializeField] private GameObject cameraSetup;
-        [SerializeField] private Transform firePoint;
+        [Header("Settings")]
+        public PlayerClassData PlayerClassData;
+        public PlayerSettings PlayerSettings;
 
-        //Private object refs
-        private Camera mainCamera;
+        //Components
+        [HideInInspector] public Rigidbody PlayerRB;
+        [HideInInspector] public Camera PlayerCamera;
+
+        //Private refs
         private CinemachineCamera virtualCam;
-        private Rigidbody _rigidbody;
-
-        //Script refs
-        private PlayerStats playerStats;
         private PlayerMovement playerMovement;
         private CombatController combatController;
+
 
         private void Start()
         {
@@ -34,72 +35,68 @@ namespace ContradictiveGames.Player
                 Initialize();
             }
 
-            if (playerClassData == null) CustomDebugger.LogError("No Player Class Data has been assigned!");
-            if (inputReader == null) CustomDebugger.LogError("No Input Reader has been assigned!");
+            if (PlayerClassData == null) CustomDebugger.LogError("No Player Class Data has been assigned!");
+            if (InputReader == null) CustomDebugger.LogError("No Input Reader has been assigned!");
 
-            if (cameraSetup == null) CustomDebugger.LogError("No Camera Setup has been assigned!");
+            if (CamerasPrefab == null) CustomDebugger.LogError("No Camera Setup has been assigned!");
 
-            if (mainCamera == null) CustomDebugger.LogError("No Main Camera has been assigned!");
+            if (PlayerCamera == null) CustomDebugger.LogError("No Main Camera has been assigned!");
             if (virtualCam == null) CustomDebugger.LogError("No Virtual Camera has been assigned!");
         }
 
         public override void OnNetworkSpawn()
         {
-            _rigidbody = GetComponent<Rigidbody>();
-            cameraSetup = Instantiate(cameraSetup);
-            cameraSetup.name = $"{gameObject.name} Camera Setup";
-            virtualCam = cameraSetup.GetComponentInChildren<CinemachineCamera>();
-            mainCamera = cameraSetup.GetComponentInChildren<Camera>();
+            PlayerRB = GetComponent<Rigidbody>();
+            CamerasPrefab = Instantiate(CamerasPrefab);
+            CamerasPrefab.name = $"{gameObject.name} Camera Setup";
+            virtualCam = CamerasPrefab.GetComponentInChildren<CinemachineCamera>();
+            PlayerCamera = CamerasPrefab.GetComponentInChildren<Camera>();
 
             // playerStats = GetComponent<PlayerStats>();
-            playerStats = new PlayerStats(playerClassData);
-            // playerStats.InitializeStats(playerClassData);
 
             playerMovement = GetComponent<PlayerMovement>();
             combatController = GetComponent<CombatController>();
             
-            playerMovement.InitializeStats(playerStats);
-            combatController.InitializeCombatController(playerClassData);
+            combatController.InitializeCombatController(PlayerClassData);
+
+            Initialize();
 
             if(IsOwner){
-                playerMovement.SetUpInput(inputReader, mainCamera, _rigidbody);
-                combatController.SetUpInput(inputReader, firePoint);
-                Initialize();
-            }
-            else{
-                DeInitialize();
+                playerMovement.Initialize(this);
+                combatController.Initialize(this);
             }
         }
 
 
         public override void OnDestroy()
         {
-            if(cameraSetup != null) Destroy(cameraSetup);
+            if(CamerasPrefab != null) Destroy(CamerasPrefab);
         }
 
 
         // Initialize self
         private void Initialize()
         {
+            if(IsOwner){
+                virtualCam.enabled = true;
+                PlayerCamera.enabled = true;
 
-            virtualCam.enabled = true;
-            mainCamera.enabled = true;
+                virtualCam.Priority = 100;
+                virtualCam.Follow = transform;
+                virtualCam.LookAt = transform;
 
-            virtualCam.Priority = 100;
-            virtualCam.Follow = transform;
-            virtualCam.LookAt = transform;
+            }
+            else
+            {
+                virtualCam.Priority = -1;
+                virtualCam.enabled = false;
+                PlayerCamera.enabled = false;
+                PlayerCamera.GetComponent<AudioListener>().enabled = false;
+            }
 
-            inputReader.EnablePlayerActions();
+            InputReader.EnablePlayerActions();
 
         }
 
-        //De-initialize self
-        private void DeInitialize()
-        {
-            virtualCam.enabled = false;
-            mainCamera.enabled = false;
-            mainCamera.GetComponent<AudioListener>().enabled = false;
-            // Destroy(cameraSetup);
-        }
     }
 }

@@ -574,6 +574,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   NetworkTransformExpanded: 1
+  AutoOwnerAuthorityTickOffset: 1
+  PositionInterpolationType: 0
+  RotationInterpolationType: 0
+  ScaleInterpolationType: 0
+  PositionLerpSmoothing: 1
+  PositionMaxInterpolationTime: 0.1
+  RotationLerpSmoothing: 1
+  RotationMaxInterpolationTime: 0.1
+  ScaleLerpSmoothing: 1
+  ScaleMaxInterpolationTime: 0.1
   AuthorityMode: 1
   TickSyncChildren: 0
   UseUnreliableDeltas: 0
@@ -626,10 +636,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  playerClassData: {fileID: 11400000, guid: e05b3b6df4593db4d9be45b84e2ab803, type: 2}
-  inputReader: {fileID: 11400000, guid: 48a06ea871c43654f8e1abe1cfdb3b4f, type: 2}
-  cameraSetup: {fileID: 6862325895268367958, guid: 6f163efcb9b0cad4da126ec09b002955, type: 3}
-  firePoint: {fileID: 6057873490990579316}
+  InputReader: {fileID: 11400000, guid: 48a06ea871c43654f8e1abe1cfdb3b4f, type: 2}
+  CamerasPrefab: {fileID: 6862325895268367958, guid: 6f163efcb9b0cad4da126ec09b002955, type: 3}
+  FirePoint: {fileID: 6057873490990579316}
+  PlayerClassData: {fileID: 11400000, guid: e05b3b6df4593db4d9be45b84e2ab803, type: 2}
+  PlayerSettings: {fileID: 11400000, guid: 19c9d24d99270bf43a10c9d3411c3d9c, type: 2}
+  PlayerRB: {fileID: 0}
+  PlayerCamera: {fileID: 0}
 --- !u!114 &765628224941427795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -644,35 +657,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   animator: {fileID: 4382209540313478013}
-  movementSlowdownCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.75
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.57916665
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0.002507741
-      outSlope: 0.002507741
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.32916665
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  lookSmoothing: 0.15
-  mouseHitLayer:
-    serializedVersion: 2
-    m_Bits: 192
-  interactionRadius: 0
 --- !u!114 &4598957121672742338
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,8 +4,10 @@ using UnityEngine;
 
 namespace ContradictiveGames.Player
 {
+    [DisallowMultipleComponent]
     public class CombatController : NetworkBehaviour
     {
+        private PlayerManager playerManager;
 
         private Transform firePoint;
         private InputReader inputReader;
@@ -16,11 +18,9 @@ namespace ContradictiveGames.Player
         private float lastPrimaryAttack;
         private float lastSecondaryAttack;
 
-        [Header("Settings")]
-        [SerializeField] private LayerMask enemyHitLayers;
 
-        [Header("DEBUG")]
-        public GameObject projectilePrefab;
+        private LayerMask enemyHitLayers;
+
 
         public override void OnNetworkDespawn()
         {
@@ -30,10 +30,13 @@ namespace ContradictiveGames.Player
             }
         }
 
-        public void SetUpInput(InputReader _inputReader, Transform _firePoint)
+        public void Initialize(PlayerManager _playerManager)
         {
-            inputReader = _inputReader;
-            firePoint = _firePoint;
+            playerManager = _playerManager;
+            enemyHitLayers = playerManager.PlayerSettings.EnemyHitLayers;
+
+            inputReader = playerManager.InputReader;
+            firePoint = playerManager.FirePoint;
 
             if (inputReader != null)
             {
@@ -146,7 +149,7 @@ namespace ContradictiveGames.Player
 
             if (attack.IsProjectile)
             {
-                GameObject projectile = Instantiate(projectilePrefab, origin, Quaternion.identity);
+                GameObject projectile = Instantiate(playerManager.PlayerSettings.ProjectilePrefab, origin, Quaternion.identity);
 
             }
             else

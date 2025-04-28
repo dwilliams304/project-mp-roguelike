@@ -1,6 +1,4 @@
-using System;
 using ContradictiveGames.Input;
-using ContradictiveGames.Systems.Stats;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -9,29 +7,17 @@ namespace ContradictiveGames.Player
     [DisallowMultipleComponent]
     public class PlayerMovement : NetworkBehaviour
     {
-
-        [Header("Setup")]
-        [SerializeField] private Animator animator;
-
-        [Header("Movement Settings")]
-        [SerializeField] private AnimationCurve movementSlowdownCurve;
-
-        [Header("Look Rotation Settings")]
-        [Range(0, 3)][SerializeField] private float lookSmoothing = 0.15f;
-        [SerializeField] private LayerMask mouseHitLayer;
-
-        [Header("Other Settings")]
-        [SerializeField] private float interactionRadius;
-        
         //Script refs
+        private PlayerManager playerManager;
+        private PlayerSettings playerSettings;
         private InputReader inputReader;
         
         //Components
+        private Animator animator;
         private Rigidbody rb;
         private Camera playerCamera;
 
-        //Properties
-        private Stat MoveSpeed;
+        //Private vars.
         private Vector3 lookTarget;
         private Vector3 lookPosition;
         private Vector2 moveInput;
@@ -39,19 +25,18 @@ namespace ContradictiveGames.Player
 
 #region Initialization/De-initialization
 
-        public void InitializeStats(PlayerStats playerStats) {
-            MoveSpeed = playerStats.BaseMoveSpeed;
-        }
-
         /// <summary>
         /// Initialize player actions, input actions, subscribe to events....
         /// </summary>
-        public void SetUpInput(InputReader _inputReader, Camera _camera, Rigidbody _rb)
+        public void Initialize(PlayerManager _playerManager)
         {
-            playerCamera = _camera;
-            rb = _rb;
+            playerManager = _playerManager;
+            playerSettings = playerManager.PlayerSettings;
 
-            inputReader = _inputReader;
+            rb = playerManager.PlayerRB;
+            playerCamera = playerManager.PlayerCamera;
+
+            inputReader = playerManager.InputReader;
             if (inputReader != null)
             {
                 inputReader.Move += OnMove;
@@ -62,6 +47,7 @@ namespace ContradictiveGames.Player
 
         public override void OnNetworkSpawn()
         {
+            animator = GetComponentInChildren<Animator>();
             enabled = IsOwner;
         }
 
@@ -90,6 +76,7 @@ namespace ContradictiveGames.Player
 
         private void FixedUpdate()
         {
+            
             MoveCharacter();
         }
 
@@ -119,9 +106,9 @@ namespace ContradictiveGames.Player
             float alignment = Vector3.Dot(lookPosition, moveVector);
             float alignment01 = (alignment + 1f) * 0.5f;
 
-            float curvedMultiplier = movementSlowdownCurve.Evaluate(alignment01);
+            float curvedMultiplier = playerSettings.MovementSlowdownCurve.Evaluate(alignment01);
 
-            Vector3 adjustedMovement = moveVector * MoveSpeed.Value * curvedMultiplier;
+            Vector3 adjustedMovement = moveVector * playerSettings.MoveSpeed * curvedMultiplier;
 
             rb.linearVelocity = adjustedMovement;
             //Move the rigidbody
@@ -140,7 +127,7 @@ namespace ContradictiveGames.Player
 
             Ray ray = playerCamera.ScreenPointToRay(mousePosition);
 
-            if (Physics.Raycast(ray, out RaycastHit hit, 100f, mouseHitLayer))
+            if (Physics.Raycast(ray, out RaycastHit hit, 100f, playerSettings.MouseHitLayer))
             {
                 lookTarget = hit.point;
             }
@@ -149,7 +136,7 @@ namespace ContradictiveGames.Player
 
             Quaternion rotation = Quaternion.LookRotation(lookPosition);
 
-            rb.MoveRotation(Quaternion.Slerp(rb.rotation, rotation, lookSmoothing));
+            rb.MoveRotation(Quaternion.Slerp(rb.rotation, rotation, playerSettings.LookSmoothing));
             // transform.rotation = Quaternion.Slerp(transform.rotation, rotation, lookSmoothing);
         }
 
