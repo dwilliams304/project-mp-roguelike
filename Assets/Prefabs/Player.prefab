@@ -701,11 +701,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af23ff732236b6446991936389881752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WallMaterial: {fileID: -876546973899608171, guid: d76beb55c7fdc5e49b501e27b011fbeb, type: 3}
+  WallMaterial: {fileID: 2100000, guid: 57d4d83ec8e958c4a9cb6f85c397b757, type: 2}
   PlayerCamera: {fileID: 0}
   WallMask:
     serializedVersion: 2
-    m_Bits: 96
+    m_Bits: 64
+  transitionDuration: 1
 --- !u!1 &7709522412101461514
 GameObject:
   m_ObjectHideFlags: 0

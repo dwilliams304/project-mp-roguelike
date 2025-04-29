@@ -6,40 +6,53 @@ namespace ContradictiveGames
     {
         public static int PositionID = Shader.PropertyToID("_PlayerPosition");
         public static int SizeID = Shader.PropertyToID("_Size");
+        public static int OpacityID = Shader.PropertyToID("_Opacity");
 
         [SerializeField] private Material WallMaterial;
         [SerializeField] private Camera PlayerCamera;
         [SerializeField] private LayerMask WallMask;
 
-        private Transform cameraTransform;
-        
+        [SerializeField] private float transitionDuration = 1f;
+        private float transitionTimer = 0f;
+        private float currentValue = 0f;
+
+        private bool isObstructed = false;
         
         private void Start(){
             PlayerCamera = Camera.main;
-            cameraTransform = PlayerCamera.transform;
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.DrawLine(cameraTransform.position, transform.position);
-            
         }
 
         private void Update()
         {
-            Vector3 origin = cameraTransform.position;
-            Vector3 dir = cameraTransform.position - transform.position;
-            float distance = Vector3.Distance(origin, transform.position);
 
-            if(Physics.Raycast(origin, dir, out RaycastHit hit, distance, WallMask)){
-                
-                    WallMaterial.SetFloat(SizeID, 1);
+            bool hitWall = CheckForObstructions();
 
+            if(isObstructed != hitWall){
+                isObstructed = hitWall;
+                transitionTimer = 0f;
             }
-            else WallMaterial.SetFloat(SizeID, 0);
+
+            if(transitionTimer < transitionDuration){
+                transitionTimer += Time.deltaTime;
+                float t = Mathf.Clamp01(transitionTimer / transitionDuration);
+                float target = isObstructed ? 1.5f : 0f;
+
+                currentValue = Mathf.Lerp(currentValue, target, t);
+
+                WallMaterial.SetFloat(SizeID, currentValue);
+                WallMaterial.SetFloat(OpacityID, currentValue);
+            }
+            
 
             Vector3 view = PlayerCamera.WorldToViewportPoint(transform.position);  
             WallMaterial.SetVector(PositionID, view);  
+        }
+
+        private bool CheckForObstructions(){
+            Vector3 dir = PlayerCamera.transform.position - transform.position;
+            Ray ray = new Ray(transform.position, dir.normalized);
+            if(Physics.Raycast(ray, 3000, WallMask)) return true;
+            else return false;
         }
     }
 }
