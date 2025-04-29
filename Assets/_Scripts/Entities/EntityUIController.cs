@@ -19,9 +19,11 @@ namespace ContradictiveGames
         private void OnEnable(){
             baseEntity.OnHealthChanged += UpdateHealthUI;
             baseEntity.MaxHealthChanged += UpdateMaxHealthUI;
+        }
 
+        private void Start(){
             healthSlider.maxValue = baseEntity.MaxHealth.Value;
-            healthSlider.value = baseEntity.CurrentHealth.Value;
+            healthSlider.value = baseEntity.CurrentHealth.Value; 
         }
 
         private void OnDisable(){

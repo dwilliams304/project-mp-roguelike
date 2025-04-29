@@ -19,6 +19,12 @@ namespace ContradictiveGames
         [Tooltip("How long the countdown timer will go. (In seconds)")]
         public float CountdownTimer = 10;
 
+        [Header("UI Settings")]
+        public bool ShowWorldSpaceUI = true;
+        public Color FriendlyColor = Color.blue;
+        public Color EnemyColor = Color.red;
+
+
         [Header("Development Settings")]
         public ConsoleLogLevel consoleLogLevel = ConsoleLogLevel.NecessaryOnly;
         public bool skipCountdownTimer = false;

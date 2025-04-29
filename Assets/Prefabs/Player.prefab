@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8499150719661347576}
   - component: {fileID: 1600495344127257396}
   - component: {fileID: 1220139489575560092}
+  - component: {fileID: 2451619639716486887}
   m_Layer: 0
   m_Name: WorldSpaceCanvas
   m_TagString: Untagged
@@ -116,6 +117,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67ddee9cdf247f04ebb7efeb305d7519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2451619639716486887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66180219411502637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a5031b003dac7d42a0b9811c6155d4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthSlider: {fileID: 1741129175643055140}
+  usernameText: {fileID: 3409818427562927001}
+  healthBarFill: {fileID: 589830575885863412}
 --- !u!1 &1921540548564666829
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,7 +476,6 @@ GameObject:
   - component: {fileID: 7884818234992944918}
   - component: {fileID: 765628224941427795}
   - component: {fileID: 4598957121672742338}
-  - component: {fileID: 1153921606669003130}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -645,6 +660,41 @@ MonoBehaviour:
   PlayerStats: {fileID: 0}
   PlayerRB: {fileID: 0}
   PlayerCamera: {fileID: 0}
+  Username:
+    m_InternalValue:
+      utf8LengthInBytes: 0
+      bytes:
+        offset0000:
+          byte0000: 0
+          byte0001: 0
+          byte0002: 0
+          byte0003: 0
+          byte0004: 0
+          byte0005: 0
+          byte0006: 0
+          byte0007: 0
+          byte0008: 0
+          byte0009: 0
+          byte0010: 0
+          byte0011: 0
+          byte0012: 0
+          byte0013: 0
+          byte0014: 0
+          byte0015: 0
+        byte0016: 0
+        byte0017: 0
+        byte0018: 0
+        byte0019: 0
+        byte0020: 0
+        byte0021: 0
+        byte0022: 0
+        byte0023: 0
+        byte0024: 0
+        byte0025: 0
+        byte0026: 0
+        byte0027: 0
+        byte0028: 0
+        byte0029: 0
 --- !u!114 &7884818234992944918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -694,23 +744,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
---- !u!114 &1153921606669003130
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6775787575496729782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 541b72d096c767743a2e009957585b15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  worldSpaceUI: {fileID: 66180219411502637}
-  healthBar: {fileID: 1741129175643055140}
-  username: {fileID: 3409818427562927001}
-  showEvenIfOwner: 1
 --- !u!1 &7709522412101461514
 GameObject:
   m_ObjectHideFlags: 0

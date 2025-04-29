@@ -1,6 +1,7 @@
 using ContradictiveGames.Input;
 using ContradictiveGames.Managers;
 using Unity.Cinemachine;
+using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -34,6 +35,8 @@ namespace ContradictiveGames.Player
         private PlayerMovement playerMovement;
         private CombatController combatController;
 
+        public NetworkVariable<FixedString32Bytes> Username = new();
+
 
         public override void OnNetworkSpawn()
         {
@@ -44,14 +47,15 @@ namespace ContradictiveGames.Player
             virtualCam = CamerasPrefab.GetComponentInChildren<CinemachineCamera>();
             PlayerCamera = CamerasPrefab.GetComponentInChildren<Camera>();
 
-            // playerStats = GetComponent<PlayerStats>();
-
             playerMovement = GetComponent<PlayerMovement>();
             combatController = GetComponent<CombatController>();
             PlayerStats.InitializeStats(PlayerClassData);
 
             combatController.InitializeCombatController(PlayerClassData);
 
+            if(IsServer){
+                Username.Value = $"Player {Random.Range(0, 100)}";
+            }
 
             Initialize();
 
@@ -61,6 +65,7 @@ namespace ContradictiveGames.Player
             {
                 playerMovement.Initialize(this);
                 combatController.Initialize(this);
+
             }
         }
 

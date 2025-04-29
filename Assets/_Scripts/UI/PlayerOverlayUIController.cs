@@ -38,6 +38,9 @@ namespace ContradictiveGames
 
             UpdateLevelText(stats.CurrentLevel.Value);
         }
+
+
+
         private void OnDestroy()
         {
             stats.CurrentHealth.OnValueChanged -= UpdateHealth;

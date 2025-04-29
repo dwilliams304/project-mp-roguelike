@@ -1,4 +1,5 @@
 using System.Collections;
+using ContradictiveGames.Managers;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -27,6 +28,14 @@ namespace ContradictiveGames.Player
             }
         }
 
+        private void Start(){
+            GameManager.Instance.GameStateChanged += GameStart;
+        }
+
+        public override void OnDestroy(){
+            GameManager.Instance.GameStateChanged -= GameStart;
+        }
+
 
         [ServerRpc]
         private void InitializeStatsServerRpc(int maxHealth)
@@ -38,7 +47,15 @@ namespace ContradictiveGames.Player
             CurrentXP.Value = 0;
         }
 
-
+        private void GameStart(GameStateType state){
+            if(state == GameStateType.Active){
+                RequestToChangeHealthServerRpc(MaxHealth.Value);
+            }
+        }
+        [ServerRpc(RequireOwnership = false)]
+        private void RequestToChangeHealthServerRpc(int amount){
+            CurrentHealth.Value = amount;
+        }
 
         public void TakeDamage(int amount)
         {
