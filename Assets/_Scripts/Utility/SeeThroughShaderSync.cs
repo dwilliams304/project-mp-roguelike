@@ -19,12 +19,22 @@ namespace ContradictiveGames
             cameraTransform = PlayerCamera.transform;
         }
 
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawLine(cameraTransform.position, transform.position);
+            
+        }
+
         private void Update()
         {
+            Vector3 origin = cameraTransform.position;
             Vector3 dir = cameraTransform.position - transform.position;
-            Ray Ray = new Ray(transform.position, dir.normalized);
-            if(Physics.Raycast(Ray, 3000, WallMask)){
-                WallMaterial.SetFloat(SizeID, 1);
+            float distance = Vector3.Distance(origin, transform.position);
+
+            if(Physics.Raycast(origin, dir, out RaycastHit hit, distance, WallMask)){
+                
+                    WallMaterial.SetFloat(SizeID, 1);
+
             }
             else WallMaterial.SetFloat(SizeID, 0);
 

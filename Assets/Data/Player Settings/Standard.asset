@@ -40,7 +40,7 @@ MonoBehaviour:
   LookSmoothing: 0.15
   MouseHitLayer:
     serializedVersion: 2
-    m_Bits: 1216
+    m_Bits: 1160
   DamageableLayers:
     serializedVersion: 2
     m_Bits: 1152

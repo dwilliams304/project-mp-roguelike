@@ -45,14 +45,14 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: PlayerSelfCanvas
-    uniqueID: 2616758373
+  - name: EnemyCanvas
+    uniqueID: 3284518393
     locked: 0
   - name: PlayerOtherCanvas
     uniqueID: 4130701343
     locked: 0
-  - name: EnemyCanvas
-    uniqueID: 3284518393
+  - name: PlayerSelfCanvas
+    uniqueID: 2616758373
     locked: 0
   m_RenderingLayers:
   - Default

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8565319329441439492}
   - component: {fileID: 8499150719661347576}
   - component: {fileID: 1600495344127257396}
-  - component: {fileID: 1220139489575560092}
+  - component: {fileID: 8135414147766846878}
   - component: {fileID: 2451619639716486887}
   m_Layer: 5
   m_Name: WorldSpaceCanvas
@@ -28,7 +28,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 66180219411502637}
-  m_LocalRotation: {x: 0.21937908, y: -0.5125307, z: 0.13733219, w: 0.8187338}
+  m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.007, y: 0.007, z: 1}
   m_ConstrainProportionsScale: 0
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &1220139489575560092
+--- !u!114 &8135414147766846878
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -705,7 +705,7 @@ MonoBehaviour:
   PlayerCamera: {fileID: 0}
   WallMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 96
 --- !u!1 &7709522412101461514
 GameObject:
   m_ObjectHideFlags: 0
