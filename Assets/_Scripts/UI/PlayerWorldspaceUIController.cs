@@ -10,6 +10,7 @@ namespace ContradictiveGames
     public class PlayerWorldspaceUIController : MonoBehaviour
     {
         private Canvas worldSpaceCanvas;
+        public const string WorldSpaceCameraName = "WorldSpaceCam";
 
         [SerializeField] private Slider healthSlider;
         [SerializeField] private TMP_Text usernameText;
@@ -26,8 +27,10 @@ namespace ContradictiveGames
             if(!GameManager.Instance.gameSettings.ShowWorldSpaceUI && playerManager.IsOwner ) {
                 gameObject.SetActive(false);
             }
+            
             worldSpaceCanvas = GetComponent<Canvas>();
-            worldSpaceCanvas.worldCamera = Camera.main;
+            Camera worldSpaceCam = GameObject.Find(WorldSpaceCameraName).GetComponent<Camera>();
+            if(worldSpaceCam != null) worldSpaceCanvas.worldCamera = worldSpaceCam;
             healthBarFill = healthSlider.fillRect.GetComponent<Image>();
 
             playerStats.MaxHealth.OnValueChanged += UpdateHealthBarSliderMax;

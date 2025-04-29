@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1600495344127257396}
   - component: {fileID: 1220139489575560092}
   - component: {fileID: 2451619639716486887}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: WorldSpaceCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,7 +141,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6327742835313721425}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Health/XP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 5585189212956793552}
   - component: {fileID: 1007085199820265268}
   - component: {fileID: 1741129175643055140}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,7 +307,7 @@ GameObject:
   - component: {fileID: 3009973486281231951}
   - component: {fileID: 6556420935819734661}
   - component: {fileID: 589830575885863412}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -420,6 +420,7 @@ GameObject:
   - component: {fileID: 7884818234992944918}
   - component: {fileID: 765628224941427795}
   - component: {fileID: 4598957121672742338}
+  - component: {fileID: 7626460847489123203}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -688,6 +689,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+--- !u!114 &7626460847489123203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6775787575496729782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af23ff732236b6446991936389881752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WallMaterial: {fileID: -876546973899608171, guid: d76beb55c7fdc5e49b501e27b011fbeb, type: 3}
+  PlayerCamera: {fileID: 0}
+  WallMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &7709522412101461514
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,7 +717,7 @@ GameObject:
   - component: {fileID: 1891615176296487867}
   - component: {fileID: 961264392461432649}
   - component: {fileID: 3409818427562927001}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Username
   m_TagString: Untagged
   m_Icon: {fileID: 0}
