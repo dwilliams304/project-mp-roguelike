@@ -1,5 +1,6 @@
 using System;
 using Unity.Netcode;
+using UnityEngine;
 
 namespace ContradictiveGames
 {
@@ -28,6 +29,8 @@ namespace ContradictiveGames
             if(IsServer){
                 InitializeEntity();
             }
+            Canvas worldSpaceCanvas = GetComponentInChildren<Canvas>();
+            if(worldSpaceCanvas != null) worldSpaceCanvas.worldCamera = Camera.main;
         }
 
         public override void OnNetworkSpawn()

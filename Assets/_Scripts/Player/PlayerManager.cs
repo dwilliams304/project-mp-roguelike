@@ -100,13 +100,15 @@ namespace ContradictiveGames.Player
             {
                 virtualCam.enabled = true;
                 PlayerCamera.enabled = true;
+                PlayerCamera.tag = "MainCamera";
+                
 
                 virtualCam.Priority = 100;
                 virtualCam.Follow = transform;
                 virtualCam.LookAt = transform;
 
                 gameObject.tag = Constants.PlayerSelfTag;
-                gameObject.layer = LayerMask.NameToLayer(Constants.PlayerSelfTag);
+                SetGameLayerRecursive(gameObject, LayerMask.NameToLayer(Constants.PlayerSelfTag));
 
             }
             else
@@ -117,11 +119,25 @@ namespace ContradictiveGames.Player
                 PlayerCamera.GetComponent<AudioListener>().enabled = false;
 
                 gameObject.tag = Constants.PlayerOtherTag_PVP;
-                gameObject.layer = LayerMask.NameToLayer(Constants.PlayerOtherTag_PVP);
+                SetGameLayerRecursive(gameObject, LayerMask.NameToLayer(Constants.PlayerOtherTag_PVP));
             }
 
             InputReader.EnablePlayerActions();
 
+        }
+
+        private void SetGameLayerRecursive(GameObject _go, int _layer)
+        {
+            _go.layer = _layer;
+            foreach (Transform child in _go.transform)
+            {
+                child.gameObject.layer = _layer;
+
+                Transform _HasChildren = child.GetComponentInChildren<Transform>();
+                if (_HasChildren != null)
+                    SetGameLayerRecursive(child.gameObject, _layer);
+              
+            }
         }
 
         private void OnGameActive(GameStateType state)
@@ -132,7 +148,7 @@ namespace ContradictiveGames.Player
                 {
                     // Change this player's tag and layer because they are someone else's view
                     gameObject.tag = Constants.PlayerOtherTag_NoPVP;
-                    gameObject.layer = LayerMask.NameToLayer(Constants.PlayerOtherTag_NoPVP);
+                    SetGameLayerRecursive(gameObject, LayerMask.NameToLayer(Constants.PlayerOtherTag_NoPVP));
                 }
             }
         }

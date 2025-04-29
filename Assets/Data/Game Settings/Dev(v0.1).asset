@@ -15,7 +15,7 @@ MonoBehaviour:
   MaxGameTime: 36000
   CountdownTimer: 10
   ShowWorldSpaceUI: 1
-  FriendlyColor: {r: 0.24056602, g: 0.6041887, b: 1, a: 1}
-  EnemyColor: {r: 0.990566, g: 0.4812656, b: 0.4812656, a: 1}
+  FriendlyColor: {r: 0.08962262, g: 0.52604073, b: 1, a: 1}
+  EnemyColor: {r: 1, g: 0, b: 0, a: 1}
   consoleLogLevel: 3
   skipCountdownTimer: 1
