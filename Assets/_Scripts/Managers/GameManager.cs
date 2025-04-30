@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using ContradictiveGames.State;
 
 public enum GameStateType
 {
@@ -35,30 +36,18 @@ namespace ContradictiveGames.Managers
         public NetworkVariable<float> CurrentActiveGameTimer = new NetworkVariable<float>(0f); //Current time for active game
 
         //States
-        private GameState CurrentGameState;
-        public WaitingState waitingState;
-        public CountdownState countdownState;
-        public ActiveState activeState;
-        public RoundEndState roundEndState;
-        public GameOverState gameOverState;
+        private GameStateMachine gameStateMachine;
 
         //Private variables
         private Dictionary<ulong, bool> playersReadyDictionary;
 
 
-        private void Awake()
-        {
-            Instance = this;
-        }
-
+        private void Awake() => Instance = this;
 
         public override void OnNetworkSpawn()
         {
-            waitingState = new WaitingState();
-            countdownState = new CountdownState();
-            activeState = new ActiveState();
-            roundEndState = new RoundEndState();
-            gameOverState = new GameOverState();
+            gameStateMachine = new GameStateMachine();
+            gameStateMachine.InitializeStateMachine();
 
             playersReadyDictionary = new Dictionary<ulong, bool>();
 
@@ -72,6 +61,7 @@ namespace ContradictiveGames.Managers
 
         }
 
+
         private void OnClientConnected(ulong clientId)
         {
             if (!playersReadyDictionary.ContainsKey(clientId))
@@ -80,9 +70,9 @@ namespace ContradictiveGames.Managers
             }
         }
 
+
         private void InitializeGameSettings()
         {
-            CurrentGameStateType.Value = GameStateType.Waiting;
             CurrentCountdownTimer.Value = gameSettings.CountdownTimer; //Current time for countdown
             MaxGameTime.Value = gameSettings.MaxGameTime;
 
@@ -90,15 +80,29 @@ namespace ContradictiveGames.Managers
             {
                 playersReadyDictionary[client.ClientId] = false;
             }
-
-            ChangeGameState(waitingState, GameStateType.Waiting);
+            
         }
 
 
-        private void OnGameStateChanged(GameStateType prevState, GameStateType newState)
+        public void UpdateState(StateNode<GameStateMachine> stateNode){
+            if(!IsServer) return;
+            CurrentGameStateType.Value = GetStateType(stateNode);
+        }
+
+        private GameStateType GetStateType(StateNode<GameStateMachine> state)
         {
-            GameStateChanged?.Invoke(newState);
+            return state switch
+            {
+                WaitingState => GameStateType.Waiting,
+                CountdownState => GameStateType.Countdown,
+                ActiveState => GameStateType.Active,
+                RoundEndState => GameStateType.RoundEnd,
+                GameOverState => GameStateType.GameOver,
+                _ => throw new System.ArgumentException("Unknown state passed to GetStateType")
+            };
         }
+        private void OnGameStateChanged(GameStateType prevState, GameStateType newState) => GameStateChanged?.Invoke(newState);
+
 
         public override void OnDestroy()
         {
@@ -111,22 +115,9 @@ namespace ContradictiveGames.Managers
         {
             if (!IsServer) return;
 
-            if (CurrentGameState != null) CurrentGameState.StateUpdate(this);
+            if (gameStateMachine.currentState != null) gameStateMachine.StateUpdate();
         }
 
-
-        public void ChangeGameState(GameState newState, GameStateType newGameStateType)
-        {
-            if (CurrentGameState != null)
-            {
-                CurrentGameState.StateExit(this);
-            }
-
-            CurrentGameState = newState;
-            CurrentGameStateType.Value = newGameStateType;
-            CurrentGameState.StateEnter(this);
-
-        }
 
         [ServerRpc(RequireOwnership = false)]
         public void PlayerReadyServerRpc(bool isReady, ServerRpcParams rpcParams = default)
@@ -151,7 +142,12 @@ namespace ContradictiveGames.Managers
 
             if (allAreReady)
             {
-                ChangeGameState(countdownState, GameStateType.Countdown);
+                if(gameSettings.skipCountdownTimer){
+                    gameStateMachine.ChangeState(gameStateMachine.ActiveState);
+                }
+                else{
+                    gameStateMachine.ChangeState(gameStateMachine.CountdownState);
+                }
             }
         }
     }

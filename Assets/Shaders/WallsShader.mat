@@ -49,7 +49,7 @@ Material:
     - _Smoothness: 1
     m_Colors:
     - _NoiseSpeed: {r: 0.1, g: 0.1, b: 0, a: 0}
-    - _PlayerPosition: {r: 0.49097848, g: 0.43905446, b: 39.739098, a: 0}
+    - _PlayerPosition: {r: 0.49999994, g: 0.44999993, b: 39.99999, a: 0}
     - _Tint: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

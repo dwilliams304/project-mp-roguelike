@@ -62,14 +62,16 @@ namespace ContradictiveGames.Player
             }
 
             Initialize();
+            SeeThroughShaderSync sts = GetComponent<SeeThroughShaderSync>();
 
             ErrorChecks();
+
+            if(sts != null) sts.enabled = IsOwner;
 
             if (IsOwner)
             {
                 playerMovement.Initialize(this);
                 combatController.Initialize(this);
-
             }
         }
 
@@ -126,7 +128,7 @@ namespace ContradictiveGames.Player
                 // CamerasPrefab.gameObject.SetActive(false);
 
                 gameObject.tag = Constants.PlayerOtherTag_PVP;
-                SetGameLayerRecursive(gameObject, LayerMask.NameToLayer(Constants.PlayerOtherTag_PVP), true);
+                SetGameLayerRecursive(gameObject, LayerMask.NameToLayer(Constants.PlayerOtherTag_PVP));
             }
 
             InputReader.EnablePlayerActions();
@@ -139,6 +141,7 @@ namespace ContradictiveGames.Player
             foreach (Transform child in _go.transform)
             {
                 if(child.gameObject.layer == uiLayer && !changeUILayer) continue;
+                
                 child.gameObject.layer = _layer;
 
                 Transform _HasChildren = child.GetComponentInChildren<Transform>();
