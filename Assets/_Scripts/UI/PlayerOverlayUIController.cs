@@ -23,6 +23,7 @@ namespace ContradictiveGames
         {
             stats = _stats;
 
+            if(stats == null) return;
             stats.CurrentHealth.OnValueChanged += UpdateHealth;
             stats.MaxHealth.OnValueChanged += UpdateHealthMax;
             stats.CurrentLevel.OnValueChanged += UpdateCurrentLevel;
@@ -43,6 +44,7 @@ namespace ContradictiveGames
 
         private void OnDestroy()
         {
+            if(stats == null) return;
             stats.CurrentHealth.OnValueChanged -= UpdateHealth;
             stats.MaxHealth.OnValueChanged -= UpdateHealthMax;
             stats.CurrentLevel.OnValueChanged -= UpdateCurrentLevel;

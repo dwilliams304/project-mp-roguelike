@@ -17,7 +17,6 @@ namespace ContradictiveGames.State
             GameManager.Instance.CurrentActiveGameTimer.Value -= Time.deltaTime;
             if(GameManager.Instance.CurrentActiveGameTimer.Value < 0f){
                 stateMachine.ChangeState(stateMachine.RoundEndState);
-                GameManager.Instance.UpdateState(this);
             }
         }
 

@@ -29,7 +29,7 @@ namespace ContradictiveGames.State
 
         public override void ChangeState(StateNode<GameStateMachine> newState)
         {
-            base.ChangeState(newState);
+            base.ChangeState(newState); 
             if(manager != null) manager.UpdateState(newState);
         }
     }

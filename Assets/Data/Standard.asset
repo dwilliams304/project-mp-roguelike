@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19f8446b1842a3e40aa25fc03ef1b145, type: 3}
+  m_Name: Standard
+  m_EditorClassIdentifier: 
+  BackColor: {r: 0, g: 0, b: 0, a: 1}
+  DragBarColor: {r: 1, g: 1, b: 1, a: 1}
+  ScrollBarHandleColor: {r: 1, g: 1, b: 1, a: 1}
+  ScrollBarBackgroundColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  InputFieldColor: {r: 0, g: 0, b: 0, a: 1}
+  ShowInputFieldCursosr: 0
+  InputCursorThickness: 0
+  InputCursorColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  InputTextColor: {r: 1, g: 1, b: 1, a: 1}
+  MaxConsoleLogs: 200
+  ConsoleErrorColor: {r: 1, g: 0, b: 0, a: 1}
+  ConsoleAssertColor: {r: 0, g: 1, b: 0, a: 1}
+  ConsoleExceptionColor: {r: 1, g: 0, b: 0, a: 1}
+  ConsoleWarningColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  ConsoleNormalColor: {r: 1, g: 1, b: 1, a: 1}
+  ShowStackTraceInOutput: 0
+  AutoScrollToBottom: 0

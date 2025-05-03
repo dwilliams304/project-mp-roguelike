@@ -27,6 +27,10 @@ namespace ContradictiveGames.Input
         public event UnityAction Ability1 = delegate { };
         public event UnityAction Ability2 = delegate { };
         public event UnityAction Ability3 = delegate { };
+        public event UnityAction Ability4 = delegate { };
+        
+        public event UnityAction Pause = delegate { };
+        public event UnityAction Debug = delegate { };
 
 #endregion
 
@@ -46,13 +50,11 @@ namespace ContradictiveGames.Input
 
 #region Movement Controls
 
-        public void OnMove(InputAction.CallbackContext context)
-        {
+        public void OnMove(InputAction.CallbackContext context){
             Move.Invoke(context.ReadValue<Vector2>());
         }
 
-        public void OnLook(InputAction.CallbackContext context)
-        {
+        public void OnLook(InputAction.CallbackContext context){
             Look.Invoke(context.ReadValue<Vector2>());
         }
 
@@ -60,13 +62,11 @@ namespace ContradictiveGames.Input
 
 #region Combat Controls
 
-        public void OnMainAttack(InputAction.CallbackContext context)
-        {
+        public void OnMainAttack(InputAction.CallbackContext context){
             if(context.performed) MainAttack.Invoke();
         }
 
-        public void OnSecondaryAttack(InputAction.CallbackContext context)
-        {
+        public void OnSecondaryAttack(InputAction.CallbackContext context){
             if(context.performed) SecondaryAttack.Invoke();
         }
 
@@ -79,17 +79,31 @@ namespace ContradictiveGames.Input
         public void OnAbility3(InputAction.CallbackContext context){
             if(context.performed) Ability3.Invoke();
         }
+        public void OnAbility4(InputAction.CallbackContext context){
+           if(context.performed) Ability4.Invoke();
+        }
+
 
 #endregion
 
 #region Misc. Controls
+
 
         public void OnInteract(InputAction.CallbackContext context)
         {
             if(context.performed) Interact.Invoke();
         }
 
-#endregion
+        public void OnPause(InputAction.CallbackContext context)
+        {
+            if(context.performed) Pause.Invoke();
+        }
+
+        public void OnDebug(InputAction.CallbackContext context){
+            if(context.performed) Debug.Invoke();
+        }
+
+        #endregion
 
     }
 }

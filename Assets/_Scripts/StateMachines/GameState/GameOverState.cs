@@ -1,4 +1,3 @@
-using ContradictiveGames.Managers;
 
 namespace ContradictiveGames.State
 {

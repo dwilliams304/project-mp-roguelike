@@ -62,10 +62,10 @@ namespace ContradictiveGames.Player
             }
 
             Initialize();
-            SeeThroughShaderSync sts = GetComponent<SeeThroughShaderSync>();
 
             ErrorChecks();
 
+            SeeThroughShaderSync sts = GetComponent<SeeThroughShaderSync>();
             if(sts != null) sts.enabled = IsOwner;
 
             if (IsOwner)
@@ -120,12 +120,6 @@ namespace ContradictiveGames.Player
             else
             {
                 Destroy(CamerasPrefab);
-                // virtualCam.Priority = -1;
-                // virtualCam.enabled = false;
-                // PlayerCamera.enabled = false;
-                // PlayerCamera.GetComponent<AudioListener>().enabled = false;
-
-                // CamerasPrefab.gameObject.SetActive(false);
 
                 gameObject.tag = Constants.PlayerOtherTag_PVP;
                 SetGameLayerRecursive(gameObject, LayerMask.NameToLayer(Constants.PlayerOtherTag_PVP));
