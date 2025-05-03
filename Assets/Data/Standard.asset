@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19f8446b1842a3e40aa25fc03ef1b145, type: 3}
   m_Name: Standard
   m_EditorClassIdentifier: 
-  BackColor: {r: 0, g: 0, b: 0, a: 1}
-  DragBarColor: {r: 1, g: 1, b: 1, a: 1}
+  BackColor: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
+  DragBarColor: {r: 0, g: 1, b: 0.76493406, a: 1}
   ScrollBarHandleColor: {r: 1, g: 1, b: 1, a: 1}
   ScrollBarBackgroundColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   InputFieldColor: {r: 0, g: 0, b: 0, a: 1}
@@ -22,10 +22,10 @@ MonoBehaviour:
   InputCursorColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   InputTextColor: {r: 1, g: 1, b: 1, a: 1}
   MaxConsoleLogs: 200
-  ConsoleErrorColor: {r: 1, g: 0, b: 0, a: 1}
-  ConsoleAssertColor: {r: 0, g: 1, b: 0, a: 1}
-  ConsoleExceptionColor: {r: 1, g: 0, b: 0, a: 1}
-  ConsoleWarningColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  ConsoleNormalColor: {r: 1, g: 1, b: 1, a: 1}
-  ShowStackTraceInOutput: 0
+  LogErrorColor: {r: 1, g: 0, b: 0, a: 1}
+  LogAssertColor: {r: 0, g: 1, b: 0, a: 1}
+  LogExceptionColor: {r: 1, g: 0, b: 0, a: 1}
+  LogWarningColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  LogNormalColor: {r: 1, g: 1, b: 1, a: 1}
+  ShowStackTraceInOutput: 1
   AutoScrollToBottom: 0

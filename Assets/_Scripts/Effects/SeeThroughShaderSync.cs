@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ContradictiveGames
+namespace ContradictiveGames.Effects
 {
     public class SeeThroughShaderSync : MonoBehaviour
     {
@@ -49,7 +49,7 @@ namespace ContradictiveGames
         }
 
         private bool CheckForObstructions(){
-            Vector3 dir = PlayerCamera.transform.position - transform.position;
+            Vector3 dir = PlayerCamera.transform.position.WithY(0.5f) - transform.position;
             Ray ray = new Ray(transform.position, dir.normalized);
             if(Physics.Raycast(ray, 3000, WallMask)) return true;
             else return false;

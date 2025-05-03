@@ -1,5 +1,6 @@
 using ContradictiveGames.Input;
 using ContradictiveGames.Managers;
+using ContradictiveGames.Effects;
 using Unity.Cinemachine;
 using Unity.Collections;
 using Unity.Netcode;
