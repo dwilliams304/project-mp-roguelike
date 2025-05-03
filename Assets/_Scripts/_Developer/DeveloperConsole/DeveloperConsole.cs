@@ -1,4 +1,5 @@
 using System;
+using ContradictiveGames.Input;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,7 @@ namespace ContradictiveGames.Dev
 
         [Header("Settings")]
         public ConsoleSettings consoleSettings;
+        [SerializeField] private InputReader inputReader;
 
         [Header("Console Refs")]
         [SerializeField] private CanvasGroup consolePanel;
@@ -22,16 +24,25 @@ namespace ContradictiveGames.Dev
         [SerializeField] private ScrollRect scrollRect;
         [SerializeField] private Scrollbar scrollbar;
 
+        [Header("Console Graphics Refs")]
+        [SerializeField] private Image consoleDragbar;
+        [SerializeField] private Image consoleBackground;
+
         private bool consoleShowing = false;
 
 
         private void OnEnable()
         {
             Application.logMessageReceived += HandleUnityLog;
+            if(inputReader != null){
+                inputReader.Debug -= ToggleDeveloperConsole;
+                inputReader.Debug += ToggleDeveloperConsole;
+            }
         }
 
         private void OnDisable()
         {
+            if(inputReader != null) inputReader.Debug -= ToggleDeveloperConsole;
             Application.logMessageReceived -= HandleUnityLog;
 
         }
@@ -54,18 +65,16 @@ namespace ContradictiveGames.Dev
                 return;
             }
 
-            // if (transform.parent != null) transform.SetParent(null);
-
-            if (Instance == null)
-            {
-                Instance = this;
-            }
+            if (Instance == null) Instance = this;
             else if(Instance != this)
             {
                 Debug.LogWarning("Found duplicate DeveloperConsole Instance, destroying");
+                Destroy(this);
             }
+
             DontDestroyOnLoad(gameObject);
         }
+
 
         public void ToggleDeveloperConsole()
         {
@@ -74,17 +83,28 @@ namespace ContradictiveGames.Dev
             {
                 consolePanel.blocksRaycasts = true;
                 consolePanel.alpha = 1;
+                consolePanel.interactable = true;
             }
             else
             {
                 consolePanel.blocksRaycasts = false;
                 consolePanel.alpha = 0;
+                consolePanel.interactable = false;
             }
         }
 
         private void InitializeConsoleSettings()
         {
+            consolePanel.blocksRaycasts = false;
+            consolePanel.alpha = 0;
+            consolePanel.interactable = false;
 
+            SetColors();
+        }
+
+        private void SetColors(){
+            consoleBackground.color = consoleSettings.BackColor;
+            consoleDragbar.color = consoleSettings.DragBarColor;
         }
 
 

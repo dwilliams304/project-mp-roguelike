@@ -114,7 +114,7 @@ namespace ContradictiveGames.Player
                 virtualCam.LookAt = transform;
 
                 gameObject.tag = Constants.PlayerSelfTag;
-                SetGameLayerRecursive(gameObject, LayerMask.NameToLayer(Constants.PlayerSelfTag));
+                gameObject.SetLayersRecursive(LayerMask.NameToLayer(Constants.PlayerSelfTag));
 
             }
             else
@@ -122,28 +122,13 @@ namespace ContradictiveGames.Player
                 Destroy(CamerasPrefab);
 
                 gameObject.tag = Constants.PlayerOtherTag_PVP;
-                SetGameLayerRecursive(gameObject, LayerMask.NameToLayer(Constants.PlayerOtherTag_PVP));
+                gameObject.SetLayersRecursive(LayerMask.NameToLayer(Constants.PlayerOtherTag_PVP));
             }
 
             InputReader.EnablePlayerActions();
 
         }
 
-        private void SetGameLayerRecursive(GameObject _go, int _layer, bool changeUILayer = false)
-        {
-            _go.layer = _layer;
-            foreach (Transform child in _go.transform)
-            {
-                if(child.gameObject.layer == uiLayer && !changeUILayer) continue;
-                
-                child.gameObject.layer = _layer;
-
-                Transform _HasChildren = child.GetComponentInChildren<Transform>();
-                if (_HasChildren != null)
-                    SetGameLayerRecursive(child.gameObject, _layer);
-              
-            }
-        }
 
         private void OnGameActive(GameStateType state)
         {
@@ -153,7 +138,7 @@ namespace ContradictiveGames.Player
                 {
                     // Change this player's tag and layer because they are someone else's view
                     gameObject.tag = Constants.PlayerOtherTag_NoPVP;
-                    SetGameLayerRecursive(gameObject, LayerMask.NameToLayer(Constants.PlayerOtherTag_NoPVP));
+                    gameObject.SetLayersRecursive(LayerMask.NameToLayer(Constants.PlayerOtherTag_NoPVP));
                 }
             }
         }

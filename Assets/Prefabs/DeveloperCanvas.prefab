@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.16078432, g: 0.23921569, b: 0.2627451, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -448,7 +448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -583,12 +583,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   consoleSettings: {fileID: 11400000, guid: 023652aa77f5c9a4080055cd28ccc366, type: 2}
+  inputReader: {fileID: 11400000, guid: 48a06ea871c43654f8e1abe1cfdb3b4f, type: 2}
   consolePanel: {fileID: 6111534524134586392}
   logEntriesContainer: {fileID: 312365853916660348}
   logEntryPrefab: {fileID: 1327593407833321334, guid: a2e8ecc1ee84b3a4db4f214185aabeaa, type: 3}
   consoleInput: {fileID: 1771901066649508287}
   scrollRect: {fileID: 7979425713644265760}
   scrollbar: {fileID: 795456755524463256}
+  consoleDragbar: {fileID: 1441810597477524081}
+  consoleBackground: {fileID: 1239756165608383160}
 --- !u!114 &2494952787574197570
 MonoBehaviour:
   m_ObjectHideFlags: 0

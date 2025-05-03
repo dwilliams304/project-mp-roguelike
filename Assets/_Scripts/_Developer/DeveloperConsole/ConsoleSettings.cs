@@ -21,7 +21,7 @@ namespace ContradictiveGames.Dev
         public Color InputTextColor = Color.white;
         
         [Header("Console Output")]
-        public int MaxConsoleLogs = 200;
+        [Min(1)] public int MaxConsoleLogs = 200;
         public Color LogErrorColor = Color.red;
         public Color LogAssertColor = Color.green;
         public Color LogExceptionColor = Color.red;
@@ -29,7 +29,6 @@ namespace ContradictiveGames.Dev
         public Color LogNormalColor = Color.white;
 
         [Header("General Options")]
-        private KeyCode ButtonToOpen;
         public bool ShowStackTraceInOutput;
         public bool AutoScrollToBottom;
     }
