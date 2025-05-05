@@ -16,40 +16,31 @@ namespace ContradictiveGames
 
         [SerializeField] private Image healthBarFill;
 
-        private PlayerManager playerManager;
-        private PlayerStats playerStats;
+        private PlayerBase player;
 
         private void Start(){
-            playerManager = GetComponentInParent<PlayerManager>();
-            playerStats = playerManager.PlayerStats;
+            player = GetComponentInParent<PlayerBase>();
 
-            if(!GameManager.Instance.gameSettings.ShowWorldSpaceUI && playerManager.IsOwner ) {
+            if(!GameManager.Instance.gameSettings.ShowWorldSpaceUI && player.IsOwner ) {
                 gameObject.SetActive(false);
             }
 
             worldSpaceCanvas = GetComponent<Canvas>();
             healthBarFill = healthSlider.fillRect.GetComponent<Image>();
 
-            playerStats.MaxHealth.OnChange += UpdateHealthBarSliderMax;
-            playerStats.CurrentHealth.OnChange += UpdateHealthBar;
-            playerManager.Username.OnChange += UpdateUsernameText;
             GameManager.Instance.CurrentGameStateType.OnChange += UpdateUI;
 
-            if(GameManager.Instance.CurrentGameStateType.Value == GameStateType.Waiting && !playerManager.IsOwner){
+            if(GameManager.Instance.CurrentGameStateType.Value == GameStateType.Waiting && !player.IsOwner){
                 SetColorUIColors(GameManager.Instance.gameSettings.EnemyColor);
             }
             else{
                 SetColorUIColors(GameManager.Instance.gameSettings.FriendlyColor);
             }
             
-            InitializeUIValues();
         }
 
         private void OnDestroy()
         {
-            playerStats.MaxHealth.OnChange -= UpdateHealthBarSliderMax;
-            playerStats.CurrentHealth.OnChange -= UpdateHealthBar;
-            playerManager.Username.OnChange -= UpdateUsernameText;
             GameManager.Instance.CurrentGameStateType.OnChange -= UpdateUI;
         }
 
@@ -68,22 +59,5 @@ namespace ContradictiveGames
             usernameText.color = col;
         }
 
-        private void InitializeUIValues(){
-            UpdateHealthBarSliderMax(0, playerStats.MaxHealth.Value, true);
-            usernameText.text = playerManager.Username.Value.ToString();
-        }
-
-        private void UpdateUsernameText(FixedString32Bytes oldVal, FixedString32Bytes newValue, bool asServer){
-            usernameText.text = newValue.ToString();
-        }
-
-        private void UpdateHealthBarSliderMax(int oldValue, int newValue, bool asServer){
-            healthSlider.maxValue = newValue;
-            healthSlider.value = playerStats.CurrentHealth.Value;
-        }
-
-        private void UpdateHealthBar(int oldValue, int newValue, bool asServer){
-            healthSlider.value = newValue;
-        }
     }
 }

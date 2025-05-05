@@ -7,7 +7,7 @@ namespace ContradictiveGames.Player
     [DisallowMultipleComponent]
     public class CombatController : NetworkBehaviour
     {
-        private PlayerManager playerManager;
+        private PlayerBase player;
 
         private Transform firePoint;
         private InputReader inputReader;
@@ -30,13 +30,13 @@ namespace ContradictiveGames.Player
         //     }
         // }
 
-        public void Initialize(PlayerManager _playerManager)
+        public void Initialize(PlayerBase _player)
         {
-            playerManager = _playerManager;
-            enemyHitLayers = playerManager.PlayerSettings.DamageableLayers;
+            player = _player;
+            enemyHitLayers = player.PlayerSettings.DamageableLayers;
 
-            inputReader = playerManager.InputReader;
-            firePoint = playerManager.FirePoint;
+            inputReader = player.InputReader;
+            firePoint = player.FirePoint;
 
             if (inputReader != null)
             {
@@ -149,7 +149,7 @@ namespace ContradictiveGames.Player
 
             if (attack.IsProjectile)
             {
-                GameObject projectile = Instantiate(playerManager.PlayerSettings.ProjectilePrefab, origin, Quaternion.identity);
+                GameObject projectile = Instantiate(player.PlayerSettings.ProjectilePrefab, origin, Quaternion.identity);
 
             }
             else

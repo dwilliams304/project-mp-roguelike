@@ -8,7 +8,7 @@ namespace ContradictiveGames.Player
     public class PlayerMovement : NetworkBehaviour
     {
         //Script refs
-        private PlayerManager playerManager;
+        private PlayerBase player;
         private PlayerSettings playerSettings;
         private InputReader inputReader;
         
@@ -28,15 +28,15 @@ namespace ContradictiveGames.Player
         /// <summary>
         /// Initialize player actions, input actions, subscribe to events....
         /// </summary>
-        public void Initialize(PlayerManager _playerManager)
+        public void Initialize(PlayerBase _player)
         {
-            playerManager = _playerManager;
-            playerSettings = playerManager.PlayerSettings;
+            player = _player;
+            playerSettings = player.PlayerSettings;
 
-            rb = playerManager.PlayerRB;
-            playerCamera = playerManager.PlayerCamera;
+            rb = player.PlayerRB;
+            playerCamera = player.PlayerCamera;
 
-            inputReader = playerManager.InputReader;
+            inputReader = player.InputReader;
             if (inputReader != null)
             {
                 inputReader.Move += OnMove;

@@ -10,11 +10,10 @@ namespace ContradictiveGames.Player
 {
     [DisallowMultipleComponent]
     [RequireComponent(
-        typeof(PlayerStats), 
         typeof(PlayerMovement), 
         typeof(CombatController)
     )]
-    public class PlayerManager : NetworkBehaviour
+    public class PlayerBase : NetworkBehaviour
     {
 
         [Header("Setup")]
@@ -27,7 +26,6 @@ namespace ContradictiveGames.Player
         public PlayerSettings PlayerSettings;
 
         //Components
-        [HideInInspector] public PlayerStats PlayerStats;
         [HideInInspector] public Rigidbody PlayerRB;
         [HideInInspector] public Camera PlayerCamera;
 

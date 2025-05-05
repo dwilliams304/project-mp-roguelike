@@ -415,7 +415,6 @@ GameObject:
   - component: {fileID: 4035948381527016482}
   - component: {fileID: 7544372585449175662}
   - component: {fileID: 2738292491749906216}
-  - component: {fileID: 7884818234992944918}
   - component: {fileID: 765628224941427795}
   - component: {fileID: 4598957121672742338}
   - component: {fileID: 7626460847489123203}
@@ -566,24 +565,8 @@ MonoBehaviour:
   FirePoint: {fileID: 6057873490990579316}
   PlayerClassData: {fileID: 11400000, guid: e05b3b6df4593db4d9be45b84e2ab803, type: 2}
   PlayerSettings: {fileID: 11400000, guid: 19c9d24d99270bf43a10c9d3411c3d9c, type: 2}
-  PlayerStats: {fileID: 0}
   PlayerRB: {fileID: 0}
   PlayerCamera: {fileID: 0}
---- !u!114 &7884818234992944918
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6775787575496729782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 678647b143a87c248b0cfd45c5b80c2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 255
-  _addedNetworkObject: {fileID: 7544372585449175662}
-  _networkObjectCache: {fileID: 0}
 --- !u!114 &765628224941427795
 MonoBehaviour:
   m_ObjectHideFlags: 0
