@@ -19,6 +19,9 @@ namespace ContradictiveGames
         [Tooltip("How long the countdown timer will go. (In seconds)")]
         public float CountdownTimer = 10;
 
+        [Header("Player Settings")]
+        public AnimationCurve XPScaler;
+
         [Header("UI Settings")]
         public bool ShowWorldSpaceUI = true;
         public Color FriendlyColor = Color.blue;

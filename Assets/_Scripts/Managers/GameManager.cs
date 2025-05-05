@@ -150,5 +150,8 @@ namespace ContradictiveGames.Managers
                 }
             }
         }
+
+
+        public float GetXPScaler(int level) => gameSettings.XPScaler.Evaluate(level);
     }
 }

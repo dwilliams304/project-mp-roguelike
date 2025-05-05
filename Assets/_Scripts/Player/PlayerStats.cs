@@ -1,4 +1,3 @@
-using System.Collections;
 using ContradictiveGames.Managers;
 using Unity.Netcode;
 using UnityEngine;
@@ -43,7 +42,7 @@ namespace ContradictiveGames.Player
             MaxHealth.Value = maxHealth;
             CurrentHealth.Value = maxHealth;
             CurrentLevel.Value = 1;
-            XpToNextLevel.Value = 500;
+            XpToNextLevel.Value = Mathf.RoundToInt(GameManager.Instance.GetXPScaler(1));
             CurrentXP.Value = 0;
         }
 
