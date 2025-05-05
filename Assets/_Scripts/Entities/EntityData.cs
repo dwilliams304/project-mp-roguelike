@@ -15,8 +15,11 @@ public enum EntityFaction {
 namespace ContradictiveGames.Entities
 {
     [CreateAssetMenu(fileName = "Class Stats", menuName = "Custom/Entities/Stats")]
-    public class EntityStats : ScriptableObject
+    public class EntityData : ScriptableObject
     {
+        public bool IsDamageable, IsHealable, IsInteractable,
+                    IsEffectable, IsStunnable, IsRessurectable;
+
         [Header("Health Related")]
         public Stat MaxHealth;
         [Tooltip("How long do we wait before we last took damage, and start regenerating health?")]

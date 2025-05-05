@@ -6,12 +6,14 @@ namespace ContradictiveGames.Player
 {
     public class PlayerController : NetworkBehaviour
     {
-        [Header("Setup")]
+        [Header("Scriptables")]
         public InputReader inputReader;
-        public Rigidbody PlayerRB;
-        public Transform PlayerTransform;
         public PlayerClassData PlayerClass;
         public PlayerSettings playerSettings;
+        
+        [Header("Components")]
+        public Rigidbody PlayerRB;
+        public Transform PlayerTransform;
         public Animator animator;
 
         [Header("Movement")]
