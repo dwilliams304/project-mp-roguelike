@@ -13,10 +13,10 @@ namespace ContradictiveGames.State
 
         public override void OnStateUpdate(GameStateMachine stateMachine)
         {
-            GameManager.Instance.CurrentCountdownTimer.Value -= Time.deltaTime;
-            if(GameManager.Instance.CurrentCountdownTimer.Value < 0f){
-                stateMachine.ChangeState(stateMachine.ActiveState);
-            }
+            // GameManager.Instance.CurrentCountdownTimer.Value -= Time.deltaTime;
+            // if(GameManager.Instance.CurrentCountdownTimer.Value < 0f){
+            //     stateMachine.ChangeState(stateMachine.ActiveState);
+            // }
         }
 
         public override void OnStateExit(GameStateMachine stateMachine)

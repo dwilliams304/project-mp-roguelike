@@ -1,10 +1,10 @@
 using ContradictiveGames.Input;
 using ContradictiveGames.Managers;
-using ContradictiveGames.Effects;
 using Unity.Cinemachine;
 using Unity.Collections;
-using Unity.Netcode;
 using UnityEngine;
+using FishNet.Object;
+using FishNet.Object.Synchronizing;
 
 namespace ContradictiveGames.Player
 {
@@ -37,44 +37,44 @@ namespace ContradictiveGames.Player
         private CombatController combatController;
         private int uiLayer;
 
-        public NetworkVariable<FixedString32Bytes> Username = new();
+        public readonly SyncVar<FixedString32Bytes> Username;
 
 
-        public override void OnNetworkSpawn()
-        {
-            PlayerStats = GetComponent<PlayerStats>();
-            PlayerRB = GetComponent<Rigidbody>();
-            CamerasPrefab = Instantiate(CamerasPrefab);
-            CamerasPrefab.name = $"{gameObject.name} Camera Setup";
-            virtualCam = CamerasPrefab.GetComponentInChildren<CinemachineCamera>();
-            PlayerCamera = CamerasPrefab.GetComponentInChildren<Camera>();
+        // public override void OnNetworkSpawn()
+        // {
+        //     PlayerStats = GetComponent<PlayerStats>();
+        //     PlayerRB = GetComponent<Rigidbody>();
+        //     CamerasPrefab = Instantiate(CamerasPrefab);
+        //     CamerasPrefab.name = $"{gameObject.name} Camera Setup";
+        //     virtualCam = CamerasPrefab.GetComponentInChildren<CinemachineCamera>();
+        //     PlayerCamera = CamerasPrefab.GetComponentInChildren<Camera>();
 
-            uiLayer = LayerMask.NameToLayer(Constants.WorldSpaceUITag);
+        //     uiLayer = LayerMask.NameToLayer(Constants.WorldSpaceUITag);
 
 
-            playerMovement = GetComponent<PlayerMovement>();
-            combatController = GetComponent<CombatController>();
-            PlayerStats.InitializeStats(PlayerClassData);
+        //     playerMovement = GetComponent<PlayerMovement>();
+        //     combatController = GetComponent<CombatController>();
+        //     PlayerStats.InitializeStats(PlayerClassData);
 
-            combatController.InitializeCombatController(PlayerClassData);
+        //     combatController.InitializeCombatController(PlayerClassData);
 
-            if(IsServer){
-                Username.Value = $"Player {Random.Range(0, 100)}";
-            }
+        //     if(IsServer){
+        //         Username.Value = $"Player {Random.Range(0, 100)}";
+        //     }
 
-            Initialize();
+        //     Initialize();
 
-            ErrorChecks();
+        //     ErrorChecks();
 
-            SeeThroughShaderSync sts = GetComponent<SeeThroughShaderSync>();
-            if(sts != null) sts.enabled = IsOwner;
+        //     SeeThroughShaderSync sts = GetComponent<SeeThroughShaderSync>();
+        //     if(sts != null) sts.enabled = IsOwner;
 
-            if (IsOwner)
-            {
-                playerMovement.Initialize(this);
-                combatController.Initialize(this);
-            }
-        }
+        //     if (IsOwner)
+        //     {
+        //         playerMovement.Initialize(this);
+        //         combatController.Initialize(this);
+        //     }
+        // }
 
         private void Start()
         {
@@ -93,11 +93,11 @@ namespace ContradictiveGames.Player
         }
 
 
-        public override void OnDestroy()
-        {
-            if (CamerasPrefab != null) Destroy(CamerasPrefab);
-            GameManager.Instance.GameStateChanged -= OnGameActive;
-        }
+        // public override void OnDestroy()
+        // {
+        //     if (CamerasPrefab != null) Destroy(CamerasPrefab);
+        //     GameManager.Instance.GameStateChanged -= OnGameActive;
+        // }
 
 
         // Initialize self

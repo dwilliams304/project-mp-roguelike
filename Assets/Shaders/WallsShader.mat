@@ -42,14 +42,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Opacity: 3.8346283e-34
+    - _Opacity: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Size: 3.8346283e-34
+    - _Size: 0
     - _Smoothness: 1
     m_Colors:
     - _NoiseSpeed: {r: 0.1, g: 0.1, b: 0, a: 0}
-    - _PlayerPosition: {r: 0.4813908, g: 0.37403387, b: 39.50478, a: 0}
+    - _PlayerPosition: {r: 0.5047877, g: 0.3986935, b: 39.975082, a: 0}
     - _Tint: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

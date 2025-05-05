@@ -24,18 +24,18 @@ namespace ContradictiveGames
             stats = _stats;
 
             if(stats == null) return;
-            stats.CurrentHealth.OnValueChanged += UpdateHealth;
-            stats.MaxHealth.OnValueChanged += UpdateHealthMax;
-            stats.CurrentLevel.OnValueChanged += UpdateCurrentLevel;
-            stats.XpToNextLevel.OnValueChanged += UpdateXPToNext;
-            stats.CurrentXP.OnValueChanged += UpdateCurrentXP;
+            stats.CurrentHealth.OnChange += UpdateHealth;
+            stats.MaxHealth.OnChange += UpdateHealthMax;
+            stats.CurrentLevel.OnChange += UpdateCurrentLevel;
+            stats.XpToNextLevel.OnChange += UpdateXPToNext;
+            stats.CurrentXP.OnChange += UpdateCurrentXP;
 
             // Manually force UI to correct state after subscription
-            UpdateHealth(0, stats.CurrentHealth.Value);
-            UpdateHealthMax(0, stats.MaxHealth.Value);
-            UpdateCurrentLevel(0, stats.CurrentLevel.Value);
-            UpdateXPToNext(0, stats.XpToNextLevel.Value);
-            UpdateCurrentXP(0, stats.CurrentXP.Value);
+            UpdateHealth(0, stats.CurrentHealth.Value, true);
+            UpdateHealthMax(0, stats.MaxHealth.Value, true);
+            UpdateCurrentLevel(0, stats.CurrentLevel.Value, true);
+            UpdateXPToNext(0, stats.XpToNextLevel.Value, true);
+            UpdateCurrentXP(0, stats.CurrentXP.Value, true);
 
             UpdateLevelText(stats.CurrentLevel.Value);
         }
@@ -45,37 +45,37 @@ namespace ContradictiveGames
         private void OnDestroy()
         {
             if(stats == null) return;
-            stats.CurrentHealth.OnValueChanged -= UpdateHealth;
-            stats.MaxHealth.OnValueChanged -= UpdateHealthMax;
-            stats.CurrentLevel.OnValueChanged -= UpdateCurrentLevel;
-            stats.XpToNextLevel.OnValueChanged -= UpdateXPToNext;
-            stats.CurrentXP.OnValueChanged -= UpdateCurrentXP;
+            stats.CurrentHealth.OnChange -= UpdateHealth;
+            stats.MaxHealth.OnChange -= UpdateHealthMax;
+            stats.CurrentLevel.OnChange -= UpdateCurrentLevel;
+            stats.XpToNextLevel.OnChange -= UpdateXPToNext;
+            stats.CurrentXP.OnChange -= UpdateCurrentXP;
 
         }
 
 
-        private void UpdateHealth(int previousValue, int newValue)
+        private void UpdateHealth(int previousValue, int newValue, bool asServer)
         {
             healthSlider.value = newValue;
         }
 
-        public void UpdateHealthMax(int previousValue, int newValue)
+        public void UpdateHealthMax(int previousValue, int newValue, bool asServer)
         {
             healthSlider.maxValue = newValue;
             healthSlider.value = stats.CurrentHealth.Value;
         }
 
-        private void UpdateCurrentXP(int previousValue, int newValue)
+        private void UpdateCurrentXP(int previousValue, int newValue, bool asServer)
         {
             xpSlider.value = newValue;
         }
 
-        private void UpdateXPToNext(int previousValue, int newValue)
+        private void UpdateXPToNext(int previousValue, int newValue, bool asServer)
         {
             xpSlider.maxValue = newValue;
         }
 
-        private void UpdateCurrentLevel(int previousValue, int newValue)
+        private void UpdateCurrentLevel(int previousValue, int newValue, bool asServer)
         {
             UpdateLevelText(newValue);
         }

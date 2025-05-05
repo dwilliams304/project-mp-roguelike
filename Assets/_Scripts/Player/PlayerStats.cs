@@ -1,18 +1,19 @@
 using ContradictiveGames.Managers;
-using Unity.Netcode;
+using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using UnityEngine;
 
 namespace ContradictiveGames.Player
 {
-    public class PlayerStats : NetworkBehaviour, IDamageable
+    public class PlayerStats : NetworkBehaviour
     {
         private PlayerOverlayUIController playerOverlayUIController;
 
-        public NetworkVariable<int> MaxHealth = new();
-        public NetworkVariable<int> CurrentHealth = new();
-        public NetworkVariable<int> CurrentLevel = new();
-        public NetworkVariable<int> XpToNextLevel = new();
-        public NetworkVariable<int> CurrentXP = new();
+        public readonly SyncVar<int> MaxHealth;
+        public readonly SyncVar<int> CurrentHealth;
+        public readonly SyncVar<int> CurrentLevel;
+        public readonly SyncVar<int> XpToNextLevel;
+        public readonly SyncVar<int> CurrentXP;
 
         public void InitializeStats(PlayerClassData playerClassData)
         {
@@ -31,7 +32,7 @@ namespace ContradictiveGames.Player
             GameManager.Instance.GameStateChanged += GameStart;
         }
 
-        public override void OnDestroy(){
+        public void OnDisable(){
             GameManager.Instance.GameStateChanged -= GameStart;
         }
 
@@ -39,32 +40,18 @@ namespace ContradictiveGames.Player
         [ServerRpc]
         private void InitializeStatsServerRpc(int maxHealth)
         {
-            MaxHealth.Value = maxHealth;
-            CurrentHealth.Value = maxHealth;
-            CurrentLevel.Value = 1;
-            XpToNextLevel.Value = Mathf.RoundToInt(GameManager.Instance.GetXPScaler(1));
-            CurrentXP.Value = 0;
+            // MaxHealth.Value = maxHealth;
+            // CurrentHealth.Value = maxHealth;
+            // CurrentLevel.Value = 1;
+            // XpToNextLevel.Value = Mathf.RoundToInt(GameManager.Instance.GetXPScaler(1));
+            // CurrentXP.Value = 0;
         }
 
         private void GameStart(GameStateType state){
             if(state == GameStateType.Active){
-                RequestToChangeHealthServerRpc(MaxHealth.Value);
+                
             }
         }
-        [ServerRpc(RequireOwnership = false)]
-        private void RequestToChangeHealthServerRpc(int amount){
-            CurrentHealth.Value = amount;
-        }
 
-        public void TakeDamage(int amount)
-        {
-            RequestToTakeDamageServerRpc(amount);
-        }
-
-        [ServerRpc(RequireOwnership = false)]
-        private void RequestToTakeDamageServerRpc(int amount)
-        {
-            CurrentHealth.Value = Mathf.Max(CurrentHealth.Value - amount, 0); // Prevent negative health
-        }
     }
 }

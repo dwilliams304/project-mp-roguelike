@@ -1,5 +1,5 @@
 using ContradictiveGames.Input;
-using Unity.Netcode;
+using FishNet.Object;
 using UnityEngine;
 
 namespace ContradictiveGames.Player
@@ -45,17 +45,17 @@ namespace ContradictiveGames.Player
         }
         
 
-        public override void OnNetworkSpawn()
-        {
-            animator = GetComponentInChildren<Animator>();
-            enabled = IsOwner;
-        }
+        // public override void OnNetworkSpawn()
+        // {
+        //     animator = GetComponentInChildren<Animator>();
+        //     enabled = IsOwner;
+        // }
 
 
-        public override void OnNetworkDespawn()
-        {
-            DisableInput();
-        }
+        // public override void OnNetworkDespawn()
+        // {
+        //     DisableInput();
+        // }
 
         /// <summary>
         /// Deinitialize player actions, unsubscribe to events, etc...

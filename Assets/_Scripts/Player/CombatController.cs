@@ -1,5 +1,5 @@
 using ContradictiveGames.Input;
-using Unity.Netcode;
+using FishNet.Object;
 using UnityEngine;
 
 namespace ContradictiveGames.Player
@@ -22,13 +22,13 @@ namespace ContradictiveGames.Player
         private LayerMask enemyHitLayers;
 
 
-        public override void OnNetworkDespawn()
-        {
-            if (IsOwner)
-            {
-                Deinitialize();
-            }
-        }
+        // public override void OnNetworkDespawn()
+        // {
+        //     if (IsOwner)
+        //     {
+        //         Deinitialize();
+        //     }
+        // }
 
         public void Initialize(PlayerManager _playerManager)
         {
@@ -127,9 +127,9 @@ namespace ContradictiveGames.Player
                     _hasHit = true;
                     if(hit.TryGetComponent<NetworkObject>(out NetworkObject entity))
                     {
-                        ulong targetNetworkId = entity.NetworkObjectId;
+                        // ulong targetNetworkId = entity.NetworkObjectId;
 
-                        RequestToDoDamageServerRpc(targetNetworkId, attack.Damage);
+                        // RequestToDoDamageServerRpc(targetNetworkId, attack.Damage);
                     }
                 }
             }
@@ -159,9 +159,9 @@ namespace ContradictiveGames.Player
                     AttackDebugger.DrawDebugLine(origin, hit.point, Color.yellow);
                     if(hit.collider.TryGetComponent<NetworkObject>(out NetworkObject entity))
                     {
-                        ulong targetNetworkId = entity.NetworkObjectId;
+                        // ulong targetNetworkId = entity.NetworkObjectId;
 
-                        RequestToDoDamageServerRpc(targetNetworkId, attack.Damage);
+                        // RequestToDoDamageServerRpc(targetNetworkId, attack.Damage);
                     }
                 }
                 else
@@ -173,14 +173,6 @@ namespace ContradictiveGames.Player
             }
         }
 
-        [ServerRpc]
-        private void RequestToDoDamageServerRpc(ulong targetNetworkId, int amount){
-            if(NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(targetNetworkId, out NetworkObject targetObj)){
-                if(targetObj.TryGetComponent<IDamageable>(out IDamageable damageable)){
-                    damageable.TakeDamage(amount);
-                }
-            }
-        }
 
         private void HandleEffects()
         {

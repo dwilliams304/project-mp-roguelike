@@ -30,10 +30,10 @@ namespace ContradictiveGames
             worldSpaceCanvas = GetComponent<Canvas>();
             healthBarFill = healthSlider.fillRect.GetComponent<Image>();
 
-            playerStats.MaxHealth.OnValueChanged += UpdateHealthBarSliderMax;
-            playerStats.CurrentHealth.OnValueChanged += UpdateHealthBar;
-            playerManager.Username.OnValueChanged += UpdateUsernameText;
-            GameManager.Instance.CurrentGameStateType.OnValueChanged += UpdateUI;
+            playerStats.MaxHealth.OnChange += UpdateHealthBarSliderMax;
+            playerStats.CurrentHealth.OnChange += UpdateHealthBar;
+            playerManager.Username.OnChange += UpdateUsernameText;
+            GameManager.Instance.CurrentGameStateType.OnChange += UpdateUI;
 
             if(GameManager.Instance.CurrentGameStateType.Value == GameStateType.Waiting && !playerManager.IsOwner){
                 SetColorUIColors(GameManager.Instance.gameSettings.EnemyColor);
@@ -47,13 +47,13 @@ namespace ContradictiveGames
 
         private void OnDestroy()
         {
-            playerStats.MaxHealth.OnValueChanged -= UpdateHealthBarSliderMax;
-            playerStats.CurrentHealth.OnValueChanged -= UpdateHealthBar;
-            playerManager.Username.OnValueChanged -= UpdateUsernameText;
-            GameManager.Instance.CurrentGameStateType.OnValueChanged -= UpdateUI;
+            playerStats.MaxHealth.OnChange -= UpdateHealthBarSliderMax;
+            playerStats.CurrentHealth.OnChange -= UpdateHealthBar;
+            playerManager.Username.OnChange -= UpdateUsernameText;
+            GameManager.Instance.CurrentGameStateType.OnChange -= UpdateUI;
         }
 
-        private void UpdateUI(GameStateType previousValue, GameStateType newValue)
+        private void UpdateUI(GameStateType previousValue, GameStateType newValue, bool asServer)
         {
             if(newValue == GameStateType.Waiting){
                 SetColorUIColors(GameManager.Instance.gameSettings.EnemyColor);
@@ -69,20 +69,20 @@ namespace ContradictiveGames
         }
 
         private void InitializeUIValues(){
-            UpdateHealthBarSliderMax(0, playerStats.MaxHealth.Value);
+            UpdateHealthBarSliderMax(0, playerStats.MaxHealth.Value, true);
             usernameText.text = playerManager.Username.Value.ToString();
         }
 
-        private void UpdateUsernameText(FixedString32Bytes oldVal, FixedString32Bytes newValue){
+        private void UpdateUsernameText(FixedString32Bytes oldVal, FixedString32Bytes newValue, bool asServer){
             usernameText.text = newValue.ToString();
         }
 
-        private void UpdateHealthBarSliderMax(int oldValue, int newValue){
+        private void UpdateHealthBarSliderMax(int oldValue, int newValue, bool asServer){
             healthSlider.maxValue = newValue;
             healthSlider.value = playerStats.CurrentHealth.Value;
         }
 
-        private void UpdateHealthBar(int oldValue, int newValue){
+        private void UpdateHealthBar(int oldValue, int newValue, bool asServer){
             healthSlider.value = newValue;
         }
     }
