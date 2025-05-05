@@ -30,6 +30,7 @@ namespace ContradictiveGames.Player
                 VirtualCamera.Priority = 100;
                 // VirtualCamera.Follow = transform;
                 // VirtualCamera.LookAt = transform;
+                PlayerCamera.GetComponent<AudioListener>().enabled = true;
 
                 gameObject.tag = Constants.PlayerSelfTag;
                 gameObject.SetLayersRecursive(LayerMask.NameToLayer(Constants.PlayerSelfTag));
@@ -39,6 +40,7 @@ namespace ContradictiveGames.Player
                 PlayerCamera.enabled = false;
                 VirtualCamera.Priority = -5;
                 VirtualCamera.enabled = false;
+
 
                 gameObject.tag = Constants.PlayerOtherTag_PVP;
                 gameObject.SetLayersRecursive(LayerMask.NameToLayer(Constants.PlayerOtherTag_PVP));

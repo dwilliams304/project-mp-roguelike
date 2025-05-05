@@ -37,13 +37,11 @@ namespace ContradictiveGames.Player
         public override void OnStartClient()
         {
             base.OnStartClient();
-            enabled = IsOwner;
-        }
-
-
-        private void Start()
-        {
-
+            
+            if(!IsOwner){
+                enabled = false;
+                return;
+            }
             inputReader.Move += OnMoveInput;
             inputReader.Look += OnLookInput;
 
@@ -57,6 +55,7 @@ namespace ContradictiveGames.Player
 
             inputReader.EnablePlayerActions();
         }
+
 
         public override void OnStopClient()
         {

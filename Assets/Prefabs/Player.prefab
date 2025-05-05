@@ -135,7 +135,7 @@ Transform:
   m_GameObject: {fileID: 4495610751700934035}
   serializedVersion: 2
   m_LocalRotation: {x: 0.31598538, y: 0.3596048, z: -0.13088542, w: 0.8681629}
-  m_LocalPosition: {x: -20.939777, y: 26.947174, z: -20.939777}
+  m_LocalPosition: {x: -20.939777, y: 26.947172, z: -20.939775}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -200,7 +200,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4495610751700934035}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!114 &7582780259677663649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,7 +290,6 @@ GameObject:
   - component: {fileID: 7438995532679815932}
   - component: {fileID: 4881343476622389870}
   - component: {fileID: 1006563384872453521}
-  - component: {fileID: 8399634750889283507}
   m_Layer: 5
   m_Name: WorldSpaceCanvas
   m_TagString: Untagged
@@ -382,18 +381,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &8399634750889283507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4935950402744391917}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67ddee9cdf247f04ebb7efeb305d7519, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5373921688571286215
 GameObject:
   m_ObjectHideFlags: 0
@@ -992,8 +979,6 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 0}
   PlayerCamera: {fileID: 1859270831993852247}
   VirtualCamera: {fileID: 2140280370276101763}
-  FirePoint: {fileID: 1736895286699008967}
-  PlayerRB: {fileID: 1280834337983464958}
   PlayerClassData: {fileID: 11400000, guid: e05b3b6df4593db4d9be45b84e2ab803, type: 2}
   PlayerSettings: {fileID: 11400000, guid: 19c9d24d99270bf43a10c9d3411c3d9c, type: 2}
 --- !u!114 &7224670587222236050
