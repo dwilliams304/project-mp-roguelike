@@ -20,6 +20,8 @@ namespace ContradictiveGames.Effects
         
         private void Start(){
             PlayerCamera = Camera.main;
+            if(PlayerCamera == null) Debug.Log("Player Camera set to null!");
+            if(Camera.main == null) Debug.Log("Camera.main is null!");
         }
 
         private void Update()

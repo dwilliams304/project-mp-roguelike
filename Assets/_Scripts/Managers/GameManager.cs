@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using ContradictiveGames.State;
 using FishNet.Object;
@@ -19,7 +17,6 @@ namespace ContradictiveGames.Managers
     public class GameManager : NetworkBehaviour
     {
         //Instance
-        public static GameManager Instance;
 
 
 
@@ -39,38 +36,15 @@ namespace ContradictiveGames.Managers
 
 
 
-        private void Awake() => Instance = this;
 
-        // public override void OnNetworkSpawn()
+        // public override void OnStartClient()
         // {
         //     gameStateMachine = new GameStateMachine();
         //     gameStateMachine.InitializeStateMachine();
 
 
-        //     CurrentGameStateType.OnChange += OnGameStateChanged;
-
-        //     if (IsServer)
-        //     {
-        //         InitializeGameSettings();
-        //     }
-
         // }
 
-
-
-        private void InitializeGameSettings()
-        {
-            // CurrentCountdownTimer.Value = gameSettings.CountdownTimer; //Current time for countdown
-            // MaxGameTime.Value = gameSettings.MaxGameTime;
-
-            
-        }
-
-
-        public void UpdateState(StateNode<GameStateMachine> stateNode){
-            if(!IsServer) return;
-            // CurrentGameStateType.Value = GetStateType(stateNode);
-        }
 
         private GameStateType GetStateType(StateNode<GameStateMachine> state)
         {
@@ -84,24 +58,5 @@ namespace ContradictiveGames.Managers
                 _ => throw new System.ArgumentException("Unknown state passed to GetStateType")
             };
         }
-        // private void OnGameStateChanged(GameStateType prevState, GameStateType newState, bool asServer) => GameStateChanged?.Invoke(newState);
-
-
-        // public override void OnDestroy()
-        // {
-        //     CurrentGameStateType.OnChange -= OnGameStateChanged;
-        // }
-
-
-        private void Update()
-        {
-            if (!IsServer) return;
-
-            if (gameStateMachine.currentState != null) gameStateMachine.StateUpdate();
-        }
-
-
-
-        public float GetXPScaler(int level) => gameSettings.XPScaler.Evaluate(level);
     }
 }

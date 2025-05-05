@@ -17,8 +17,9 @@ namespace ContradictiveGames
 
         private void Start()
         {
-            if(IsServer){
+            if(IsServerInitialized){
                 InitializeEntity();
+
             }
             Canvas worldSpaceCanvas = GetComponentInChildren<Canvas>();
             if(worldSpaceCanvas != null) worldSpaceCanvas.worldCamera = Camera.main;

@@ -22,15 +22,13 @@ namespace ContradictiveGames.State
             RoundEndState = new RoundEndState();
             GameOverState = new GameOverState();
             
-            manager = GameManager.Instance;
 
             ChangeState(WaitingState);
         }
 
         public override void ChangeState(StateNode<GameStateMachine> newState)
         {
-            base.ChangeState(newState); 
-            if(manager != null) manager.UpdateState(newState);
+            base.ChangeState(newState);
         }
     }
 }
