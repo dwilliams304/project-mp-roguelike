@@ -2,8 +2,6 @@ using UnityEngine;
 
 public static class CustomDebugger
 {
-
-
     public static void Log(string message, ConsoleLogLevel logLevel = ConsoleLogLevel.NecessaryOnly){
         if(CheckLogRequirements(logLevel)) Debug.Log(message);
     }

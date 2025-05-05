@@ -28,8 +28,17 @@ namespace ContradictiveGames.Player
         private Vector3 lookTarget;
         private Vector3 lookPosition;
         private Vector2 moveInput;
-        
+
         private LayerMask enemyHitLayers;
+
+
+#region Initialization/setup
+
+        public override void OnStartClient()
+        {
+            base.OnStartClient();
+            enabled = IsOwner;
+        }
 
 
         private void Start()
@@ -45,21 +54,51 @@ namespace ContradictiveGames.Player
             inputReader.Ability2 += OnAbility2Performed;
             inputReader.Ability3 += OnAbility3Performed;
             inputReader.Ability4 += OnAbility4Performed;
-            
+
             inputReader.EnablePlayerActions();
-            
         }
 
-        private void Update(){
+        public override void OnStopClient()
+        {
+            base.OnStopClient();
+
+            inputReader.Move -= OnMoveInput;
+            inputReader.Look -= OnLookInput;
+
+
+            inputReader.MainAttack -= OnMainAttack;
+            inputReader.SecondaryAttack -= OnSecondaryAttack;
+            inputReader.Ability1 -= OnAbility1Performed;
+            inputReader.Ability2 -= OnAbility2Performed;
+            inputReader.Ability3 -= OnAbility3Performed;
+            inputReader.Ability4 -= OnAbility4Performed;
+        }
+
+
+#endregion
+
+
+#region Core Loop
+
+        private void Update()
+        {
             MovePlayer();
         }
 
-        private void OnMoveInput(Vector2 moveInput){
+#endregion
+
+
+#region Movement
+
+        private void OnMoveInput(Vector2 moveInput)
+        {
             this.moveInput = moveInput;
         }
-        private void MovePlayer(){
+        private void MovePlayer()
+        {
             //Check
-            if(moveInput == Vector2.zero) {
+            if (moveInput == Vector2.zero)
+            {
                 PlayerRB.linearVelocity = Vector3.zero;
                 animator.SetFloat("Forward", 0f);
                 animator.SetFloat("Sideways", 0f);
@@ -77,17 +116,18 @@ namespace ContradictiveGames.Player
 
             PlayerRB.linearVelocity = adjustedMovement;
             //Move the rigidbody
-            
+
             //Set animator values based on local position
             Vector3 localMove = transform.InverseTransformDirection(moveVector);
             animator.SetFloat("Forward", localMove.z);
             animator.SetFloat("Sideways", localMove.x);
 
         }
-        private void OnLookInput(Vector2 lookInput){
-            if(lookInput == Vector2.zero) return;
+        private void OnLookInput(Vector2 lookInput)
+        {
+            if (lookInput == Vector2.zero) return;
 
-            
+
             Ray ray = Camera.main.ScreenPointToRay(lookInput);
 
             if (Physics.Raycast(ray, out RaycastHit hit, 100f, playerSettings.MouseHitLayer))
@@ -103,28 +143,10 @@ namespace ContradictiveGames.Player
             PlayerTransform.rotation = Quaternion.Slerp(PlayerTransform.rotation, rotation, playerSettings.LookSmoothing);
         }
 
-        private void OnAbility1Performed(){
-
-        }
-        private void OnAbility2Performed(){
-            
-        }
-        private void OnAbility3Performed(){
-            
-        }
-        private void OnAbility4Performed(){
-            
-        }
+#endregion
 
 
-        private void OnMainAttack(){
-            CustomDebugger.Log("Doing Main Attack!");
-        }
-        private void OnSecondaryAttack(){
-            CustomDebugger.Log("Doing Secondary Attack!");
-        }
-
-
+#region Attacking
 
         /// <summary>
         /// Handle the attack logic checks
@@ -181,5 +203,42 @@ namespace ContradictiveGames.Player
                 }
             }
         }
+
+#endregion
+
+
+#region Abilities
+
+        private void OnAbility1Performed()
+        {
+
+        }
+        private void OnAbility2Performed()
+        {
+
+        }
+        private void OnAbility3Performed()
+        {
+
+        }
+        private void OnAbility4Performed()
+        {
+
+        }
+
+
+        private void OnMainAttack()
+        {
+            CustomDebugger.Log("Doing Main Attack!");
+        }
+        private void OnSecondaryAttack()
+        {
+            CustomDebugger.Log("Doing Secondary Attack!");
+        }
+
+#endregion
+
+
+
     }
 }

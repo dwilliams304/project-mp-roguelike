@@ -1,4 +1,3 @@
-using ContradictiveGames.Input;
 using Unity.Cinemachine;
 using UnityEngine;
 using FishNet.Object;
@@ -6,31 +5,25 @@ using FishNet.Object;
 namespace ContradictiveGames.Player
 {
     [DisallowMultipleComponent]
-    public class PlayerBase : NetworkBehaviour
+    public class PlayerManager : NetworkBehaviour
     {
 
         [Header("Setup")]
         public Camera PlayerCamera;
         public CinemachineCamera VirtualCamera;
-        public Transform FirePoint;
-        public Rigidbody PlayerRB;
 
         [Header("Settings")]
         public PlayerClassData PlayerClassData;
         public PlayerSettings PlayerSettings;
 
-        //Components
-
-        //Private refs
-        private int uiLayer;
-
-
 
         public override void OnStartClient()
         {
             base.OnStartClient();
-            if(IsOwner){
-                if(VirtualCamera == null || PlayerCamera == null){
+            if (IsOwner)
+            {
+                if (VirtualCamera == null || PlayerCamera == null)
+                {
                     CustomDebugger.LogError("No cameras assigned in inspector!");
                 }
 
@@ -41,7 +34,8 @@ namespace ContradictiveGames.Player
                 gameObject.tag = Constants.PlayerSelfTag;
                 gameObject.SetLayersRecursive(LayerMask.NameToLayer(Constants.PlayerSelfTag));
             }
-            else{
+            else
+            {
                 PlayerCamera.enabled = false;
                 VirtualCamera.Priority = -5;
                 VirtualCamera.enabled = false;
@@ -49,13 +43,6 @@ namespace ContradictiveGames.Player
                 gameObject.tag = Constants.PlayerOtherTag_PVP;
                 gameObject.SetLayersRecursive(LayerMask.NameToLayer(Constants.PlayerOtherTag_PVP));
             }
-
-
-        }
-
-        private void Start(){
-
-            uiLayer = LayerMask.NameToLayer(Constants.WorldSpaceUITag);
 
         }
 
@@ -72,6 +59,8 @@ namespace ContradictiveGames.Player
                 }
             }
         }
+
+
 
     }
 }
