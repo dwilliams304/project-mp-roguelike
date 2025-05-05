@@ -10,8 +10,6 @@ namespace ContradictiveGames
         public readonly SyncVar<int> MaxHealth;
         public readonly SyncVar<int> CurrentHealth;
 
-        public event Action<int, int> MaxHealthChanged;
-        public event Action<int> OnHealthChanged;
 
         public bool IsDamageable { get; private set; } = true;
         public bool IsHealable { get; private set; } = true;
@@ -51,13 +49,6 @@ namespace ContradictiveGames
         }
 
 
-
-        private void OnHealthValuesChanged(int oldVal, int newVal, bool asServer){
-            OnHealthChanged?.Invoke(newVal);
-        }
-        private void OnMaxHealthValueChanged(int old, int newVal, bool asServer){
-            MaxHealthChanged?.Invoke(newVal, CurrentHealth.Value);
-        }
 
         
 

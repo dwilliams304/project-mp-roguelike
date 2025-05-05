@@ -78,7 +78,7 @@ namespace ContradictiveGames.Player
 
         private void Start()
         {
-            GameManager.Instance.GameStateChanged += OnGameActive;
+            
         }
 
         private void ErrorChecks()

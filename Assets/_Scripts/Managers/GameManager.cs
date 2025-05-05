@@ -21,8 +21,6 @@ namespace ContradictiveGames.Managers
         //Instance
         public static GameManager Instance;
 
-        //Events
-        public event Action<GameStateType> GameStateChanged;
 
 
         [Header("GAME SETTINGS")]
@@ -86,7 +84,7 @@ namespace ContradictiveGames.Managers
                 _ => throw new System.ArgumentException("Unknown state passed to GetStateType")
             };
         }
-        private void OnGameStateChanged(GameStateType prevState, GameStateType newState, bool asServer) => GameStateChanged?.Invoke(newState);
+        // private void OnGameStateChanged(GameStateType prevState, GameStateType newState, bool asServer) => GameStateChanged?.Invoke(newState);
 
 
         // public override void OnDestroy()

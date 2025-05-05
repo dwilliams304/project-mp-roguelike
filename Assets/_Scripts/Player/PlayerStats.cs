@@ -29,11 +29,11 @@ namespace ContradictiveGames.Player
         }
 
         private void Start(){
-            GameManager.Instance.GameStateChanged += GameStart;
+            // GameManager.Instance.GameStateChanged += GameStart;
         }
 
         public void OnDisable(){
-            GameManager.Instance.GameStateChanged -= GameStart;
+            // GameManager.Instance.GameStateChanged -= GameStart;
         }
 
 
