@@ -17,7 +17,7 @@ MonoBehaviour:
   ClassIcon: {fileID: 21300000, guid: 7e73612dc1a32d3448c2b1a5a12793f1, type: 3}
   MaxHealth: 100
   BaseMoveSpeed: 5
-  PrimaryAttack: {fileID: 11400000, guid: d91700ef330f2904ab6ebe0fea113029, type: 2}
+  MainAttack: {fileID: 11400000, guid: d91700ef330f2904ab6ebe0fea113029, type: 2}
   SecondaryAttack: {fileID: 11400000, guid: 69a4985e07ade9049812149747efbe81, type: 2}
   DamageAura: 1
   HealAura: 1

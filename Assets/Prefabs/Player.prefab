@@ -1010,6 +1010,7 @@ GameObject:
   - component: {fileID: 5940050998048618484}
   - component: {fileID: 7858900355045614895}
   - component: {fileID: 7224670587222236050}
+  - component: {fileID: 4599580011562622523}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1230,13 +1231,28 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 2497168449008342932}
   _networkObjectCache: {fileID: 0}
   inputReader: {fileID: 11400000, guid: 48a06ea871c43654f8e1abe1cfdb3b4f, type: 2}
-  PlayerClass: {fileID: 11400000, guid: e05b3b6df4593db4d9be45b84e2ab803, type: 2}
-  playerSettings: {fileID: 11400000, guid: 19c9d24d99270bf43a10c9d3411c3d9c, type: 2}
   PlayerRB: {fileID: 1280834337983464958}
   PlayerTransform: {fileID: 2499528564729896760}
   animator: {fileID: 8381259551673353538}
   MoveSpeed: 0
   FirePoint: {fileID: 1736895286699008967}
+--- !u!114 &4599580011562622523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6879278563082360873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f70f8139d19b6dd44a7176f071fab404, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 2497168449008342932}
+  _networkObjectCache: {fileID: 0}
+  _entityData: {fileID: 0}
+  _maxHealth: 100
 --- !u!1 &8117981544930472060
 GameObject:
   m_ObjectHideFlags: 0

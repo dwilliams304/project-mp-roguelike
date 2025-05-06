@@ -19,7 +19,7 @@ namespace ContradictiveGames.Player
         [Header("Combat")]
         public int MaxHealth;
         [Min(0)] public float BaseMoveSpeed;
-        public AttackData PrimaryAttack;
+        public AttackData MainAttack;
         public AttackData SecondaryAttack;
 
         [Header("Tuning")]

@@ -8,8 +8,6 @@ namespace ContradictiveGames.Player
     {
         [Header("Scriptables")]
         public InputReader inputReader;
-        public PlayerClassData PlayerClass;
-        public PlayerSettings playerSettings;
         
         [Header("Components")]
         public Rigidbody PlayerRB;
@@ -22,16 +20,16 @@ namespace ContradictiveGames.Player
         [Header("Combat")]
         public Transform FirePoint;
 
-
         //Private refs
-
+        private PlayerClassData playerClass;
+        private PlayerSettings playerSettings;
+        private AttackData mainAttack;
+        private AttackData secondaryAttack;
 
         //Private variables
         private Vector3 lookTarget;
         private Vector3 lookPosition;
         private Vector2 moveInput;
-
-        private LayerMask enemyHitLayers;
 
 
 #region Initialization/setup
@@ -44,6 +42,17 @@ namespace ContradictiveGames.Player
                 enabled = false;
                 return;
             }
+
+            PlayerManager setup = GetComponent<PlayerManager>();
+            if(setup != null){
+                playerClass = setup.PlayerClassData;
+                playerSettings = setup.PlayerSettings;
+            }
+            if(playerClass != null){
+                mainAttack = playerClass.MainAttack;
+                secondaryAttack = playerClass.SecondaryAttack;
+            }
+
             inputReader.Move += OnMoveInput;
             inputReader.Look += OnLookInput;
 
@@ -149,6 +158,16 @@ namespace ContradictiveGames.Player
 
 #region Attacking
 
+        private void OnMainAttack()
+        {
+            HandleAttack(mainAttack);
+        }
+
+        private void OnSecondaryAttack()
+        {
+            HandleAttack(secondaryAttack);
+        }
+
         /// <summary>
         /// Handle the attack logic checks
         /// </summary>
@@ -179,7 +198,7 @@ namespace ContradictiveGames.Player
         private void DoRangedAttack(RangedAttack attack)
         {
             Vector3 origin = FirePoint.position;
-            Vector3 direction = FirePoint.up;
+            Vector3 direction = FirePoint.forward;
 
             if (attack.IsProjectile)
             {
@@ -188,12 +207,11 @@ namespace ContradictiveGames.Player
             }
             else
             {
-                if (Physics.Raycast(origin, direction, out RaycastHit hit, attack.MaxDistance, enemyHitLayers))
+                if (Physics.Raycast(origin, direction, out RaycastHit hit, attack.MaxDistance, playerSettings.DamageableLayers))
                 {
-                    AttackDebugger.DrawDebugLine(origin, hit.point, Color.yellow);
-                    if (hit.collider.TryGetComponent<NetworkObject>(out NetworkObject entity))
-                    {
-                        Debug.Log("Hit damageable layer!");
+                    Debug.DrawLine(origin, hit.point, Color.yellow, 1f);
+                    if(hit.collider.TryGetComponent<IEntity>(out IEntity entity)){
+                        entity.DamageServerRpc(5);
                     }
                 }
                 else
@@ -212,30 +230,22 @@ namespace ContradictiveGames.Player
 
         private void OnAbility1Performed()
         {
-
+            CustomDebugger.Log("Ability {1} not implemented!");
         }
         private void OnAbility2Performed()
         {
-
+            CustomDebugger.Log("Ability {2} not implemented!");
         }
         private void OnAbility3Performed()
         {
-
+            CustomDebugger.Log("Ability {3} not implemented!");
         }
         private void OnAbility4Performed()
         {
-
+            CustomDebugger.Log("Ability {4} not implemented!");
         }
 
 
-        private void OnMainAttack()
-        {
-            CustomDebugger.Log("Doing Main Attack!");
-        }
-        private void OnSecondaryAttack()
-        {
-            CustomDebugger.Log("Doing Secondary Attack!");
-        }
 
 #endregion
 

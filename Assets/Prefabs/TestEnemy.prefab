@@ -184,8 +184,8 @@ GameObject:
   - component: {fileID: 4609924306218405371}
   - component: {fileID: 1859663047998476639}
   - component: {fileID: 232197864919044787}
-  - component: {fileID: 8515916920819357229}
   - component: {fileID: 2117818461050442834}
+  - component: {fileID: 3328765063362807934}
   m_Layer: 7
   m_Name: TestEnemy
   m_TagString: Enemy
@@ -285,21 +285,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8515916920819357229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2286146250607314545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92248fd54b2f8ed42af3d0c87bf96473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 255
-  _addedNetworkObject: {fileID: 2117818461050442834}
-  _networkObjectCache: {fileID: 0}
 --- !u!114 &2117818461050442834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,6 +337,23 @@ MonoBehaviour:
     Rotation: {x: 0, y: 0, z: 0, w: 0}
     Scale: {x: 0, y: 0, z: 0}
     IsValid: 0
+--- !u!114 &3328765063362807934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2286146250607314545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f70f8139d19b6dd44a7176f071fab404, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 2117818461050442834}
+  _networkObjectCache: {fileID: 0}
+  _entityData: {fileID: 0}
+  _maxHealth: 0
 --- !u!1 &3022605130494878538
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,7 +570,6 @@ GameObject:
   - component: {fileID: 8333866021523458142}
   - component: {fileID: 918499855691282342}
   - component: {fileID: 8012609605729271240}
-  - component: {fileID: 4288763493013918824}
   m_Layer: 5
   m_Name: WorldSpaceCanvas
   m_TagString: Untagged
@@ -672,17 +673,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67ddee9cdf247f04ebb7efeb305d7519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4288763493013918824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7509165999169698115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24c06383fcbc24746b106943e524966d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseEntity: {fileID: 8515916920819357229}
-  healthSlider: {fileID: 1200789595630504177}

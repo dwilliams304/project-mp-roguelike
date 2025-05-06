@@ -10,7 +10,7 @@ namespace ContradictiveGames.Entities
         [SerializeField] private EntityData _entityData;
 
         [SerializeField] private int _maxHealth;
-        private int _currentHealth;
+        [SerializeField] private int _currentHealth;
 
         public EntityData EntityData { 
             get => _entityData; 
@@ -22,10 +22,17 @@ namespace ContradictiveGames.Entities
             get => _currentHealth; 
         }
 
+        public override void OnStartClient()
+        {
+            base.OnStartClient();
+            _currentHealth = _maxHealth;
+        }
+
         [ServerRpc(RequireOwnership = false)]
         public void DamageServerRpc(int amount)
         {
             _currentHealth -= amount;
+            CustomDebugger.Log($"I have taken damage! New health: {_currentHealth}");
             if(_currentHealth <= 0) Die();
         }
 

@@ -207,10 +207,8 @@ namespace FishNet.Example
             if (_networkManager == null)
                 return;
 
-            if (_serverState != LocalConnectionState.Stopped)
-                _networkManager.ServerManager.StopConnection(true);
-            else
-                _networkManager.ServerManager.StartConnection();
+            if (_serverState != LocalConnectionState.Stopped) _networkManager.ServerManager.StopConnection(true);
+            else _networkManager.ServerManager.StartConnection();
 
             DeselectButtons();
         }
@@ -221,10 +219,8 @@ namespace FishNet.Example
             if (_networkManager == null)
                 return;
 
-            if (_clientState != LocalConnectionState.Stopped)
-                _networkManager.ClientManager.StopConnection();
-            else
-                _networkManager.ClientManager.StartConnection();
+            if (_clientState != LocalConnectionState.Stopped) _networkManager.ClientManager.StopConnection();
+            else _networkManager.ClientManager.StartConnection();
 
             DeselectButtons();
         }

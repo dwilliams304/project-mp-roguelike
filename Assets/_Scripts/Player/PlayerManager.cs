@@ -28,8 +28,6 @@ namespace ContradictiveGames.Player
                 }
 
                 VirtualCamera.Priority = 100;
-                // VirtualCamera.Follow = transform;
-                // VirtualCamera.LookAt = transform;
                 PlayerCamera.GetComponent<AudioListener>().enabled = true;
 
                 gameObject.tag = Constants.PlayerSelfTag;
