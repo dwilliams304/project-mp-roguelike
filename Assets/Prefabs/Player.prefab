@@ -426,6 +426,7 @@ GameObject:
   - component: {fileID: 7438995532679815932}
   - component: {fileID: 4881343476622389870}
   - component: {fileID: 1006563384872453521}
+  - component: {fileID: 9154282431394906463}
   m_Layer: 5
   m_Name: WorldSpaceCanvas
   m_TagString: Untagged
@@ -517,6 +518,23 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &9154282431394906463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4935950402744391917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c3e688718ee0c4fb6783064baca6d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBarSlider: {fileID: 8182201397609815823}
+  nameText: {fileID: 497696793442274378}
+  levelBackground: {fileID: 1122344362539783628}
+  levelIcon: {fileID: 2312207257626919982}
+  levelText: {fileID: 7820019139489958076}
 --- !u!1 &5373921688571286215
 GameObject:
   m_ObjectHideFlags: 0
@@ -1007,10 +1025,10 @@ GameObject:
   - component: {fileID: 1280834337983464958}
   - component: {fileID: 2497168449008342932}
   - component: {fileID: 6036648213086045567}
+  - component: {fileID: 2316445678143370086}
   - component: {fileID: 5940050998048618484}
-  - component: {fileID: 7858900355045614895}
   - component: {fileID: 7224670587222236050}
-  - component: {fileID: 4599580011562622523}
+  - component: {fileID: 7589808441804004409}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1055,10 +1073,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2.416168
+  m_Radius: 0.6
+  m_Height: 2.1
   m_Direction: 1
-  m_Center: {x: 0, y: 0.75, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!54 &1280834337983464958
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1181,6 +1199,28 @@ MonoBehaviour:
     X: 0
     Y: 0
     Z: 0
+--- !u!114 &2316445678143370086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6879278563082360873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 2497168449008342932}
+  _networkObjectCache: {fileID: 0}
+  IgnoredParameters: []
+  _animator: {fileID: 8381259551673353538}
+  _synchronizeWhenDisabled: 0
+  _smoothFloats: 1
+  _interpolation: 2
+  _clientAuthoritative: 1
+  _sendToOwner: 0
 --- !u!114 &5940050998048618484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1200,21 +1240,6 @@ MonoBehaviour:
   VirtualCamera: {fileID: 2140280370276101763}
   PlayerClassData: {fileID: 11400000, guid: e05b3b6df4593db4d9be45b84e2ab803, type: 2}
   PlayerSettings: {fileID: 11400000, guid: 19c9d24d99270bf43a10c9d3411c3d9c, type: 2}
---- !u!114 &7858900355045614895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6879278563082360873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ddd4449c209830449134278a7053283, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 255
-  _addedNetworkObject: {fileID: 2497168449008342932}
-  _networkObjectCache: {fileID: 0}
 --- !u!114 &7224670587222236050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1236,7 +1261,7 @@ MonoBehaviour:
   animator: {fileID: 8381259551673353538}
   MoveSpeed: 0
   FirePoint: {fileID: 1736895286699008967}
---- !u!114 &4599580011562622523
+--- !u!114 &7589808441804004409
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1245,14 +1270,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 6879278563082360873}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f70f8139d19b6dd44a7176f071fab404, type: 3}
+  m_Script: {fileID: 11500000, guid: 9534fc92dd5111d46ae61372d54ec32c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 2497168449008342932}
   _networkObjectCache: {fileID: 0}
   _entityData: {fileID: 0}
-  _maxHealth: 100
+  _entityUIController: {fileID: 9154282431394906463}
+  _currentHealth: 0
+  _maxHealth: 0
 --- !u!1 &8117981544930472060
 GameObject:
   m_ObjectHideFlags: 0

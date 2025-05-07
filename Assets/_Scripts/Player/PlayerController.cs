@@ -210,8 +210,8 @@ namespace ContradictiveGames.Player
                 if (Physics.Raycast(origin, direction, out RaycastHit hit, attack.MaxDistance, playerSettings.DamageableLayers))
                 {
                     Debug.DrawLine(origin, hit.point, Color.yellow, 1f);
-                    if(hit.collider.TryGetComponent<IEntity>(out IEntity entity)){
-                        entity.DamageServerRpc(5);
+                    if(hit.collider.TryGetComponent<IHealth>(out IHealth health)){
+                        health.Damage(5);
                     }
                 }
                 else
