@@ -1,4 +1,5 @@
 using ContradictiveGames.Entities;
+using FishNet.CodeGenerating;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using UnityEngine;
@@ -9,21 +10,32 @@ namespace ContradictiveGames.Player
     {
 
         [SerializeField] private EntityData _entityData;
-        [SerializeField] private EntityUIController _entityUIController; 
-        [SerializeField] private int _currentHealth;
-        [SerializeField] private int _maxHealth;
+        [SerializeField] private EntityUIController _entityUIController;
+
+        [AllowMutableSyncType]
+        public SyncVar<int> MaxHealth;
+        [AllowMutableSyncType]
+        public SyncVar<int> CurrentHealth;
 
 
         public EntityUIController entityUIController => _entityUIController;
         public EntityData EntityData => _entityData;
-        public int CurrentHealth => _currentHealth;
-        public int MaxHealth => _maxHealth;
+
+        public override void OnStartServer()
+        {
+            base.OnStartServer();
+
+            MaxHealth.Value = 100;
+            CurrentHealth.Value = MaxHealth.Value;
+
+            entityUIController.UpdateHealthBarMax(MaxHealth.Value, true);
+        }
 
         public override void OnStartClient()
         {
             base.OnStartClient();
-            _maxHealth = 100;
-            _currentHealth = _maxHealth;
+            MaxHealth.OnChange += UpdateMaxHealthUI;
+            CurrentHealth.OnChange += UpdateCurrentHealthUI;
             if(_entityUIController == null) {
                 _entityUIController = GetComponentInChildren<EntityUIController>();
                 if(_entityUIController == null){
@@ -33,15 +45,41 @@ namespace ContradictiveGames.Player
             }
 
             if(IsOwner){
-                PlayerOverlayUIController.LocalInstance.UpdateCurrentMax(_maxHealth, true);
+                PlayerOverlayUIController.LocalInstance.UpdateCurrentMax(MaxHealth.Value, true);
                 PlayerOverlayUIController.LocalInstance.UpdateLevelText(1, 500, 23);
             }
-            entityUIController.UpdateHealthBarMax(MaxHealth, true);
+            entityUIController.UpdateHealthBarMax(MaxHealth.Value, true);
         }
+
+        public override void OnStopClient(){
+            base.OnStopClient();
+            MaxHealth.OnChange -= UpdateMaxHealthUI;
+            CurrentHealth.OnChange -= UpdateCurrentHealthUI;
+        }
+
+        private void UpdateCurrentHealthUI(int prevValue, int newValue, bool asServer)
+        {
+            entityUIController.UpdateHealthBarCurrent(newValue);
+            if(IsOwner){
+                PlayerOverlayUIController.LocalInstance.UpdateCurrentHealth(newValue);
+            }
+        }
+
+        private void UpdateMaxHealthUI(int prevValue, int newValue, bool asServer)
+        {
+            entityUIController.UpdateHealthBarMax(newValue);
+            if(IsOwner){
+                PlayerOverlayUIController.LocalInstance.UpdateCurrentMax(newValue);
+            }
+        }
+
         public void InitializeUI(EntityData data)
         {
             throw new System.NotImplementedException();
         }
+
+        public int GetMaxHealth() => MaxHealth.Value;
+        public int GetCurrentHealth() => CurrentHealth.Value;
 
 
         public bool IsEffectable()
@@ -61,24 +99,14 @@ namespace ContradictiveGames.Player
             return true;
         }
 
-        public void Damage(int amount){
-            DamageServer(amount);
-        }
         [ServerRpc(RequireOwnership = false)]
-        public void DamageServer(int amount)
-        {
+        public void Damage(int amount){
             if(!IsDamageable()) return;
-            _currentHealth -= amount;
-            if(entityUIController != null) {
-                entityUIController.UpdateHealthBarCurrent(_currentHealth);
-            }
+            CurrentHealth.Value -= amount;
 
-            if(IsOwner){
-                PlayerOverlayUIController.LocalInstance.UpdateCurrentHealth(_currentHealth);
-            }
 
-            if(_currentHealth <= 0){
-                _currentHealth = 0;
+            if(CurrentHealth.Value <= 0){
+                CurrentHealth.Value = 0;
                 Die();
             }
         }
@@ -88,21 +116,13 @@ namespace ContradictiveGames.Player
         {
             return true;
         }
-        
-        public void Heal(int amount){
-            HealServer(amount);
-        }
+
         [ServerRpc(RequireOwnership = false)]
-        public void HealServer(int amount)
-        {
+        public void Heal(int amount){
             if(!IsHealable()) return;
-            _currentHealth += amount;
-            if(_currentHealth > _maxHealth){
-                _currentHealth = _maxHealth;
-            }
-            if(entityUIController != null) entityUIController.UpdateHealthBarCurrent(_currentHealth);
-            if(IsOwner){
-                PlayerOverlayUIController.LocalInstance.UpdateCurrentHealth(_currentHealth);
+            CurrentHealth.Value += amount;
+            if(CurrentHealth.Value > GetMaxHealth()){
+                CurrentHealth.Value = GetMaxHealth();
             }
         }
 

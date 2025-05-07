@@ -1,7 +1,9 @@
+using FishNet.Object.Synchronizing;
+
 public interface IHealth
 {
-    public int CurrentHealth { get; }
-    public int MaxHealth { get; }
+    public int GetMaxHealth();
+    public int GetCurrentHealth();
 
     public bool IsHealable();
     public bool IsDamageable();

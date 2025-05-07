@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 1859663047998476639}
   - component: {fileID: 232197864919044787}
   - component: {fileID: 2117818461050442834}
-  - component: {fileID: 5478034033013763833}
+  - component: {fileID: 7110545353845663659}
   m_Layer: 7
   m_Name: TestEnemy
   m_TagString: Enemy
@@ -303,7 +303,8 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
-  NetworkBehaviours: []
+  NetworkBehaviours:
+  - {fileID: 7110545353845663659}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects: []
   RuntimeParentNetworkBehaviour: {fileID: 0}
@@ -328,16 +329,16 @@ MonoBehaviour:
   _spectatorInterpolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  <PrefabId>k__BackingField: 65535
+  <PrefabId>k__BackingField: 1
   <SpawnableCollectionId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 15124816345942343855
   <SceneId>k__BackingField: 0
   SerializedTransformProperties:
-    Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    Scale: {x: 0, y: 0, z: 0}
-    IsValid: 0
---- !u!114 &5478034033013763833
+    Position: {x: 13.2, y: 0.95, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    Scale: {x: 1, y: 1, z: 1}
+    IsValid: 1
+--- !u!114 &7110545353845663659
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -346,16 +347,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2286146250607314545}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f70f8139d19b6dd44a7176f071fab404, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 2117818461050442834}
-  _networkObjectCache: {fileID: 0}
-  _entityData: {fileID: 0}
-  _entityUIController: {fileID: 7188494824982574272}
-  _maxHealth: 100
-  _currentHealth: 100
+  _networkObjectCache: {fileID: 2117818461050442834}
 --- !u!1 &3022605130494878538
 GameObject:
   m_ObjectHideFlags: 0

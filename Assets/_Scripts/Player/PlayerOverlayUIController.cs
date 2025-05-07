@@ -22,7 +22,7 @@ namespace ContradictiveGames
         public void UpdateCurrentHealth(int newAmount){
             healthSlider.value = newAmount;
         }
-        public void UpdateCurrentMax(int newAmount, bool setCurrentToMax){
+        public void UpdateCurrentMax(int newAmount, bool setCurrentToMax = false){
             healthSlider.maxValue = newAmount;
             if(setCurrentToMax){
                 healthSlider.value = newAmount;

@@ -1135,7 +1135,7 @@ MonoBehaviour:
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
   _enablePrediction: 0
-  _predictionType: 0
+  _predictionType: 1
   _graphicalObject: {fileID: 0}
   _detachGraphicalObject: 0
   _enableStateForwarding: 1
@@ -1171,15 +1171,15 @@ MonoBehaviour:
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 2497168449008342932}
   _networkObjectCache: {fileID: 0}
-  _componentConfiguration: 0
+  _componentConfiguration: 2
   _synchronizeParent: 0
   _packing:
-    Position: 1
+    Position: 2
     Rotation: 1
     Scale: 0
   _interpolation: 2
   _extrapolation: 2
-  _enableTeleport: 0
+  _enableTeleport: 1
   _teleportThreshold: 1
   _clientAuthoritative: 1
   _sendToOwner: 1
@@ -1278,8 +1278,14 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 0}
   _entityData: {fileID: 0}
   _entityUIController: {fileID: 9154282431394906463}
-  _currentHealth: 0
-  _maxHealth: 0
+  MaxHealth:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 0
+  CurrentHealth:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 0
 --- !u!1 &8117981544930472060
 GameObject:
   m_ObjectHideFlags: 0
