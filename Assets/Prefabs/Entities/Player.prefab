@@ -1246,7 +1246,7 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 2497168449008342932}
   PlayerCamera: {fileID: 1859270831993852247}
   VirtualCamera: {fileID: 2140280370276101763}
-  entityUIController: {fileID: 0}
+  entityUIController: {fileID: 9154282431394906463}
   PlayerClassData: {fileID: 11400000, guid: e05b3b6df4593db4d9be45b84e2ab803, type: 2}
   PlayerSettings: {fileID: 11400000, guid: 19c9d24d99270bf43a10c9d3411c3d9c, type: 2}
 --- !u!114 &7224670587222236050
@@ -1307,8 +1307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af23ff732236b6446991936389881752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerCamera: {fileID: 0}
-  WallMaterial: {fileID: -876546973899608171, guid: d76beb55c7fdc5e49b501e27b011fbeb, type: 3}
+  WallMaterial: {fileID: 2100000, guid: 57d4d83ec8e958c4a9cb6f85c397b757, type: 2}
   WallMask:
     serializedVersion: 2
     m_Bits: 64

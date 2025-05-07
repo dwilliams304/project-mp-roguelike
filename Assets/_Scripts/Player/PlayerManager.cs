@@ -45,7 +45,11 @@ namespace ContradictiveGames.Player
                 PlayerCamera.enabled = false;
                 VirtualCamera.Priority = -5;
                 VirtualCamera.enabled = false;
+
                 TogglePvpState(true);
+
+                // gameObject.tag = Constants.PlayerOtherTag_PVP;
+                // gameObject.SetLayersRecursive(LayerMask.NameToLayer(Constants.PlayerOtherTag_PVP));
             }
 
             
