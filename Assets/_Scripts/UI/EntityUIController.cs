@@ -1,4 +1,5 @@
 using ContradictiveGames.Entities;
+using ContradictiveGames.Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ namespace ContradictiveGames
     {
         [Header("Health Bar")]
         [SerializeField] private Slider healthBarSlider;
+        [SerializeField] private Image healthBarFill;
         
         [Header("Name")]
         [SerializeField] private TMP_Text nameText;
@@ -17,6 +19,7 @@ namespace ContradictiveGames
         [SerializeField] private Image levelBackground;
         [SerializeField] private Image levelIcon;
         [SerializeField] private TMP_Text levelText;
+
 
         public void Initialize(EntityData data){
 
@@ -35,10 +38,21 @@ namespace ContradictiveGames
             nameText.text = name;
         }
 
-        public void SetAllColors(Color healthbarColor, Color nameColor, Color levelTextColor){
-            healthBarSlider.fillRect.GetComponent<Image>().color = healthbarColor;
-            nameText.color = nameColor;
-            levelText.color = levelTextColor;
+        public void SetPlayerColors(bool useEnemyColors){
+
+            if(useEnemyColors){
+                healthBarFill.color = GameManager.Instance.gameSettings.EnemyColor;
+                nameText.color = GameManager.Instance.gameSettings.EnemyColor;
+                levelText.color = Color.red;
+            }
+            else{
+                healthBarFill.color = GameManager.Instance.gameSettings.FriendlyColor;
+                nameText.color = GameManager.Instance.gameSettings.FriendlyColor;
+                levelText.color = Color.white;
+            }
+
+
+
         }
     }
 }

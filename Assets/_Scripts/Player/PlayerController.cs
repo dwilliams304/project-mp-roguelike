@@ -21,6 +21,7 @@ namespace ContradictiveGames.Player
         public Transform FirePoint;
 
         //Private refs
+        private Camera playerCamera;
         private PlayerClassData playerClass;
         private PlayerSettings playerSettings;
         private AttackData mainAttack;
@@ -47,6 +48,7 @@ namespace ContradictiveGames.Player
             if(setup != null){
                 playerClass = setup.PlayerClassData;
                 playerSettings = setup.PlayerSettings;
+                playerCamera = setup.PlayerCamera;
             }
             if(playerClass != null){
                 mainAttack = playerClass.MainAttack;
@@ -68,9 +70,8 @@ namespace ContradictiveGames.Player
         }
 
 
-        public override void OnStopClient()
+        private void OnDisable()
         {
-            base.OnStopClient();
 
             inputReader.Move -= OnMoveInput;
             inputReader.Look -= OnLookInput;
@@ -138,7 +139,7 @@ namespace ContradictiveGames.Player
             if (lookInput == Vector2.zero) return;
 
 
-            Ray ray = Camera.main.ScreenPointToRay(lookInput);
+            Ray ray = playerCamera.ScreenPointToRay(lookInput);
 
             if (Physics.Raycast(ray, out RaycastHit hit, 100f, playerSettings.MouseHitLayer))
             {

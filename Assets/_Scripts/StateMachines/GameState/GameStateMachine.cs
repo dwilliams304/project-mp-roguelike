@@ -10,7 +10,7 @@ namespace ContradictiveGames.State
         public RoundEndState RoundEndState;
         public GameOverState GameOverState;
 
-        protected GameManager manager;
+        public GameManager manager { get; private set; }
 
 
 
@@ -22,6 +22,7 @@ namespace ContradictiveGames.State
             RoundEndState = new RoundEndState();
             GameOverState = new GameOverState();
             
+            manager = GameManager.Instance;
 
             ChangeState(WaitingState);
         }
@@ -29,6 +30,7 @@ namespace ContradictiveGames.State
         public override void ChangeState(StateNode<GameStateMachine> newState)
         {
             base.ChangeState(newState);
+            manager.UpdateState(newState);
         }
     }
 }

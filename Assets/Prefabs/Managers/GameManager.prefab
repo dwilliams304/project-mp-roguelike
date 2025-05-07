@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5086885388911880376}
-  - component: {fileID: 6073812509424491558}
   - component: {fileID: 573990411424703250}
+  - component: {fileID: 6073812509424491558}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -33,22 +33,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6073812509424491558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8655056284342286077}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4e963494a081b6478288188905fd4c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 255
-  _addedNetworkObject: {fileID: 573990411424703250}
-  _networkObjectCache: {fileID: 0}
-  gameSettings: {fileID: 11400000, guid: a2952115c80e64142a8cd0b8283b71d7, type: 2}
 --- !u!114 &573990411424703250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,7 +59,7 @@ MonoBehaviour:
   _isNetworked: 1
   _isSpawnable: 0
   _isGlobal: 0
-  _initializeOrder: 0
+  _initializeOrder: -5
   _preventDespawnOnDisconnect: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
@@ -101,3 +85,38 @@ MonoBehaviour:
     Rotation: {x: 0, y: 0, z: 0, w: 0}
     Scale: {x: 0, y: 0, z: 0}
     IsValid: 0
+--- !u!114 &6073812509424491558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8655056284342286077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4e963494a081b6478288188905fd4c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 573990411424703250}
+  _networkObjectCache: {fileID: 0}
+  gameSettings: {fileID: 11400000, guid: a2952115c80e64142a8cd0b8283b71d7, type: 2}
+  CurrentGameStateType:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 0
+  CurrentCountdownTimer:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 0
+  MaxGameTime:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 0
+  ReadyPlayers:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+  CurrentActiveGameTimer:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 0

@@ -9,17 +9,18 @@ namespace ContradictiveGames.Effects
         public static int OpacityID = Shader.PropertyToID("_Opacity");
 
         [SerializeField] private Material WallMaterial;
-        [SerializeField] private Camera PlayerCamera;
         [SerializeField] private LayerMask WallMask;
 
         [SerializeField] private float transitionDuration = 1f;
+        private Camera PlayerCamera;
         private float transitionTimer = 0f;
         private float currentValue = 0f;
 
         private bool isObstructed = false;
         
-        private void Start(){
+        private void OnEnable(){
             PlayerCamera = Camera.main;
+
             if(PlayerCamera == null) Debug.Log("Player Camera set to null!");
             if(Camera.main == null) Debug.Log("Camera.main is null!");
         }

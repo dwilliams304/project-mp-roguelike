@@ -1,4 +1,6 @@
+using System;
 using ContradictiveGames.Entities;
+using ContradictiveGames.Managers;
 using FishNet.CodeGenerating;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
@@ -42,21 +44,48 @@ namespace ContradictiveGames.Player
                     CustomDebugger.LogError("No EntityUIController setup", ConsoleLogLevel.InDepth);
                     return;
                 }
+                entityUIController.SetPlayerColors(!IsOwner);
             }
 
             if(IsOwner){
                 PlayerOverlayUIController.LocalInstance.UpdateCurrentMax(MaxHealth.Value, true);
                 PlayerOverlayUIController.LocalInstance.UpdateLevelText(1, 500, 23);
+                entityUIController.SetPlayerColors(false);
             }
+            else{
+                entityUIController.SetPlayerColors(true);
+            }
+
+            
+
+            GameManager.Instance.CurrentGameStateType.OnChange += CheckGameState;
             entityUIController.UpdateHealthBarMax(MaxHealth.Value, true);
         }
+
 
         public override void OnStopClient(){
             base.OnStopClient();
             MaxHealth.OnChange -= UpdateMaxHealthUI;
             CurrentHealth.OnChange -= UpdateCurrentHealthUI;
+            GameManager.Instance.CurrentGameStateType.OnChange -= CheckGameState;
         }
 
+        private void CheckGameState(GameStateType prev, GameStateType next, bool asServer)
+        {
+            switch(next){
+                case GameStateType.Waiting:
+                    if(IsOwner) entityUIController.SetPlayerColors(false);
+                    else entityUIController.SetPlayerColors(true);
+                    break;
+                case GameStateType.Countdown:
+                    if(!IsOwner) entityUIController.SetPlayerColors(false);
+                    break;
+                case GameStateType.Active:
+                    if(!IsOffline) entityUIController.SetPlayerColors(false);
+                    break;
+            }
+        }
+        
         private void UpdateCurrentHealthUI(int prevValue, int newValue, bool asServer)
         {
             entityUIController.UpdateHealthBarCurrent(newValue);
