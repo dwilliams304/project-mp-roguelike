@@ -55,12 +55,6 @@ namespace ContradictiveGames.Managers
         }
 
 
-        public override void OnStartClient(){
-            base.OnStartClient();
-            // gameStateMachine = new GameStateMachine();
-            // gameStateMachine.InitializeStateMachine();
-        }
-
 
         public void UpdateState(StateNode<GameStateMachine> state){
             CurrentGameStateType.Value = GetStateType(state);
@@ -80,30 +74,6 @@ namespace ContradictiveGames.Managers
             };
         }
 
-        // public void ReadyLocalPlayer(NetworkConnection connection, bool _isReady){
-        //     if(ReadyPlayers.TryGetValue(connection, out bool isReady)){
-        //         isReady = _isReady;
-        //     }
-        //     else{
-        //         ReadyPlayers.Add(connection, isReady);
-        //     }
-        // }
-
-        // public void CheckAllPlayersReady(){
-        //     bool _allAreReady = true;
-        //     foreach(var conn in ReadyPlayers.Values){
-        //         if(!conn) {
-        //             _allAreReady = false;
-        //         }
-        //     }
-        //     if(_allAreReady){
-        //         if(gameSettings.skipCountdownTimer){
-        //             gameStateMachine.ChangeState(gameStateMachine.ActiveState);
-        //         }
-        //         else{
-        //             gameStateMachine.ChangeState(gameStateMachine.CountdownState);
-        //         }
-        //     }
-        // }
+        
     }
 }
