@@ -32,6 +32,8 @@ namespace ContradictiveGames.Player
         private Vector3 lookPosition;
         private Vector2 moveInput;
 
+        private bool hasControl = false;
+
 
 #region Initialization/setup
 
@@ -54,6 +56,8 @@ namespace ContradictiveGames.Player
                 mainAttack = playerClass.MainAttack;
                 secondaryAttack = playerClass.SecondaryAttack;
             }
+
+            hasControl = false;
 
             inputReader.Move += OnMoveInput;
             inputReader.Look += OnLookInput;
@@ -85,6 +89,8 @@ namespace ContradictiveGames.Player
             inputReader.Ability4 -= OnAbility4Performed;
         }
 
+        public void TogglePlayerMovementControls(bool toggle) => hasControl = toggle;
+
 
 #endregion
 
@@ -93,6 +99,7 @@ namespace ContradictiveGames.Player
 
         private void Update()
         {
+            if(!hasControl) return;
             MovePlayer();
         }
 
@@ -136,6 +143,7 @@ namespace ContradictiveGames.Player
         }
         private void OnLookInput(Vector2 lookInput)
         {
+            if(!hasControl) return;
             if (lookInput == Vector2.zero) return;
 
 
@@ -175,6 +183,7 @@ namespace ContradictiveGames.Player
         /// <param name="attack">Attack data needed</param>
         private void HandleAttack(AttackData attack)
         {
+            if(!hasControl) return;
             //Early exit
             if (attack == null)
             {
@@ -231,18 +240,22 @@ namespace ContradictiveGames.Player
 
         private void OnAbility1Performed()
         {
+            if(!hasControl) return;
             CustomDebugger.Log("Ability {1} not implemented!");
         }
         private void OnAbility2Performed()
         {
+            if(!hasControl) return;
             CustomDebugger.Log("Ability {2} not implemented!");
         }
         private void OnAbility3Performed()
         {
+            if(!hasControl) return;
             CustomDebugger.Log("Ability {3} not implemented!");
         }
         private void OnAbility4Performed()
         {
+            if(!hasControl) return;
             CustomDebugger.Log("Ability {4} not implemented!");
         }
 

@@ -15,30 +15,36 @@ namespace ContradictiveGames.Player
         public Camera PlayerCamera;
         public CinemachineCamera VirtualCamera;
         public EntityUIController entityUIController;
+        public GameObject PlayerModel;
+        public GameObject PlayerWorldspaceCanvas;
 
         [Header("Settings")]
         public PlayerClassData PlayerClassData;
         public PlayerSettings PlayerSettings;
+        public PlayerController PlayerController;
 
+        private CapsuleCollider coll;
+        private AudioListener audioListener;
+        private SeeThroughShaderSync sts;
 
         public override void OnStartClient()
         {
             base.OnStartClient();
+            LobbyUIManager.OnPlayerJoined(Owner.ClientId);
+
+            coll = GetComponent<CapsuleCollider>();
+            audioListener = PlayerCamera.GetComponentInChildren<AudioListener>();
+            sts = GetComponent<SeeThroughShaderSync>();
+            coll.enabled = false;
+            sts.enabled = false;
+            audioListener.enabled = false;
+            PlayerModel.SetActive(false);
+            PlayerWorldspaceCanvas.SetActive(false);
+
             if (IsOwner)
             {
-                if (VirtualCamera == null || PlayerCamera == null)
-                {
-                    CustomDebugger.LogError("No cameras assigned in inspector!");
-                }
-
-                VirtualCamera.Priority = 100;
-                PlayerCamera.GetComponent<AudioListener>().enabled = true;
-
                 gameObject.tag = Constants.PlayerSelfTag;
                 gameObject.SetLayersRecursive(LayerMask.NameToLayer(Constants.PlayerSelfTag));
-
-                SeeThroughShaderSync sts = GetComponent<SeeThroughShaderSync>();
-                sts.enabled = true;
             }
             else
             {
@@ -56,12 +62,44 @@ namespace ContradictiveGames.Player
             GameManager.Instance.CurrentGameStateType.OnChange -= CheckGameState;
             GameManager.Instance.CurrentGameStateType.OnChange += CheckGameState;
 
+            LobbyUIManager.Instance.SpawnPlayerPressed -= SpawnPlayer;
+            LobbyUIManager.Instance.SpawnPlayerPressed += SpawnPlayer;
+
         }
 
 
         public override void OnStopClient(){
             base.OnStopClient();
+            LobbyUIManager.OnPlayerLeft(Owner.ClientId);
             GameManager.Instance.CurrentGameStateType.OnChange -= CheckGameState;
+            LobbyUIManager.Instance.SpawnPlayerPressed -= SpawnPlayer;
+        }
+
+        public void SpawnPlayer(){
+            PlayerModel.SetActive(true);
+
+            if(IsOwner){
+                PlayerController.TogglePlayerMovementControls(true);
+                coll.enabled = true;
+                PlayerWorldspaceCanvas.SetActive(true);
+                PlayerCamera.enabled = true;
+                audioListener.enabled = true;
+                VirtualCamera.Priority = 100;
+                sts.enabled = true;
+            }
+        }
+        public void DespawnPlayer(){
+            PlayerController.TogglePlayerMovementControls(false);
+            PlayerController.TogglePlayerMovementControls(true);
+            coll.enabled = false;
+            PlayerModel.SetActive(false);
+            PlayerWorldspaceCanvas.SetActive(false);
+            // if(IsOwner){
+            //     PlayerCamera.enabled = true;
+            //     audioListener.enabled = true;
+            //     VirtualCamera.Priority = 100;
+            //     sts.enabled = true;
+            // }
         }
 
         private void CheckGameState(GameStateType prevState, GameStateType newState, bool asServer)
