@@ -76,9 +76,9 @@ namespace ContradictiveGames.Player
         }
 
         public void SpawnPlayer(){
-            PlayerModel.SetActive(true);
 
             if(IsOwner){
+                PlayerModel.SetActive(true);
                 PlayerController.TogglePlayerMovementControls(true);
                 coll.enabled = true;
                 PlayerWorldspaceCanvas.SetActive(true);
@@ -87,6 +87,7 @@ namespace ContradictiveGames.Player
                 VirtualCamera.Priority = 100;
                 sts.enabled = true;
             }
+            ShowPlayer(true);
         }
         public void DespawnPlayer(){
             PlayerController.TogglePlayerMovementControls(false);
@@ -94,12 +95,20 @@ namespace ContradictiveGames.Player
             coll.enabled = false;
             PlayerModel.SetActive(false);
             PlayerWorldspaceCanvas.SetActive(false);
+            ShowPlayer(false);
             // if(IsOwner){
             //     PlayerCamera.enabled = true;
             //     audioListener.enabled = true;
             //     VirtualCamera.Priority = 100;
             //     sts.enabled = true;
             // }
+        }
+
+        [ObserversRpc]
+        public void ShowPlayer(bool show){
+            PlayerModel.SetActive(show);
+            coll.enabled = show;
+            PlayerWorldspaceCanvas.SetActive(show);
         }
 
         private void CheckGameState(GameStateType prevState, GameStateType newState, bool asServer)
