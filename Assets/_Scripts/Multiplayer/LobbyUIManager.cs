@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using FishySteamworks;
+using Steamworks;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -36,11 +38,12 @@ namespace ContradictiveGames
         public static void OnPlayerJoined(int clientID){
             LobbyPlayerCard lpc = Instantiate(Instance.playerCardPrefab, Instance.playerListTransform);
             Instance.players.Add(clientID, lpc);
-            lpc.Initialize(new UserData{
-                Username = $"Player {clientID}",
-                Level = 1,
-                Title = $"Title {Random.Range(0, 100000)}"
-            });
+            UserData userData = new();
+            
+            if(SteamManager.Initialized){
+                userData.Username = SteamFriends.GetPersonaName();
+            }
+            lpc.Initialize(userData);
         }
 
 

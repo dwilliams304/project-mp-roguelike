@@ -1,4 +1,4 @@
-public static class Constants
+public static class GameConstants
 {
     public const string WorldSpaceUITag = "UI";
     public const string PlayerSelfTag = "PLAYER_SELF";

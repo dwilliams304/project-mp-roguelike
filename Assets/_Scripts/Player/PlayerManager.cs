@@ -43,8 +43,8 @@ namespace ContradictiveGames.Player
 
             if (IsOwner)
             {
-                gameObject.tag = Constants.PlayerSelfTag;
-                gameObject.SetLayersRecursive(LayerMask.NameToLayer(Constants.PlayerSelfTag));
+                gameObject.tag = GameConstants.PlayerSelfTag;
+                gameObject.SetLayersRecursive(LayerMask.NameToLayer(GameConstants.PlayerSelfTag));
             }
             else
             {
@@ -129,13 +129,13 @@ namespace ContradictiveGames.Player
 
         private void TogglePvpState(bool pvpEnable){
             if(pvpEnable){
-                gameObject.tag = Constants.PlayerOtherTag_PVP;
-                gameObject.SetLayersRecursive(LayerMask.NameToLayer(Constants.PlayerOtherTag_PVP));
+                gameObject.tag = GameConstants.PlayerOtherTag_PVP;
+                gameObject.SetLayersRecursive(LayerMask.NameToLayer(GameConstants.PlayerOtherTag_PVP));
                 entityUIController.SetPlayerColors(true);
             }
             else{
-                gameObject.tag = Constants.PlayerOtherTag_NoPVP;
-                gameObject.SetLayersRecursive(LayerMask.NameToLayer(Constants.PlayerOtherTag_NoPVP));
+                gameObject.tag = GameConstants.PlayerOtherTag_NoPVP;
+                gameObject.SetLayersRecursive(LayerMask.NameToLayer(GameConstants.PlayerOtherTag_NoPVP));
                 entityUIController.SetPlayerColors(false);
             }
         }
