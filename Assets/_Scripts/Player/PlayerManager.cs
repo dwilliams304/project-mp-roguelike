@@ -75,13 +75,13 @@ namespace ContradictiveGames.Player
             LobbyUIManager.Instance.SpawnPlayerPressed -= SpawnPlayer;
         }
 
+        [ServerRpc]
         public void SpawnPlayer(){
-
+            PlayerModel.SetActive(true);
+            coll.enabled = true;
+            PlayerWorldspaceCanvas.SetActive(true);
             if(IsOwner){
-                PlayerModel.SetActive(true);
-                PlayerController.TogglePlayerMovementControls(true);
-                coll.enabled = true;
-                PlayerWorldspaceCanvas.SetActive(true);
+                
                 PlayerCamera.enabled = true;
                 audioListener.enabled = true;
                 VirtualCamera.Priority = 100;
@@ -89,27 +89,25 @@ namespace ContradictiveGames.Player
             }
             ShowPlayer(true);
         }
+
+
+        [ServerRpc]
         public void DespawnPlayer(){
             PlayerController.TogglePlayerMovementControls(false);
-            PlayerController.TogglePlayerMovementControls(true);
             coll.enabled = false;
             PlayerModel.SetActive(false);
             PlayerWorldspaceCanvas.SetActive(false);
             ShowPlayer(false);
-            // if(IsOwner){
-            //     PlayerCamera.enabled = true;
-            //     audioListener.enabled = true;
-            //     VirtualCamera.Priority = 100;
-            //     sts.enabled = true;
-            // }
         }
 
         [ObserversRpc]
         public void ShowPlayer(bool show){
+            PlayerController.TogglePlayerMovementControls(show);
             PlayerModel.SetActive(show);
             coll.enabled = show;
             PlayerWorldspaceCanvas.SetActive(show);
         }
+        
 
         private void CheckGameState(GameStateType prevState, GameStateType newState, bool asServer)
         {
