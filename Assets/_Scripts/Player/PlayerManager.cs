@@ -61,18 +61,17 @@ namespace ContradictiveGames.Player
             GameManager.Instance.CurrentGameStateType.OnChange -= CheckGameState;
             GameManager.Instance.CurrentGameStateType.OnChange += CheckGameState;
 
-            // LobbyUIManager.Instance.SpawnPlayerPressed -= SpawnPlayer;
-            // LobbyUIManager.Instance.SpawnPlayerPressed += SpawnPlayer;
+            SpawnPlayer();
 
         }
 
 
         public override void OnStopClient(){
             base.OnStopClient();
-            // LobbyUIManager.OnPlayerLeft(Owner.ClientId);
+
             GameManager.Instance.CurrentGameStateType.OnChange -= CheckGameState;
-            // LobbyUIManager.Instance.SpawnPlayerPressed -= SpawnPlayer;
         }
+
 
         [ServerRpc]
         public void SpawnPlayer(){
