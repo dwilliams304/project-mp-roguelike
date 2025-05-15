@@ -30,7 +30,6 @@ namespace ContradictiveGames.Player
         public override void OnStartClient()
         {
             base.OnStartClient();
-            LobbyUIManager.OnPlayerJoined(Owner.ClientId);
 
             coll = GetComponent<CapsuleCollider>();
             audioListener = PlayerCamera.GetComponentInChildren<AudioListener>();
@@ -62,17 +61,17 @@ namespace ContradictiveGames.Player
             GameManager.Instance.CurrentGameStateType.OnChange -= CheckGameState;
             GameManager.Instance.CurrentGameStateType.OnChange += CheckGameState;
 
-            LobbyUIManager.Instance.SpawnPlayerPressed -= SpawnPlayer;
-            LobbyUIManager.Instance.SpawnPlayerPressed += SpawnPlayer;
+            // LobbyUIManager.Instance.SpawnPlayerPressed -= SpawnPlayer;
+            // LobbyUIManager.Instance.SpawnPlayerPressed += SpawnPlayer;
 
         }
 
 
         public override void OnStopClient(){
             base.OnStopClient();
-            LobbyUIManager.OnPlayerLeft(Owner.ClientId);
+            // LobbyUIManager.OnPlayerLeft(Owner.ClientId);
             GameManager.Instance.CurrentGameStateType.OnChange -= CheckGameState;
-            LobbyUIManager.Instance.SpawnPlayerPressed -= SpawnPlayer;
+            // LobbyUIManager.Instance.SpawnPlayerPressed -= SpawnPlayer;
         }
 
         [ServerRpc]
